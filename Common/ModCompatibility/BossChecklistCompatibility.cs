@@ -42,11 +42,11 @@ namespace UnCalamityModMusic.Common.ModCompatibility
 
             var EventMusicBoxes = new Dictionary<string, object>
             {
+                { "Terraria TorchGod", new List<int> { ModContent.ItemType<Content.Items.TorchGodMusicBox>(), ModContent.ItemType<Content.Items.TorchGodRevengeanceMusicBox>() } },
+                //{ "Terraria LunarEvent", new List<int> { ModContent.ItemType<Content.Items.CelestialPillarVortexMusicBox>(), ModContent.ItemType<Content.Items.CelestialPillarNebulaMusicBox>(), ModContent.ItemType<Content.Items.CelestialPillarStardustMusicBox>(), ModContent.ItemType<Content.Items.CelestialPillarSolarMusicBox>() } },
+                //{ "Terraria MartianMadness", ModContent.ItemType<Content.Items.MartianMadnessMusicBox>() },
                 //{ "Terraria FrostMoon", ModContent.ItemType<Content.Items.FrostMoonMusicBox>() },
                 //{ "Terraria PumpkinMoon", ModContent.ItemType<Content.Items.PumpkinMoonMusicBox>() },
-                //{ "Terraria TorchGod", ModContent.ItemType<Content.Items.TorchGodMusicBox>() },
-                //{ "Terraria LunarEvent", new List<int> { ModContent.ItemType<Content.Items.LunarTowersVortexMusicBox>(), ModContent.ItemType<Content.Items.LunarTowersNebulaMusicBox>(), ModContent.ItemType<Content.Items.LunarTowersSolarMusicBox>(), ModContent.ItemType<Content.Items.LunarTowersStardustMusicBox>() } },
-                //{ "Terraria MartianMadness", ModContent.ItemType<Content.Items.MartianMadnessMusicBox>() },
                 //{ "Terraria PirateInvasion", ModContent.ItemType<Content.Items.PirateInvasionMusicBox>() },
                 //{ "Terraria GoblinArmy", ModContent.ItemType<Content.Items.GoblinArmyMusicBox>() },
                 //{ "Terraria Eclipse", ModContent.ItemType<Content.Items.SolarEclipseMusicBox>() },

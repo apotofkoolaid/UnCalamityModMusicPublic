@@ -63,11 +63,17 @@ namespace UnCalamityModMusic.Common.Music
 
 		public override bool IsSceneEffectActive(Player player)
 		{
-			bool condition1 = TileCounts.workbenchTileCount > 0 && TileCounts.draedonsForgeTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
-			bool condition2 = TileCounts.workbenchTileCount > 0 && TileCounts.draedonsForgeTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+			var calamityMod = ModLoader.TryGetMod("CalamityMod", out Mod calamity);
 
-			bool condition3 = PlayerFlags.WorkshopTier6Bosses && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
-			bool condition4 = PlayerFlags.WorkshopTier6Bosses && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+			bool distanceToTiles =
+				WorkshopDetection.TileDistance(TileID.WorkBenches) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) ||
+				(calamityMod && WorkshopDetection.TileDistance(calamity.Find<ModTile>("DraedonsForge").Type) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f));
+
+			bool condition1 = distanceToTiles && TileCounts.workbenchTileCount > 0 && TileCounts.draedonsForgeTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
+			bool condition2 = distanceToTiles && TileCounts.workbenchTileCount > 0 && TileCounts.draedonsForgeTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+
+			bool condition3 = PlayerFlags.distanceToMagicStorageTiles && PlayerFlags.WorkshopTier6Bosses && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
+			bool condition4 = PlayerFlags.distanceToMagicStorageTiles && PlayerFlags.WorkshopTier6Bosses && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
 
 			return (condition1 || condition2 || condition3 || condition4) && PlayerFlags.notInExcludedTownBiome && ModContent.GetInstance<MusicConfig>().WorkshopThemes && ModContent.GetInstance<OtherConfig>().AmbienceFrequency != 100;
 		}
@@ -80,15 +86,23 @@ namespace UnCalamityModMusic.Common.Music
 
 		public override bool IsSceneEffectActive(Player player)
 		{
+			var calamityMod = ModLoader.TryGetMod("CalamityMod", out Mod calamity);
+
 			bool noGreaterTierIsActive = !ModContent.GetInstance<WorkshopTier6>().IsSceneEffectActive(player);
 
-			bool condition1 = TileCounts.workbenchTileCount > 0 && TileCounts.adamantiteForgeTileCount > 0 && TileCounts.mythrilAnvilTileCount > 0 && NPC.downedMoonlord && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
-			bool condition2 = TileCounts.workbenchTileCount > 0 && TileCounts.adamantiteForgeTileCount > 0 && TileCounts.mythrilAnvilTileCount > 0 && NPC.downedMoonlord && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
-			bool condition3 = TileCounts.workbenchTileCount > 0 && TileCounts.adamantiteForgeTileCount > 0 && TileCounts.cosmicAnvilTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
-			bool condition4 = TileCounts.workbenchTileCount > 0 && TileCounts.adamantiteForgeTileCount > 0 && TileCounts.cosmicAnvilTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+			bool distanceToTiles =
+				WorkshopDetection.TileDistance(TileID.WorkBenches) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) ||
+				WorkshopDetection.TileDistance(TileID.AdamantiteForge) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) ||
+				WorkshopDetection.TileDistance(TileID.MythrilAnvil) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) ||
+				(calamityMod && WorkshopDetection.TileDistance(calamity.Find<ModTile>("CosmicAnvil").Type) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f));
 
-			bool condition5 = PlayerFlags.WorkshopTier5Bosses && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
-			bool condition6 = PlayerFlags.WorkshopTier5Bosses && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+			bool condition1 = distanceToTiles && TileCounts.workbenchTileCount > 0 && TileCounts.adamantiteForgeTileCount > 0 && TileCounts.mythrilAnvilTileCount > 0 && NPC.downedMoonlord && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
+			bool condition2 = distanceToTiles && TileCounts.workbenchTileCount > 0 && TileCounts.adamantiteForgeTileCount > 0 && TileCounts.mythrilAnvilTileCount > 0 && NPC.downedMoonlord && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+			bool condition3 = distanceToTiles && TileCounts.workbenchTileCount > 0 && TileCounts.adamantiteForgeTileCount > 0 && TileCounts.cosmicAnvilTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
+			bool condition4 = distanceToTiles && TileCounts.workbenchTileCount > 0 && TileCounts.adamantiteForgeTileCount > 0 && TileCounts.cosmicAnvilTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+
+			bool condition5 = PlayerFlags.distanceToMagicStorageTiles && PlayerFlags.WorkshopTier5Bosses && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
+			bool condition6 = PlayerFlags.distanceToMagicStorageTiles && PlayerFlags.WorkshopTier5Bosses && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
 
 			return (condition1 || condition2 || condition3 || condition4 || condition5 || condition6) && noGreaterTierIsActive && PlayerFlags.notInExcludedTownBiome && ModContent.GetInstance<MusicConfig>().WorkshopThemes && ModContent.GetInstance<OtherConfig>().AmbienceFrequency != 100;
 		}
@@ -102,14 +116,19 @@ namespace UnCalamityModMusic.Common.Music
 		public override bool IsSceneEffectActive(Player player)
 		{
 			bool noGreaterTierIsActive =
-				   !(ModContent.GetInstance<WorkshopTier5>().IsSceneEffectActive(player) ||
-				   ModContent.GetInstance<WorkshopTier6>().IsSceneEffectActive(player));
-			
-			bool condition1 = TileCounts.workbenchTileCount > 0 && TileCounts.adamantiteForgeTileCount > 0 && TileCounts.mythrilAnvilTileCount > 0 && NPC.downedPlantBoss && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
-			bool condition2 = TileCounts.workbenchTileCount > 0 && TileCounts.adamantiteForgeTileCount > 0 && TileCounts.mythrilAnvilTileCount > 0 && NPC.downedPlantBoss && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+				!(ModContent.GetInstance<WorkshopTier5>().IsSceneEffectActive(player) ||
+				ModContent.GetInstance<WorkshopTier6>().IsSceneEffectActive(player));
 
-			bool condition3 = PlayerFlags.WorkshopTier4Bosses && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
-			bool condition4 = PlayerFlags.WorkshopTier4Bosses && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+			bool distanceToTiles =
+				WorkshopDetection.TileDistance(TileID.WorkBenches) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) ||
+				WorkshopDetection.TileDistance(TileID.AdamantiteForge) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) ||
+				WorkshopDetection.TileDistance(TileID.MythrilAnvil) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f);
+
+			bool condition1 = distanceToTiles && TileCounts.workbenchTileCount > 0 && TileCounts.adamantiteForgeTileCount > 0 && TileCounts.mythrilAnvilTileCount > 0 && NPC.downedPlantBoss && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
+			bool condition2 = distanceToTiles && TileCounts.workbenchTileCount > 0 && TileCounts.adamantiteForgeTileCount > 0 && TileCounts.mythrilAnvilTileCount > 0 && NPC.downedPlantBoss && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+
+			bool condition3 = PlayerFlags.distanceToMagicStorageTiles && PlayerFlags.WorkshopTier4Bosses && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
+			bool condition4 = PlayerFlags.distanceToMagicStorageTiles && PlayerFlags.WorkshopTier4Bosses && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
 
 			return (condition1 || condition2 || condition3 || condition4) && noGreaterTierIsActive && PlayerFlags.notInExcludedTownBiome && ModContent.GetInstance<MusicConfig>().WorkshopThemes && ModContent.GetInstance<OtherConfig>().AmbienceFrequency != 100;
 		}
@@ -127,11 +146,16 @@ namespace UnCalamityModMusic.Common.Music
 				ModContent.GetInstance<WorkshopTier5>().IsSceneEffectActive(player) ||
 				ModContent.GetInstance<WorkshopTier6>().IsSceneEffectActive(player));
 
-			bool condition1 = TileCounts.workbenchTileCount > 0 && TileCounts.adamantiteForgeTileCount > 0 && TileCounts.mythrilAnvilTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
-			bool condition2 = TileCounts.workbenchTileCount > 0 && TileCounts.adamantiteForgeTileCount > 0 && TileCounts.mythrilAnvilTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+			bool distanceToTiles =
+				WorkshopDetection.TileDistance(TileID.WorkBenches) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) ||
+				WorkshopDetection.TileDistance(TileID.AdamantiteForge) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) ||
+				WorkshopDetection.TileDistance(TileID.MythrilAnvil) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f);
 
-			bool condition3 = PlayerFlags.WorkshopTier3Bosses && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
-			bool condition4 = PlayerFlags.WorkshopTier3Bosses && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+			bool condition1 = distanceToTiles && TileCounts.workbenchTileCount > 0 && TileCounts.adamantiteForgeTileCount > 0 && TileCounts.mythrilAnvilTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
+			bool condition2 = distanceToTiles && TileCounts.workbenchTileCount > 0 && TileCounts.adamantiteForgeTileCount > 0 && TileCounts.mythrilAnvilTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+
+			bool condition3 = PlayerFlags.distanceToMagicStorageTiles && PlayerFlags.WorkshopTier3Bosses && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
+			bool condition4 = PlayerFlags.distanceToMagicStorageTiles && PlayerFlags.WorkshopTier3Bosses && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
 
 			return (condition1 || condition2 || condition3 || condition4) && noGreaterTierIsActive && PlayerFlags.notInExcludedTownBiome && ModContent.GetInstance<MusicConfig>().WorkshopThemes && ModContent.GetInstance<OtherConfig>().AmbienceFrequency != 100;
 		}
@@ -150,13 +174,20 @@ namespace UnCalamityModMusic.Common.Music
 				ModContent.GetInstance<WorkshopTier5>().IsSceneEffectActive(player) ||
 				ModContent.GetInstance<WorkshopTier6>().IsSceneEffectActive(player));
 
-			bool condition1 = TileCounts.workbenchTileCount > 0 && (TileCounts.hellForgeTileCount > 0 || TileCounts.adamantiteForgeTileCount > 0) && TileCounts.ironAnvilTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
-			bool condition2 = TileCounts.workbenchTileCount > 0 && (TileCounts.hellForgeTileCount > 0 || TileCounts.adamantiteForgeTileCount > 0) && TileCounts.ironAnvilTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
-			bool condition3 = TileCounts.workbenchTileCount > 0 && TileCounts.hellForgeTileCount > 0 && (TileCounts.ironAnvilTileCount > 0 || TileCounts.mythrilAnvilTileCount > 0) && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
-			bool condition4 = TileCounts.workbenchTileCount > 0 && TileCounts.hellForgeTileCount > 0 && (TileCounts.ironAnvilTileCount > 0 || TileCounts.mythrilAnvilTileCount > 0) && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+			bool distanceToTiles =
+				WorkshopDetection.TileDistance(TileID.WorkBenches) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) ||
+				WorkshopDetection.TileDistance(TileID.Hellforge) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) ||
+				WorkshopDetection.TileDistance(TileID.Anvils) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) ||
+				WorkshopDetection.TileDistance(TileID.AdamantiteForge) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) ||
+				WorkshopDetection.TileDistance(TileID.MythrilAnvil) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f);
 
-			bool condition5 = PlayerFlags.WorkshopTier2Bosses && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
-			bool condition6 = PlayerFlags.WorkshopTier2Bosses && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+			bool condition1 = distanceToTiles && TileCounts.workbenchTileCount > 0 && (TileCounts.hellForgeTileCount > 0 || TileCounts.adamantiteForgeTileCount > 0) && TileCounts.ironAnvilTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
+			bool condition2 = distanceToTiles && TileCounts.workbenchTileCount > 0 && (TileCounts.hellForgeTileCount > 0 || TileCounts.adamantiteForgeTileCount > 0) && TileCounts.ironAnvilTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+			bool condition3 = distanceToTiles && TileCounts.workbenchTileCount > 0 && TileCounts.hellForgeTileCount > 0 && (TileCounts.ironAnvilTileCount > 0 || TileCounts.mythrilAnvilTileCount > 0) && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
+			bool condition4 = distanceToTiles && TileCounts.workbenchTileCount > 0 && TileCounts.hellForgeTileCount > 0 && (TileCounts.ironAnvilTileCount > 0 || TileCounts.mythrilAnvilTileCount > 0) && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+
+			bool condition5 = PlayerFlags.distanceToMagicStorageTiles && PlayerFlags.WorkshopTier2Bosses && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
+			bool condition6 = PlayerFlags.distanceToMagicStorageTiles && PlayerFlags.WorkshopTier2Bosses && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
 
 			return (condition1 || condition2 || condition3 || condition4 || condition5 || condition6) && noGreaterTierIsActive && PlayerFlags.notInExcludedTownBiome && ModContent.GetInstance<MusicConfig>().WorkshopThemes && ModContent.GetInstance<OtherConfig>().AmbienceFrequency != 100;
 		}
@@ -176,11 +207,16 @@ namespace UnCalamityModMusic.Common.Music
 				ModContent.GetInstance<WorkshopTier5>().IsSceneEffectActive(player) ||
 				ModContent.GetInstance<WorkshopTier6>().IsSceneEffectActive(player));
 
-			bool condition1 = TileCounts.workbenchTileCount > 0 && TileCounts.furnaceTileCount > 0 && TileCounts.ironAnvilTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
-			bool condition2 = TileCounts.workbenchTileCount > 0 && TileCounts.furnaceTileCount > 0 && TileCounts.ironAnvilTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+			bool distanceToTiles =
+				WorkshopDetection.TileDistance(TileID.WorkBenches) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) ||
+				WorkshopDetection.TileDistance(TileID.Furnaces) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) ||
+				WorkshopDetection.TileDistance(TileID.Anvils) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f);
 
-			bool condition3 = TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
-			bool condition4 = TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+			bool condition1 = distanceToTiles && TileCounts.workbenchTileCount > 0 && TileCounts.furnaceTileCount > 0 && TileCounts.ironAnvilTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
+			bool condition2 = distanceToTiles && TileCounts.workbenchTileCount > 0 && TileCounts.furnaceTileCount > 0 && TileCounts.ironAnvilTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+
+			bool condition3 = PlayerFlags.distanceToMagicStorageTiles && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (((PlayerFlags.notRaining && player.ZoneOverworldHeight) && (PlayerFlags.notInExcludedTownEvent && player.ZoneOverworldHeight) && (!LanternNight.LanternsUp && player.ZoneOverworldHeight)) || PlayerFlags.inSpace);
+			bool condition4 = PlayerFlags.distanceToMagicStorageTiles && TileCounts.storageHeartTileCount > 0 && TileCounts.craftingUnitTileCount > 0 && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
 
 			return (condition1 || condition2 || condition3 || condition4) && noGreaterTierIsActive && PlayerFlags.notInExcludedTownBiome && ModContent.GetInstance<MusicConfig>().WorkshopThemes && ModContent.GetInstance<OtherConfig>().AmbienceFrequency != 100;
 		}
@@ -384,29 +420,18 @@ namespace UnCalamityModMusic.Common.Music
 	}
 	public class JungleDay : ModSceneEffect
 	{
-		/*public override int Music => MusicPathing.GetMusicSlot("JungleDay");
+		public override int Music => MusicPathing.GetMusicSlot("JungleDay");
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.BiomeMedium;
 
 		public override bool IsSceneEffectActive(Player player)
 		{
-			return Main.dayTime && player.ZoneJungle && (player.ZoneOverworldHeight || PlayerFlags.onRemixedSurface) && !player.ZoneMeteor && PlayerFlags.notRaining && !LanternNight.LanternsUp;
-		}*/
-	}
-	public class JungleUndergroundHardmode : ModSceneEffect
-	{
-		/*public override int Music => MusicPathing.GetMusicSlot("JungleUndergroundHardmode");
-
-		public override SceneEffectPriority Priority => SceneEffectPriority.BiomeMedium;
-
-		public override bool IsSceneEffectActive(Player player)
-		{
-			return Main.hardMode && player.ZoneJungle && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight) && !player.ZoneMeteor;
-		}*/
+            return /*Main.dayTime && */player.ZoneJungle && (player.ZoneOverworldHeight || PlayerFlags.onRemixedSurface) && !player.ZoneMeteor && PlayerFlags.notRaining && !LanternNight.LanternsUp;
+		}
 	}
 	public class JungleUnderground_Remnants : ModSceneEffect
 	{
-		//public override int Music => /*Main.hardMode ? MusicPathing.GetMusicSlot("JungleUndergroundHardmode") : */MusicPathing.GetMusicSlot("JungleUnderground");
+		//public override int Music => MusicPathing.GetMusicSlot("JungleUnderground");
 		public override int Music
 		{
 			get

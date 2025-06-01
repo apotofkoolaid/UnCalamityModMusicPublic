@@ -1,5 +1,5 @@
 author = apotofkoolaid and Heart Plus Up!
-version = 2.0.0.001
+version = 2.0.1
 displayName = Vanilla Calamity Mod Music
 weakReferences = CalamityMod, InfernumMode
 homepage = https://discord.gg/2jaEwNJm9e

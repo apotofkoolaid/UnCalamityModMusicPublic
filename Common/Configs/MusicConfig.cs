@@ -10,6 +10,13 @@ namespace UnCalamityModMusic.Common.Configs
 
 		[Header("$Mods.UnCalamityModMusic.Configs.MusicConfig.MusicTogglesHeader")]
 
+		[Range(10f, 50f)]
+		[Increment(1f)]
+		[BackgroundColor(192, 54, 64, 192)]
+		[SliderColor(224, 165, 56, 128)]
+		[DefaultValue(30f)]
+		public float WorkshopRange { get; set; }
+
         [BackgroundColor(192, 54, 64, 192)]
         [DefaultValue(true)]
         public bool WorkshopThemes { get; set; }

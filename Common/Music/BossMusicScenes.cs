@@ -41,13 +41,13 @@ namespace UnCalamityModMusic.Common.Music
 	}
 	public class ImpendingDoom : ModSceneEffect
 	{
-		/*public override int Music => MusicPathing.GetMusicSlot("ImpendingDoom");
+        /*public override int Music => MusicPathing.GetMusicSlot("ImpendingDoom");
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.BossLow;
 
 		public override bool IsSceneEffectActive(Player player)
 		{
-			return ImpendingDoomSystem.ImpendingDoomCountdown > 0 || NPC.MoonLordCountdown > 0;
+			return BossCountdowns.ImpendingDoomCountdown > 0 || NPC.MoonLordCountdown > 0;
 		}
 
 		public override void SpecialVisuals(Player player, bool isActive)
@@ -57,8 +57,8 @@ namespace UnCalamityModMusic.Common.Music
 				Main.musicFade[Main.curMusic] = 1f;
 			}
 		}*/
-	}
-	public class LunaticCultist : ModSceneEffect
+    }
+    public class LunaticCultist : ModSceneEffect
 	{
 		public override int Music => InfernumCompatibility.DecideOnMusicPath("LunaticCultist", "LunaticCultist");
 
@@ -125,11 +125,11 @@ namespace UnCalamityModMusic.Common.Music
 			return NPC.AnyNPCs(NPCID.Plantera) && Main.npc[NPC.FindFirstNPC(NPCID.Plantera)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
 		}
 	}
-	public class MechanicalTrio : ModSceneEffect
+	public class Mechs : ModSceneEffect
 	{
 		public static bool AllMechsActive = false;
 
-		public override int Music => InfernumCompatibility.DecideOnMusicPath("MechanicalTrio", "MechBosses");
+		public override int Music => InfernumCompatibility.DecideOnMusicPath("Mechs", "MechBosses");
 
 		public override SceneEffectPriority Priority => InfernumCompatibility.DecideOnScenePriority(SceneEffectPriority.BossMedium);
 
@@ -139,14 +139,15 @@ namespace UnCalamityModMusic.Common.Music
 
 			bool spazmatismActive = NPC.AnyNPCs(NPCID.Spazmatism) && Main.npc[NPC.FindFirstNPC(NPCID.Spazmatism)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
 			bool retinazerActive = NPC.AnyNPCs(NPCID.Retinazer) && Main.npc[NPC.FindFirstNPC(NPCID.Retinazer)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-			bool destroyerHeadActive = NPC.AnyNPCs(NPCID.TheDestroyer) && Main.npc[NPC.FindFirstNPC(NPCID.TheDestroyer)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
+            bool foveanatorActive = PlayerFlags.FoveanatorActive;
+            bool destroyerHeadActive = NPC.AnyNPCs(NPCID.TheDestroyer) && Main.npc[NPC.FindFirstNPC(NPCID.TheDestroyer)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
 			bool destroyerBodyActive = NPC.AnyNPCs(NPCID.TheDestroyerBody) && Main.npc[NPC.FindFirstNPC(NPCID.TheDestroyerBody)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
 			bool destroyerTailActive = NPC.AnyNPCs(NPCID.TheDestroyerTail) && Main.npc[NPC.FindFirstNPC(NPCID.TheDestroyerTail)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
 			bool skeletronPrime1Active = NPC.AnyNPCs(NPCID.SkeletronPrime) && Main.npc[NPC.FindFirstNPC(NPCID.SkeletronPrime)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-			bool skeletronPrime2Active = calamityMod && calamity.Version >= new Version(2, 0, 4, 1) && NPC.AnyNPCs(calamity.Find<ModNPC>("SkeletronPrime2").Type) && Main.npc[NPC.FindFirstNPC(calamity.Find<ModNPC>("SkeletronPrime2").Type)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
+			bool skeletronPrime2Active = PlayerFlags.SkeletronPrime2Active;
 
 			bool skeletronPrimeActive = skeletronPrime1Active || skeletronPrime2Active;
-			bool twinsActive = spazmatismActive || retinazerActive;
+			bool twinsActive = spazmatismActive || retinazerActive || foveanatorActive;
 			bool destroyerActive = destroyerHeadActive || destroyerBodyActive || destroyerTailActive;
 
 			if (destroyerActive && twinsActive && skeletronPrimeActive)
@@ -169,30 +170,31 @@ namespace UnCalamityModMusic.Common.Music
 	{
 		public override int Music => InfernumCompatibility.DecideOnMusicPath("SkeletronPrime", "MechBosses");
 
-		public override SceneEffectPriority Priority => Main.masterMode && PlayerFlags.revengeanceMode ? InfernumCompatibility.DecideOnScenePriority(SceneEffectPriority.BossMedium) : InfernumCompatibility.DecideOnScenePriority(SceneEffectPriority.BossLow);
+		public override SceneEffectPriority Priority => PlayerFlags.SkeletronPrime2Active ? InfernumCompatibility.DecideOnScenePriority(SceneEffectPriority.BossMedium) : InfernumCompatibility.DecideOnScenePriority(SceneEffectPriority.BossLow);
 
 		public override bool IsSceneEffectActive(Player player)
 		{
 			var calamityMod = ModLoader.TryGetMod("CalamityMod", out Mod calamity);
 
 			bool condition1 = NPC.AnyNPCs(NPCID.SkeletronPrime) && Main.npc[NPC.FindFirstNPC(NPCID.SkeletronPrime)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-			bool condition2 = calamityMod && calamity.Version >= new Version(2, 0, 4, 1) && NPC.AnyNPCs(calamity.Find<ModNPC>("SkeletronPrime2").Type) && Main.npc[NPC.FindFirstNPC(calamity.Find<ModNPC>("SkeletronPrime2").Type)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
+			bool condition2 = PlayerFlags.SkeletronPrime2Active;
 
-			return condition1 || condition2;
+            return condition1 || condition2;
 		}
 	}
 	public class Twins : ModSceneEffect
 	{
 		public override int Music => InfernumCompatibility.DecideOnMusicPath("Twins", "MechBosses");
 
-		public override SceneEffectPriority Priority => InfernumCompatibility.DecideOnScenePriority(SceneEffectPriority.BossLow);
+        public override SceneEffectPriority Priority => PlayerFlags.FoveanatorActive ? InfernumCompatibility.DecideOnScenePriority(SceneEffectPriority.BossMedium) : InfernumCompatibility.DecideOnScenePriority(SceneEffectPriority.BossLow);
 
-		public override bool IsSceneEffectActive(Player player)
+        public override bool IsSceneEffectActive(Player player)
 		{
 			bool condition1 = NPC.AnyNPCs(NPCID.Spazmatism) && Main.npc[NPC.FindFirstNPC(NPCID.Spazmatism)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
 			bool condition2 = NPC.AnyNPCs(NPCID.Retinazer) && Main.npc[NPC.FindFirstNPC(NPCID.Retinazer)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
+			bool condition3 = PlayerFlags.FoveanatorActive;
 
-			return condition1 || condition2;
+            return condition1 || condition2 || condition3;
 		}
 	}
 	public class Destroyer : ModSceneEffect
@@ -210,18 +212,18 @@ namespace UnCalamityModMusic.Common.Music
 			return condition1 || condition2 || condition3;
 		}
 	}
-	public class ImminentDestruction : ModSceneEffect
+	public class MechEngaging : ModSceneEffect
 	{
-		/*public override int Music => MusicPathing.GetMusicSlot("ImminentDestruction");
+        /*public override int Music => MusicPathing.GetMusicSlot("MechEngaging");
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.BossLow;
 
 		public override bool IsSceneEffectActive(Player player)
 		{
-			return ImminentDestructionSystem.ImminentDestructionCountdown > 0;
+			return BossCountdowns.MechCountdown > 0;
 		}*/
-	}
-	public class QueenSlime : ModSceneEffect
+    }
+    public class QueenSlime : ModSceneEffect
 	{
 		public override int Music => InfernumCompatibility.DecideOnMusicPath("QueenSlime", "QueenSlime");
 

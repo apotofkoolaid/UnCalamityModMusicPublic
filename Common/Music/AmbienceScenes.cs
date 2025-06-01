@@ -99,31 +99,31 @@ namespace UnCalamityModMusic.Common.Music
 
 			if (calamityMod)
 			{
-				behindLabWall =
-					backWall.WallType == WallID.ObsidianBrick ||
-					backWall.WallType == WallID.Glass ||
-					backWall.WallType == WallID.SnowWallUnsafe ||
-					backWall.WallType == WallID.IceUnsafe ||
-					backWall.WallType == WallID.Waterfall ||
-					backWall.WallType == WallID.Lavafall ||
-					backWall.WallType == WallID.IronBrick ||
-					backWall.WallType == calamity.Find<ModWall>("AstralIceWall").Type ||
-					backWall.WallType == calamity.Find<ModWall>("AstralSnowWall").Type ||
-					backWall.WallType == calamity.Find<ModWall>("HavocplateWall").Type ||
-					backWall.WallType == calamity.Find<ModWall>("CinderplateWall").Type ||
-					backWall.WallType == calamity.Find<ModWall>("ElumplateWall").Type ||
-					backWall.WallType == calamity.Find<ModWall>("HazardChevronWall").Type ||
-					backWall.WallType == calamity.Find<ModWall>("LaboratoryPanelWall").Type ||
-					backWall.WallType == calamity.Find<ModWall>("LaboratoryPlateBeam").Type ||
-					backWall.WallType == calamity.Find<ModWall>("LaboratoryPlatePillar").Type ||
-					backWall.WallType == calamity.Find<ModWall>("LaboratoryPlatingWall").Type ||
-					backWall.WallType == calamity.Find<ModWall>("NavyplateWall").Type ||
-					backWall.WallType == calamity.Find<ModWall>("PlagueContainmentCellsWall").Type ||
-					backWall.WallType == calamity.Find<ModWall>("PlaguedPlateWall").Type ||
-					backWall.WallType == calamity.Find<ModWall>("RustedPlatePillar").Type ||
-					backWall.WallType == calamity.Find<ModWall>("RustedPlatingWall").Type;
+                behindLabWall =
+                    backWall.WallType == WallID.ObsidianBrick ||
+                    backWall.WallType == WallID.Glass ||
+                    backWall.WallType == WallID.SnowWallUnsafe ||
+                    backWall.WallType == WallID.IceUnsafe ||
+                    backWall.WallType == WallID.Waterfall ||
+                    backWall.WallType == WallID.Lavafall ||
+                    backWall.WallType == WallID.IronBrick ||
+                    backWall.WallType == calamity.Find<ModWall>("AstralIceWall").Type ||
+                    backWall.WallType == calamity.Find<ModWall>("AstralSnowWall").Type ||
+                    backWall.WallType == calamity.Find<ModWall>("HavocplateWall").Type ||
+                    backWall.WallType == calamity.Find<ModWall>("CinderplateWall").Type ||
+                    backWall.WallType == calamity.Find<ModWall>("ElumplateWall").Type ||
+                    backWall.WallType == calamity.Find<ModWall>("HazardChevronWall").Type ||
+                    backWall.WallType == calamity.Find<ModWall>("LaboratoryPanelWall").Type ||
+                    backWall.WallType == calamity.Find<ModWall>("LaboratoryPlateBeam").Type ||
+                    backWall.WallType == calamity.Find<ModWall>("LaboratoryPlatePillar").Type ||
+                    backWall.WallType == calamity.Find<ModWall>("LaboratoryPlatingWall").Type ||
+                    backWall.WallType == calamity.Find<ModWall>("NavyplateWall").Type ||
+                    backWall.WallType == calamity.Find<ModWall>("PlagueContainmentCellsWall").Type ||
+                    backWall.WallType == calamity.Find<ModWall>("PlaguedPlateWall").Type ||
+                    backWall.WallType == calamity.Find<ModWall>("RustedPlatePillar").Type ||
+                    backWall.WallType == calamity.Find<ModWall>("RustedPlatingWall").Type;
 
-				nearBioLabPoint =
+                nearBioLabPoint =
 					sunkenSeaLabDistance <= labRadius ||
 					planetoidLabDistance <= labRadius ||
 					jungleLabDistance <= labRadius ||
@@ -527,10 +527,7 @@ namespace UnCalamityModMusic.Common.Music
 
 		public override bool IsSceneEffectActive(Player player)
 		{
-			bool condition1 = ModContent.GetInstance<JungleUnderground>().IsSceneEffectActive(player);
-			bool condition2 = ModContent.GetInstance<JungleUndergroundHardmode>().IsSceneEffectActive(player);
-
-			return (condition1 || condition2) && base.IsSceneEffectActive(player);
+			return ModContent.GetInstance<JungleUnderground>().IsSceneEffectActive(player) && base.IsSceneEffectActive(player);
 		}
 	}
 	public class Tundra_Ambience : AmbienceBaseScene

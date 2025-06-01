@@ -29,6 +29,7 @@ namespace UnCalamityModMusic
         public override void Load()
 		{
 			MusicPathing.InitalizeMusicPaths(Instance);
+			WorkshopDetection.InitializeDetectionRadius();
 
 			calamityMod = ModLoader.TryGetMod("CalamityMod", out Mod calamity);
 			calamityModMusic = ModLoader.TryGetMod("CalamityModMusic", out Mod cmusic);

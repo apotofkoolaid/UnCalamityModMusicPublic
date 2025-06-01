@@ -190,7 +190,7 @@ namespace UnCalamityModMusic.Content
 				{
 					Recipe.Create(cmusic.Find<ModItem>("AbyssLayer1MusicBox").Type, 1)
 						.AddIngredient(calamity, "SulphurousShale", 10)
-						.AddIngredient(calamity, "SulphurousSandstone", 10)
+						.AddIngredient(calamity, "HardenedSulphurousSandstone", 10)
 						.AddIngredient(calamity, "AbyssTreasureChest", 1)
 						.AddIngredient(ItemID.MusicBox, 1)
 						.AddTile(musicBoxCraftingStation)
@@ -255,7 +255,7 @@ namespace UnCalamityModMusic.Content
 					Recipe.Create(cmusic.Find<ModItem>("AcidRainTier1MusicBox").Type, 1)
 						.AddIngredient(calamity, "Acidwood", 10)
 						.AddIngredient(calamity, "SulfuricScale", 10)
-						.AddIngredient(calamity, "SulphurousSand", 10)
+						.AddIngredient(calamity, "SulphurousSandstone", 10)
 						.AddIngredient(ItemID.MusicBox, 1)
 						.AddTile(musicBoxCraftingStation)
 						.Register();
@@ -1140,8 +1140,24 @@ namespace UnCalamityModMusic.Content
 					UnCalamityModMusic.Instance.Logger.Debug(Language.GetTextValue("Mods.UnCalamityModMusic.Recipes.NameMismatchError"));
 				}
 
-				//Sunken Sea
-				try
+                //Sulphurous Sea Rain
+                try
+                {
+                    Recipe.Create(cmusic.Find<ModItem>("SulphurousSeaRainMusicBox").Type, 1)
+                        .AddIngredient(calamity, "Acidwood", 10)
+                        .AddIngredient(ItemID.RainCloud, 10)
+                        .AddIngredient(ItemID.Coral, 3)
+                        .AddIngredient(ItemID.MusicBox, 1)
+                        .AddTile(musicBoxCraftingStation)
+                        .Register();
+                }
+                catch
+                {
+                    UnCalamityModMusic.Instance.Logger.Debug(Language.GetTextValue("Mods.UnCalamityModMusic.Recipes.NameMismatchError"));
+                }
+
+                //Sunken Sea
+                try
 				{
 					Recipe.Create(cmusic.Find<ModItem>("SunkenSeaMusicBox").Type, 1)
 						.AddIngredient(calamity, "Navystone", 10)
@@ -1175,58 +1191,6 @@ namespace UnCalamityModMusic.Content
 				{
 					Recipe.Create(cmusic.Find<ModItem>("YharonPhase2MusicBox").Type, 1)
 						.AddIngredient(calamity, "YharonTrophy", 1)
-						.AddIngredient(ItemID.MusicBox, 1)
-						.AddTile(musicBoxCraftingStation)
-						.Register();
-				}
-				catch
-				{
-					UnCalamityModMusic.Instance.Logger.Debug(Language.GetTextValue("Mods.UnCalamityModMusic.Recipes.NameMismatchError"));
-				}
-			}
-			#endregion
-
-			#region Calamity Addon Music Boxes
-            if (calamityVanities)
-			{
-				//Astral Blight
-				try
-				{
-					Recipe.Create(calval.Find<ModItem>("AstralMusicBox").Type, 1)
-						.AddIngredient(calval, "AstralTreeWood", 10)
-						.AddIngredient(calval, "AstralDirt", 10)
-						.AddIngredient(calval, "BlightolemurItem", 3)
-						.AddIngredient(ItemID.MusicBox, 1)
-						.AddTile(musicBoxCraftingStation)
-						.Register();
-				}
-				catch
-				{
-					UnCalamityModMusic.Instance.Logger.Debug(Language.GetTextValue("Mods.UnCalamityModMusic.Recipes.NameMismatchError"));
-				}
-			}
-
-			if (catalystMod)
-			{
-				//Astrageldon Phase 1
-				try
-				{
-					Recipe.Create(catalyst.Find<ModItem>("AstrageldonPhase1MusicBox").Type, 1)
-						.AddIngredient(catalyst, "AstrageldonTrophy", 1)
-						.AddIngredient(ItemID.MusicBox, 1)
-						.AddTile(musicBoxCraftingStation)
-						.Register();
-				}
-				catch
-				{
-					UnCalamityModMusic.Instance.Logger.Debug(Language.GetTextValue("Mods.UnCalamityModMusic.Recipes.NameMismatchError"));
-				}
-
-				//Astrageldon Phase 2
-				try
-				{
-					Recipe.Create(catalyst.Find<ModItem>("AstrageldonPhase2MusicBox").Type, 1)
-						.AddIngredient(catalyst, "AstrageldonTrophy", 1)
 						.AddIngredient(ItemID.MusicBox, 1)
 						.AddTile(musicBoxCraftingStation)
 						.Register();

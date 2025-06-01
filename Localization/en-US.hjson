@@ -6,6 +6,11 @@ Mods: {
 				MusicTogglesHeader: Music Toggles
 				ConditionChangesHeader: Condition Changes
 
+				WorkshopRange: {
+					Label: "[i:WorkBench] Workshop Range"
+					Tooltip: Adjusts the range at which the Workshop themes play, from 10 to 50 blocks.
+				}
+
 				WorkshopThemes: {
 					Label: "[i:UnCalamityModMusic/WorkshopTier1MusicBox] Workshop Themes"
 					Tooltip:
@@ -192,6 +197,11 @@ Mods: {
 				Tooltip: Plays 'The Resurrection of a Cruel World' by Salvati
 			}
 
+			JungleDayMusicBox: {
+				DisplayName: Music Box (Jungle)
+				Tooltip: Plays 'Nature's Reprieve' by Heart Plus Up!
+			}
+
 			KingSlimeMusicBox: {
 				DisplayName: Music Box (King Slime)
 				Tooltip: Plays 'Gelatinous Monarch' by Heart Plus Up!
@@ -241,9 +251,14 @@ Mods: {
 				Tooltip: Plays 'downpour' by Heart Plus Up!
 			}
 
+			SandstormMusicBox: {
+				DisplayName: Music Box (Sandstorm)
+				Tooltip: Plays 'terracotta' by TYESKI
+			}
+
 			SkeletronMusicBox: {
 				DisplayName: Music Box (Skeletron)
-				Tooltip: Plays 'Wrath From the Crypt' by Heart Plus Up!
+				Tooltip: Plays 'Wrath from the Crypt' by Heart Plus Up!
 			}
 
 			SlimeRainMusicBox: {
@@ -351,69 +366,74 @@ Mods: {
 			MusicDisplay: {
 				SongNames: {
 					AbyssLayer3Alt: R'lyehian Depths
-					Space: Starry Ascent
-					Underworld: Descent Into Hell's Fury
-					Meteorite: The Abomination's Omen
-					WorkshopTier6: Master's Forge
-					WorkshopTier5: False Gods and Ancient Elements
-					WorkshopTier4: Fruits of Your Labor
-					WorkshopTier3: Mythic Metals and Enchanted Fires
-					WorkshopTier2: The Sky and the Depths
-					WorkshopTier1: Metal, Wood, and Fire
-					TownNight: Moonlit Haven
-					TownNight_Noiseless: Moonlit Haven
-					TownDay: Haven in the Sunlight
-					Dungeon: Chambers of the Tyrant
-					GlowingMushroomFields: Psychedelic Depths
+					BloodMoon: Congealing Shadows
+					BloodMoonDeath: Sanguine Eclipse
+					BrainofCthulhu: Madness Incarnate
 					Corruption: Writhing Shadows
 					CorruptionUnderground: Between the Shadows
 					Crimson: Clotted Lands
 					CrimsonUnderground: Inside the Beast
-					Geodes: Amidst the Minerals
-					Tundra: Frozen Over
-					TundraUnderground: Inside the Glaciers
 					Caverns: Nearing the Inferno
-					Underground: Under the Earth
-					OceanNight: serene tides
-					OceanDay: shoreline
 					Desert: Scorched to Dust
-					ForestNight: Laze of the Sky
-					ForestDayEvening: A Legend's Strife (Grief)
-					ForestDayAfternoon: A Legend's Strife (Lament)
-					ForestDayMorning: A Legend's Strife (Epiphany)
-					ForestDayDawn: A Legend's Strife (Acceptance)
-					MoonLord: Virtuous Radiance
-					WallofFlesh: Fated Insurrection
-					Skeletron: Wrath From the Crypt
-					BrainofCthulhu: Madness Incarnate
+					Dungeon: Chambers of the Tyrant
 					EaterofWorlds: Menace of the Chasms
 					EyeofCthulhu: Bloodshot Barrage
+					FalseEpilogue: The Memory of a Cruel World
+					ForestDayAfternoon: A Legend's Strife (Lament)
+					ForestDayDawn: A Legend's Strife (Acceptance)
+					ForestDayEvening: A Legend's Strife (Grief)
+					ForestDayMorning: A Legend's Strife (Epiphany)
+					ForestNight: Laze of the Sky
+					Geodes: Amidst the Minerals
+					GlowingMushroomFields: Psychedelic Depths
+					HardmodeInterlude: The Resurrection of a Cruel World
+					JungleDay: Nature's Reprieve
 					KingSlime: Gelatinous Monarch
+					LanternFestival: Serenity
+					Meteorite: The Abomination's Omen
+					MoonLord: Virtuous Radiance
+					OceanDay: shoreline
+					OceanNight: serene tides
+					OceanRain: waves
+					Rain: downpour
+					RainLegacy: Grey Sky
+					RainNight: downtime
+					Sandstorm: terracotta
+					Skeletron: Wrath from the Crypt
+					SlimeRain: Gelatin Showers
+					Space: Starry Ascent
 					TorchGod: Trial by Fire
 					TorchGodRevengeance: Trial by Fire
-					BloodMoon: Congealing Shadows
-					BloodMoonDeath: Sanguine Eclipse
-					SlimeRain: Gelatin Showers
-					OceanRain: waves
-					TownRain: Haven in Overcast
-					Rain: downpour
+					TownDay: Haven in the Sunlight
+					TownNight: Moonlit Haven
+					TownNight_Noiseless: Moonlit Haven
 					TownParty: Celebration Haven
-					LanternFestival: Serenity
-					HardmodeInterlude: The Resurrection of a Cruel World
-					FalseEpilogue: The Memory of a Cruel World
-					RainLegacy: Grey Sky
+					TownRain: Haven in Overcast
+					Tundra: Frozen Over
+					TundraUnderground: Inside the Glaciers
+					Underworld: Descent Into Hell's Fury
+					Underground: Under the Earth
+					WallofFlesh: Fated Insurrection
+					WorkshopTier1: Metal, Wood, and Fire
+					WorkshopTier2: The Sky and the Depths
+					WorkshopTier3: Mythic Metals and Enchanted Fires
+					WorkshopTier4: Fruits of Your Labor
+					WorkshopTier5: False Gods and Ancient Elements
+					WorkshopTier6: Master's Forge
 				}
 
 				Authors: {
+					Forge: by TheForge129
 					HeartPlusUp: by Heart Plus Up!
 					HeartPlusUpFeature1: by Heart Plus Up! and novaGnomes
 					HeartPlusUpFeature2: by Heart Plus Up! and SkippyZii
-					HeartPlusUpFeature3: by Heart Plus Up! and Universe
+					HeartPlusUpFeature3: by Heart Plus Up! and Tyrant
+					psykomatic: by psykomatic
 					Salvati: by Salvati
 					SkippyZii: by SkippyZii
 					Thriplerex: by Thriplerex
-					Universe: by Universe
-					psykomatic: by psykomatic
+					TYESKI: by TYESKI
+					Tyrant: by Tyrant
 				}
 			}
 		}

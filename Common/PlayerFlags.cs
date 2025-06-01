@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UnCalamityModMusic.Common.Configs;
 
 namespace UnCalamityModMusic.Common
 {
@@ -12,26 +13,35 @@ namespace UnCalamityModMusic.Common
 		public static bool onSurface;
 		public static bool onRemixedSurface;
 		public static bool inSpace;
-		public static bool inTown;
-        public static bool inTownWithRain;
-        public static bool inUgTown;
+		public static bool ugDesertOriginalHeight;
 		public static bool isRaining;
 		public static bool notRaining;
 		public static bool largeWorld;
 		public static bool mediumWorld;
 		public static bool smallWorld;
+		public static bool inTown;
+		public static bool inTownWithRain;
+		public static bool inUgTown;
 		public static bool notInExcludedTownBiome;
 		public static bool notInExcludedTownEvent;
-		public static bool ugDesertOriginalHeight;
+		public static bool distanceToMagicStorageTiles;
 		public static bool ZoneSandstorm;
 		public static bool ZoneOverworldHeightExtra;
 		public static bool TownSceneActive;
 		public static bool WorkshopSceneActive;
+		public static bool WorkshopTier6Bosses;
+		public static bool WorkshopTier5Bosses;
+		public static bool WorkshopTier4Bosses;
+		public static bool WorkshopTier3Bosses;
+		public static bool WorkshopTier2Bosses;
 
         public static bool infernumMode;
 		public static bool deathMode;
 		public static bool revengeanceMode;
 		public static bool bossRushActive;
+
+        public static bool FoveanatorActive;
+        public static bool SkeletronPrime2Active;
 
         public static bool ZoneBrimstoneCrags;
 		public static bool ZoneProfanedTemple;
@@ -69,12 +79,6 @@ namespace UnCalamityModMusic.Common
 		public static bool downedPerforators;
 		public static bool downedHiveMind;
 
-		public static bool WorkshopTier6Bosses;
-		public static bool WorkshopTier5Bosses;
-		public static bool WorkshopTier4Bosses;
-		public static bool WorkshopTier3Bosses;
-		public static bool WorkshopTier2Bosses;
-
 		public static bool ZonePyramid;
 		public static bool ZoneGraniteCave;
 		public static bool ZoneMarbleCave;
@@ -89,6 +93,7 @@ namespace UnCalamityModMusic.Common
 			var calamityMod = ModLoader.TryGetMod("CalamityMod", out Mod calamity);
 			var infernumMod = ModLoader.TryGetMod("InfernumMode", out Mod infernum);
 			var remnantsMod = ModLoader.TryGetMod("Remnants", out Mod remnants);
+			var magicStorage = ModLoader.TryGetMod("MagicStorage", out Mod storage);
 			var noTownMusic = ModLoader.TryGetMod("NoTownMusic", out Mod notownmusic);
 
 			float spacef = remnantsMod ? 17f : 16f;
@@ -98,26 +103,90 @@ namespace UnCalamityModMusic.Common
 			Player player = Main.player[Main.myPlayer];
 
 			onSurface = player.position.Y < Main.worldSurface * 16.0 + (double)Main.screenHeight / 2;
-			onRemixedSurface = Main.remixWorld && (double)player.position.Y / 16f > Main.rockLayer && player.position.Y / 16f < (float)Main.maxTilesY - 350;
+			onRemixedSurface = 
+				Main.remixWorld && 
+				(double)player.position.Y / 16f > Main.rockLayer && 
+				player.position.Y / 16f < (float)Main.maxTilesY - 350;
 			inSpace = (float)((double)((Main.screenPosition.Y + (float)(Main.screenHeight / 2)) / spacef - (65f + 10f * spaceh)) / (Main.worldSurface / 5.0)) < 1f;
+			ugDesertOriginalHeight = (double)player.position.Y >= Main.worldSurface * 16.0 + (double)(Main.screenHeight / 2);
 			isRaining = Main.cloudAlpha > 0f;
 			notRaining = Main.cloudAlpha <= 0.01f;
 			largeWorld = Main.maxTilesY == 2400;
 			mediumWorld = Main.maxTilesY == 1800;
-			smallWorld = Main.maxTilesY == 1200;
-			notInExcludedTownBiome = !(player.ZoneGraveyard || player.ZoneShimmer || player.ZoneDungeon || player.ZoneLihzhardTemple || ZoneBrimstoneCrags || ZoneAbyss);
-			notInExcludedTownEvent = !(/*Main._shouldUseWindyDayMusic || */Main.slimeRain || ZoneSandstorm || Main.bloodMoon || Main.eclipse);
-			ugDesertOriginalHeight = (double)player.position.Y >= Main.worldSurface * 16.0 + (double)(Main.screenHeight / 2);
-			ZoneSandstorm = Sandstorm.Happening && player.ZoneDesert && !player.ZoneBeach;
-			ZoneOverworldHeightExtra = (!player.ZoneDesert && player.ZoneOverworldHeight) || (player.ZoneDesert && !ugDesertOriginalHeight);
-			TownSceneActive = ModContent.GetInstance<Music.TownDay>().IsSceneEffectActive(player) || ModContent.GetInstance<Music.TownNight>().IsSceneEffectActive(player) || ModContent.GetInstance<Music.TownRain>().IsSceneEffectActive(player) || ModContent.GetInstance<Music.TownParty>().IsSceneEffectActive(player);
-            WorkshopSceneActive = ModContent.GetInstance<Music.WorkshopTier1>().IsSceneEffectActive(player) || ModContent.GetInstance<Music.WorkshopTier2>().IsSceneEffectActive(player) || ModContent.GetInstance<Music.WorkshopTier3>().IsSceneEffectActive(player) || ModContent.GetInstance<Music.WorkshopTier4>().IsSceneEffectActive(player) || ModContent.GetInstance<Music.WorkshopTier5>().IsSceneEffectActive(player) || ModContent.GetInstance<Music.WorkshopTier6>().IsSceneEffectActive(player);
-
-			WorkshopTier6Bosses = downedExoMechs || downedSupremeCalamitas;
-			WorkshopTier5Bosses = NPC.downedMoonlord || downedProfanedGuardians || downedDragonfolly || downedProvidence || downedCeaselessVoid || downedStormWeaver || downedSignus || downedPolterghast || downedOldDuke || downedDevourerofGods || downedYharon;
-			WorkshopTier4Bosses = NPC.downedPlantBoss || downedLeviathan || downedAstrumAureus || NPC.downedGolemBoss || downedPlaguebringerGoliath || NPC.downedFishron || downedRavager || NPC.downedEmpressOfLight || NPC.downedAncientCultist || downedAstrumDeus;
-			WorkshopTier3Bosses = Main.hardMode || NPC.downedQueenSlime || downedCryogen || NPC.downedMechBossAny || downedAquaticScourge || downedBrimstoneElemental || downedCalamitasClone;
-			WorkshopTier2Bosses = downedHiveMind || downedPerforators || NPC.downedQueenBee || NPC.downedBoss3 || NPC.downedDeerclops || downedSlimeGod;
+            smallWorld = Main.maxTilesY == 1200;
+			notInExcludedTownBiome = 
+				!(player.ZoneGraveyard || 
+				player.ZoneShimmer || 
+				player.ZoneDungeon || 
+				player.ZoneLihzhardTemple || 
+				ZoneBrimstoneCrags || 
+				ZoneAbyss);
+			notInExcludedTownEvent =
+				/*!(Main._shouldUseWindyDayMusic ||*/
+				!(Main.slimeRain || 
+				ZoneSandstorm || 
+				Main.bloodMoon || 
+				Main.eclipse);
+			ZoneSandstorm = 
+				Sandstorm.Happening && 
+				player.ZoneDesert && 
+				!player.ZoneBeach;
+			ZoneOverworldHeightExtra = 
+				(!player.ZoneDesert && player.ZoneOverworldHeight) || 
+				(player.ZoneDesert && !ugDesertOriginalHeight);
+			TownSceneActive = 
+				ModContent.GetInstance<Music.TownDay>().IsSceneEffectActive(player) || 
+				ModContent.GetInstance<Music.TownNight>().IsSceneEffectActive(player) ||
+                ModContent.GetInstance<Music.TownRain>().IsSceneEffectActive(player) ||
+                ModContent.GetInstance<Music.TownParty>().IsSceneEffectActive(player);
+            WorkshopSceneActive = 
+				ModContent.GetInstance<Music.WorkshopTier1>().IsSceneEffectActive(player) || 
+				ModContent.GetInstance<Music.WorkshopTier2>().IsSceneEffectActive(player) || 
+				ModContent.GetInstance<Music.WorkshopTier3>().IsSceneEffectActive(player) || 
+				ModContent.GetInstance<Music.WorkshopTier4>().IsSceneEffectActive(player) || 
+				ModContent.GetInstance<Music.WorkshopTier5>().IsSceneEffectActive(player) || 
+				ModContent.GetInstance<Music.WorkshopTier6>().IsSceneEffectActive(player);
+			WorkshopTier6Bosses = 
+				downedExoMechs || 
+				downedSupremeCalamitas;
+			WorkshopTier5Bosses = 
+				NPC.downedMoonlord || 
+				downedProfanedGuardians || 
+				downedDragonfolly || 
+				downedProvidence || 
+				downedCeaselessVoid || 
+				downedStormWeaver || 
+				downedSignus || 
+				downedPolterghast || 
+				downedOldDuke || 
+				downedDevourerofGods || 
+				downedYharon;
+			WorkshopTier4Bosses = 
+				NPC.downedPlantBoss || 
+				downedLeviathan || 
+				downedAstrumAureus || 
+				NPC.downedGolemBoss || 
+				downedPlaguebringerGoliath || 
+				NPC.downedFishron || 
+				downedRavager || 
+				NPC.downedEmpressOfLight || 
+				NPC.downedAncientCultist || 
+				downedAstrumDeus;
+			WorkshopTier3Bosses = 
+				Main.hardMode || 
+				NPC.downedQueenSlime || 
+				downedCryogen || 
+				NPC.downedMechBossAny || 
+				downedAquaticScourge || 
+				downedBrimstoneElemental || 
+				downedCalamitasClone;
+			WorkshopTier2Bosses = 
+				downedHiveMind || 
+				downedPerforators || 
+				NPC.downedQueenBee || 
+				NPC.downedBoss3 || 
+				NPC.downedDeerclops || 
+				downedSlimeGod;
 
 			if (noTownMusic)
 			{
@@ -135,19 +204,50 @@ namespace UnCalamityModMusic.Common
 				}
 				else
 				{
-					inTown = player.townNPCs > 2f && ((notRaining && notInExcludedTownEvent && player.ZoneOverworldHeight) || inSpace);
-					inTownWithRain = player.townNPCs > 2f && isRaining && notInExcludedTownEvent && ZoneOverworldHeightExtra;
-					inUgTown = player.townNPCs > 2f && (player.ZoneDirtLayerHeight || player.ZoneRockLayerHeight || player.ZoneUnderworldHeight);
+					inTown = 
+						player.townNPCs > 2f && 
+						((notRaining && 
+						notInExcludedTownEvent && 
+						player.ZoneOverworldHeight) || 
+						inSpace);
+                    inTownWithRain = 
+						player.townNPCs > 2f && 
+						isRaining && 
+						notInExcludedTownEvent && 
+						ZoneOverworldHeightExtra;
+                    inUgTown = 
+						player.townNPCs > 2f && 
+						(player.ZoneDirtLayerHeight || 
+						player.ZoneRockLayerHeight || 
+						player.ZoneUnderworldHeight);
 				}
+			}
+
+			if (magicStorage)
+			{
+				distanceToMagicStorageTiles =
+					WorkshopDetection.TileDistance(storage.Find<ModTile>("StorageHeart").Type) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) ||
+					WorkshopDetection.TileDistance(storage.Find<ModTile>("CraftingAccess").Type) <= (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f) * (ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f);
 			}
 
 			if (calamityMod)
 			{
+                deathMode = (bool)calamity.Call("DifficultyActive", "death");
+                revengeanceMode = (bool)calamity.Call("DifficultyActive", "revengeance");
+                bossRushActive = (bool)calamity.Call("DifficultyActive", "bossrush");
+
+                FoveanatorActive = calamity.Version >= new Version(2, 1, 0, 1) && NPC.AnyNPCs(calamity.Find<ModNPC>("Foveanator").Type) && Main.npc[NPC.FindFirstNPC(calamity.Find<ModNPC>("Foveanator").Type)].Distance(player.Center) <= MusicTileRange;
+                SkeletronPrime2Active = NPC.AnyNPCs(calamity.Find<ModNPC>("SkeletronPrime2").Type) && Main.npc[NPC.FindFirstNPC(calamity.Find<ModNPC>("SkeletronPrime2").Type)].Distance(player.Center) <= MusicTileRange;
+                
 				ZoneBrimstoneCrags = (bool)calamity.Call("GetInZone", player, "crags");
 				ZoneAstralInfection = (bool)calamity.Call("GetInZone", player, "astral");
-				ZoneSulfurSea = (bool)calamity.Call("GetInZone", player, "sulfur") && !ZoneAbyss;
+				ZoneSulfurSea = 
+					(bool)calamity.Call("GetInZone", player, "sulfur") && 
+					!ZoneAbyss;
 				ZoneAbyss = (bool)calamity.Call("GetInZone", player, "abyss");
-				ZoneShallowAbyss = (bool)calamity.Call("GetInZone", player, "layer1") || (bool)calamity.Call("GetInZone", player, "layer2");
+				ZoneShallowAbyss = 
+					(bool)calamity.Call("GetInZone", player, "layer1") || 
+					(bool)calamity.Call("GetInZone", player, "layer2");
 				ZoneDeepAbyss = (bool)calamity.Call("GetInZone", player, "layer3");
 				ZoneVoidAbyss = (bool)calamity.Call("GetInZone", player, "layer4");
 				ZoneSunkenSea = (bool)calamity.Call("GetInZone", player, "sunkensea");
@@ -176,10 +276,6 @@ namespace UnCalamityModMusic.Common
 				downedSlimeGod = (bool)calamity.Call("GetBossDowned", "slimegod");
 				downedPerforators = (bool)calamity.Call("GetBossDowned", "perforator");
 				downedHiveMind = (bool)calamity.Call("GetBossDowned", "hivemind");
-
-				deathMode = (bool)calamity.Call("DifficultyActive", "death");
-				revengeanceMode = (bool)calamity.Call("DifficultyActive", "revengeance");
-				bossRushActive = (bool)calamity.Call("DifficultyActive", "bossrush");
 
                 CalamityMusicEventInactive = CalamityMusicEvent() == null;
             }

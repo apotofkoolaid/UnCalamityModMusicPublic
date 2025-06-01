@@ -57,25 +57,16 @@ namespace UnCalamityModMusic.Common.Music
 
         public override bool IsSceneEffectActive(Player player)
         {
-            return ModContent.GetInstance<Ocean_Ambience>().IsSceneEffectActive(player) && !(ModContent.GetInstance<Rain_LureOverride>().IsSceneEffectActive(player) || ModContent.GetInstance<Thunderstorm_LureOverride>().IsSceneEffectActive(player)) && base.IsSceneEffectActive(player);
+            return ModContent.GetInstance<Ocean_Ambience>().IsSceneEffectActive(player) && !ModContent.GetInstance<OceanRain_LureOverride>().IsSceneEffectActive(player) && base.IsSceneEffectActive(player);
         }
     }
-    public class Thunderstorm_LureOverride : LureOverrideBaseScene
+    public class OceanRain_LureOverride : LureOverrideBaseScene
     {
-        public override string Path => "Thunderstorm";
+        public override string Path => "OceanRain";
 
         public override bool IsSceneEffectActive(Player player)
         {
-            return ModContent.GetInstance<Thunderstorm>().IsSceneEffectActive(player) && base.IsSceneEffectActive(player);
-        }
-    }
-    public class Rain_LureOverride : LureOverrideBaseScene
-    {
-        public override string Path => "Rain";
-
-        public override bool IsSceneEffectActive(Player player)
-        {
-            return ModContent.GetInstance<Rain>().IsSceneEffectActive(player) && !ModContent.GetInstance<Thunderstorm_LureOverride>().IsSceneEffectActive(player) && base.IsSceneEffectActive(player);
+            return ModContent.GetInstance<OceanRain>().IsSceneEffectActive(player) && base.IsSceneEffectActive(player);
         }
     }
     public class OceanNight_LureOverride : LureOverrideBaseScene
@@ -84,7 +75,7 @@ namespace UnCalamityModMusic.Common.Music
 
         public override bool IsSceneEffectActive(Player player)
         {
-            return ModContent.GetInstance<OceanNight>().IsSceneEffectActive(player) && !(ModContent.GetInstance<Rain_LureOverride>().IsSceneEffectActive(player) || ModContent.GetInstance<Thunderstorm_LureOverride>().IsSceneEffectActive(player)) && base.IsSceneEffectActive(player);
+            return ModContent.GetInstance<OceanNight>().IsSceneEffectActive(player) && !ModContent.GetInstance<OceanRain_LureOverride>().IsSceneEffectActive(player) && base.IsSceneEffectActive(player);
         }
     }
     public class OceanDay_LureOverride : LureOverrideBaseScene
@@ -93,7 +84,7 @@ namespace UnCalamityModMusic.Common.Music
 
         public override bool IsSceneEffectActive(Player player)
         {
-            return ModContent.GetInstance<OceanDay>().IsSceneEffectActive(player) && !(ModContent.GetInstance<Rain_LureOverride>().IsSceneEffectActive(player) || ModContent.GetInstance<Thunderstorm_LureOverride>().IsSceneEffectActive(player)) && base.IsSceneEffectActive(player);
+            return ModContent.GetInstance<OceanDay>().IsSceneEffectActive(player) && !ModContent.GetInstance<OceanRain_LureOverride>().IsSceneEffectActive(player) && base.IsSceneEffectActive(player);
         }
     }
 }

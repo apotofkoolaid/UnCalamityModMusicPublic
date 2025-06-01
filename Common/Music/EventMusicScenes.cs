@@ -1,110 +1,115 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.GameContent.Events;
 using Terraria.ID;
 using Terraria.ModLoader;
-using UnCalamityModMusic.Common.Configs;
 
 namespace UnCalamityModMusic.Common.Music
 {
-	public class FrostMoon : ModSystem
-	{
-        /*public int FrostMoonMusicSlot = 0;
-
-		public override void OnWorldLoad()
-		{
-			FrostMoonMusicSlot = MusicPathing.GetMusicSlot("FrostMoon");
-		}
-
-		public override void UpdateUI(GameTime gameTime)
-		{
-			Player player = Main.player[Main.myPlayer];
-
-			if (Main.snowMoon && Main.musicBox2 == -1 && (PlayerFlags.onSurface || Main.remixWorld) && PlayerFlags.CalamityMusicEventInactive)
-			{
-				Main.musicBox2 = FrostMoonMusicSlot;
-				return;
-			}
-		}*/
-    }
-    public class PumpkinMoon : ModSystem
-    {
-        /*public int PumpkinMoonMusicSlot = 0;
-
-        public override void OnWorldLoad()
-        {
-            PumpkinMoonMusicSlot = MusicPathing.GetMusicSlot("PumpkinMoon");
-        }
-
-        public override void UpdateUI(GameTime gameTime)
-        {
-            Player player = Main.player[Main.myPlayer];
-
-            if (Main.pumpkinMoon && Main.musicBox2 == -1 && (PlayerFlags.onSurface || Main.remixWorld) && PlayerFlags.CalamityMusicEventInactive)
-			{
-				Main.musicBox2 = PumpkinMoonMusicSlot;
-				return;
-			}
-        }*/
-    }
     public class TorchGod : ModSceneEffect
-	{
+    {
         public override int Music => PlayerFlags.revengeanceMode ? MusicPathing.GetMusicSlot("TorchGodRevengeance") : MusicPathing.GetMusicSlot("TorchGod");
 
         public override SceneEffectPriority Priority => SceneEffectPriority.BossHigh;
 
-		public override bool IsSceneEffectActive(Player player)
-		{
-			return player.happyFunTorchTime || (NPC.AnyNPCs(NPCID.TorchGod) && Main.npc[NPC.FindFirstNPC(NPCID.TorchGod)].Distance(player.Center) <= PlayerFlags.MusicTileRange);
-		}
-	}
-	public class LunarTowersSolar : ModSceneEffect
-	{
-		/*public override int Music => MusicPathing.GetMusicSlot("LunarTowersSolar");
+        public override bool IsSceneEffectActive(Player player)
+        {
+            return player.happyFunTorchTime || (NPC.AnyNPCs(NPCID.TorchGod) && Main.npc[NPC.FindFirstNPC(NPCID.TorchGod)].Distance(player.Center) <= PlayerFlags.MusicTileRange);
+        }
+    }
+    public class LunarTowersSolar : ModSceneEffect
+    {
+        /*public override int Music => MusicPathing.GetMusicSlot("LunarTowersSolar");
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.BossMedium;
 
 		public override bool IsSceneEffectActive(Player player)
 		{
-			return player.ZoneTowerSolar;
+			return player.ZoneTowerSolar || (NPC.AnyNPCs(NPCID.LunarTowerSolar) && Main.npc[NPC.FindFirstNPC(NPCID.LunarTowerSolar)].Distance(player.Center) <= PlayerFlags.MusicTileRange);
 		}*/
-	}
-	public class LunarTowersNebula : ModSceneEffect
-	{
-		/*public override int Music => MusicPathing.GetMusicSlot("LunarTowersNebula");
+    }
+    public class LunarTowersStardust : ModSceneEffect
+    {
+        /*public override int Music => MusicPathing.GetMusicSlot("LunarTowersStardust");
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.BossMedium;
 
 		public override bool IsSceneEffectActive(Player player)
 		{
-			return player.ZoneTowerNebula;
+			return player.ZoneTowerStardust || (NPC.AnyNPCs(NPCID.LunarTowerStardust) && Main.npc[NPC.FindFirstNPC(NPCID.LunarTowerStardust)].Distance(player.Center) <= PlayerFlags.MusicTileRange);
 		}*/
-	}
-	public class LunarTowersVortex : ModSceneEffect
-	{
-		/*public override int Music => MusicPathing.GetMusicSlot("LunarTowersVortex");
+    }
+    public class LunarTowersNebula : ModSceneEffect
+    {
+        /*public override int Music => MusicPathing.GetMusicSlot("LunarTowersNebula");
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.BossMedium;
 
 		public override bool IsSceneEffectActive(Player player)
 		{
-			return player.ZoneTowerVortex;
+			return player.ZoneTowerNebula || (NPC.AnyNPCs(NPCID.LunarTowerNebula) && Main.npc[NPC.FindFirstNPC(NPCID.LunarTowerNebula)].Distance(player.Center) <= PlayerFlags.MusicTileRange);
 		}*/
-	}
-	public class LunarTowersStardust : ModSceneEffect
-	{
-		/*public override int Music => MusicPathing.GetMusicSlot("LunarTowersStardust");
+    }
+    public class LunarTowersVortex : ModSceneEffect
+    {
+        /*public override int Music => MusicPathing.GetMusicSlot("LunarTowersVortex");
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.BossMedium;
 
 		public override bool IsSceneEffectActive(Player player)
 		{
-			return player.ZoneTowerStardust;
+			return player.ZoneTowerVortex || (NPC.AnyNPCs(NPCID.LunarTowerVortex) && Main.npc[NPC.FindFirstNPC(NPCID.LunarTowerVortex)].Distance(player.Center) <= PlayerFlags.MusicTileRange);
 		}*/
-	}
-	public class OldOnesArmy : ModSceneEffect
-	{
-		/*public override int Music => MusicPathing.GetMusicSlot("OldOnesArmy");
+    }
+    public class MartianMadness : ModSceneEffect
+    {
+        /*public override int Music => MusicPathing.GetMusicSlot("MartianMadness");
+
+		public override SceneEffectPriority Priority => SceneEffectPriority.BossMedium;
+
+		public override bool IsSceneEffectActive(Player player)
+		{
+			bool condition1 = Main.invasionType == 4 && Main.invasionProgressNearInvasion;
+			bool condition2 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.MartianSaucerCore) && Main.npc[NPC.FindFirstNPC(NPCID.MartianSaucerCore)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
+			bool condition3 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.ScutlixRider) && Main.npc[NPC.FindFirstNPC(NPCID.ScutlixRider)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
+			bool condition4 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.Scutlix) && Main.npc[NPC.FindFirstNPC(NPCID.Scutlix)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
+			bool condition5 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.MartianWalker) && Main.npc[NPC.FindFirstNPC(NPCID.MartianWalker)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
+			bool condition6 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.MartianDrone) && Main.npc[NPC.FindFirstNPC(NPCID.MartianDrone)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
+			bool condition7 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.MartianTurret) && Main.npc[NPC.FindFirstNPC(NPCID.MartianTurret)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
+			bool condition8 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.GigaZapper) && Main.npc[NPC.FindFirstNPC(NPCID.GigaZapper)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
+			bool condition9 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.MartianEngineer) && Main.npc[NPC.FindFirstNPC(NPCID.MartianEngineer)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
+			bool condition10 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.MartianOfficer) && Main.npc[NPC.FindFirstNPC(NPCID.MartianOfficer)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
+			bool condition11 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.RayGunner) && Main.npc[NPC.FindFirstNPC(NPCID.RayGunner)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
+			bool condition12 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.GrayGrunt) && Main.npc[NPC.FindFirstNPC(NPCID.GrayGrunt)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
+			bool condition13 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.BrainScrambler) && Main.npc[NPC.FindFirstNPC(NPCID.BrainScrambler)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
+
+			return condition1 || condition2 || condition3 || condition4 || condition5 || condition6 || condition7 || condition8 || condition9 || condition10 || condition11 || condition12 || condition13;
+		}*/
+    }
+    public class FrostMoon : ModSceneEffect
+    {
+        /*public override int Music => MusicPathing.GetMusicSlot("FrostMoon");
+
+        public override SceneEffectPriority Priority => SceneEffectPriority.Event;
+
+		public override bool IsSceneEffectActive(Player player)
+		{
+			return Main.snowMoon && (PlayerFlags.onSurface || Main.remixWorld);
+		}*/
+    }
+    public class PumpkinMoon : ModSceneEffect
+    {
+        /*public override int Music => MusicPathing.GetMusicSlot("PumpkinMoon");
+
+        public override SceneEffectPriority Priority => SceneEffectPriority.Event;
+
+		public override bool IsSceneEffectActive(Player player)
+		{
+			return Main.pumpkinMoon && (PlayerFlags.onSurface || Main.remixWorld);
+		}*/
+    }
+    public class OldOnesArmy : ModSceneEffect
+    {
+        /*public override int Music => MusicPathing.GetMusicSlot("OldOnesArmy");
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.Event;
 
@@ -144,35 +149,10 @@ namespace UnCalamityModMusic.Common.Music
 
 			return condition1 || condition2 || condition3 || condition4 || condition5 || condition6 || condition7 || condition8 || condition9 || condition10 || condition11 || condition12 || condition13 || condition14 || condition15 || condition16 || condition17 || condition18 || condition19 || condition20 || condition21 || condition22 || condition23 || condition24 || condition25 || condition26 || condition27 || condition28 || condition29 || condition30 || condition31;
 		}*/
-	}
-	public class MartianMadness : ModSceneEffect
-	{
-		/*public override int Music => MusicPathing.GetMusicSlot("MartianMadness");
-
-		public override SceneEffectPriority Priority => SceneEffectPriority.BossMedium;
-
-		public override bool IsSceneEffectActive(Player player)
-		{
-			bool condition1 = Main.invasionType == 4 && Main.invasionProgressNearInvasion;
-			bool condition2 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.MartianSaucerCore) && Main.npc[NPC.FindFirstNPC(NPCID.MartianSaucerCore)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-			bool condition3 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.ScutlixRider) && Main.npc[NPC.FindFirstNPC(NPCID.ScutlixRider)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-			bool condition4 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.Scutlix) && Main.npc[NPC.FindFirstNPC(NPCID.Scutlix)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-			bool condition5 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.MartianWalker) && Main.npc[NPC.FindFirstNPC(NPCID.MartianWalker)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-			bool condition6 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.MartianDrone) && Main.npc[NPC.FindFirstNPC(NPCID.MartianDrone)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-			bool condition7 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.MartianTurret) && Main.npc[NPC.FindFirstNPC(NPCID.MartianTurret)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-			bool condition8 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.GigaZapper) && Main.npc[NPC.FindFirstNPC(NPCID.GigaZapper)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-			bool condition9 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.MartianEngineer) && Main.npc[NPC.FindFirstNPC(NPCID.MartianEngineer)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-			bool condition10 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.MartianOfficer) && Main.npc[NPC.FindFirstNPC(NPCID.MartianOfficer)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-			bool condition11 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.RayGunner) && Main.npc[NPC.FindFirstNPC(NPCID.RayGunner)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-			bool condition12 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.GrayGrunt) && Main.npc[NPC.FindFirstNPC(NPCID.GrayGrunt)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-			bool condition13 = Main.invasionType == 0 && NPC.AnyNPCs(NPCID.BrainScrambler) && Main.npc[NPC.FindFirstNPC(NPCID.BrainScrambler)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-
-			return condition1 || condition2 || condition3 || condition4 || condition5 || condition6 || condition7 || condition8 || condition9 || condition10 || condition11 || condition12 || condition13;
-		}*/
-	}
-	public class PirateInvasion : ModSceneEffect
-	{
-		/*public override int Music => MusicPathing.GetMusicSlot("PirateInvasion");
+    }
+    public class PirateInvasion : ModSceneEffect
+    {
+        /*public override int Music => MusicPathing.GetMusicSlot("PirateInvasion");
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.Event;
 
@@ -189,10 +169,10 @@ namespace UnCalamityModMusic.Common.Music
 
 			return condition1 || condition2 || condition3 || condition4 || condition5 || condition6 || condition7 || condition8;
 		}*/
-	}
-	public class FrostLegion : ModSceneEffect
-	{
-		/*public override int Music => MusicPathing.GetMusicSlot("FrostLegion");
+    }
+    public class FrostLegion : ModSceneEffect
+    {
+        /*public override int Music => MusicPathing.GetMusicSlot("FrostLegion");
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.Event;
 
@@ -205,10 +185,10 @@ namespace UnCalamityModMusic.Common.Music
 
 			return condition1 || condition2 || condition3 || condition4;
 		}*/
-	}
-	public class GoblinArmy : ModSceneEffect
-	{
-		/*public override int Music => MusicPathing.GetMusicSlot("GoblinArmy");
+    }
+    public class GoblinArmy : ModSceneEffect
+    {
+        /*public override int Music => MusicPathing.GetMusicSlot("GoblinArmy");
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.Event;
 
@@ -224,47 +204,47 @@ namespace UnCalamityModMusic.Common.Music
 
 			return condition1 || condition2 || condition3 || condition4 || condition5 || condition6 || condition7;
 		}*/
-	}
-	public class SolarEclipse : ModSceneEffect
-	{
-		//public override int Music => MusicPathing.GetMusicSlot("SolarEclipse");
-		public override int Music
-		{
-			get
-			{
-				bool otherworldMusicActive = PlayerFlags.SwapMusic();
-				return otherworldMusicActive ? MusicID.OtherworldlyEerie : MusicID.Eclipse;
-			}
-		}
+    }
+    public class SolarEclipse : ModSceneEffect
+    {
+        //public override int Music => MusicPathing.GetMusicSlot("SolarEclipse");
+        public override int Music
+        {
+            get
+            {
+                bool otherworldMusicActive = PlayerFlags.SwapMusic();
+                return otherworldMusicActive ? MusicID.OtherworldlyEerie : MusicID.Eclipse;
+            }
+        }
 
-		public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
+        public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 
-		public override bool IsSceneEffectActive(Player player)
-		{
-			bool condition1 = !Main.remixWorld && Main.eclipse && PlayerFlags.onSurface;
-			bool condition2 = Main.remixWorld && Main.eclipse && (double)Main.LocalPlayer.position.Y > Main.rockLayer * 16.0 && !(PlayerFlags.ZoneBrimstoneCrags || PlayerFlags.ZoneProfanedTemple);
+        public override bool IsSceneEffectActive(Player player)
+        {
+            bool condition1 = !Main.remixWorld && Main.eclipse && PlayerFlags.onSurface;
+            bool condition2 = Main.remixWorld && Main.eclipse && (double)Main.LocalPlayer.position.Y > Main.rockLayer * 16.0 && !(PlayerFlags.ZoneBrimstoneCrags || PlayerFlags.ZoneProfanedTemple);
 
-			return condition1 || condition2;
-		}
-	}
-	public class BloodMoon : ModSceneEffect
-	{
-		public override int Music => PlayerFlags.deathMode ? MusicPathing.GetMusicSlot("BloodMoonDeath") : MusicPathing.GetMusicSlot("BloodMoon");
+            return condition1 || condition2;
+        }
+    }
+    public class BloodMoon : ModSceneEffect
+    {
+        public override int Music => PlayerFlags.deathMode ? MusicPathing.GetMusicSlot("BloodMoonDeath") : MusicPathing.GetMusicSlot("BloodMoon");
 
-		public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
+        public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 
-		public override bool IsSceneEffectActive(Player player)
-		{
-			bool condition1 = !Main.remixWorld && Main.bloodMoon && PlayerFlags.onSurface && !(PlayerFlags.inSpace || player.ZoneCorrupt || player.ZoneCrimson || PlayerFlags.ZoneAstralInfection);
-			bool condition2 = Main.remixWorld && Main.bloodMoon && (double)Main.LocalPlayer.position.Y > Main.rockLayer * 16.0 && player.position.Y <= (float)(Main.UnderworldLayer * 16) && !(player.ZoneCorrupt || player.ZoneCrimson || PlayerFlags.ZoneAstralInfection);
-			bool condition3 = Main.remixWorld && Main.bloodMoon && player.position.Y > (float)(Main.UnderworldLayer * 16) && (double)(player.Center.X / 16f) > (double)Main.maxTilesX * 0.37 + 50.0 && (double)(player.Center.X / 16f) < (double)Main.maxTilesX * 0.63;
+        public override bool IsSceneEffectActive(Player player)
+        {
+            bool condition1 = !Main.remixWorld && Main.bloodMoon && PlayerFlags.onSurface && !(PlayerFlags.inSpace || player.ZoneCorrupt || player.ZoneCrimson || PlayerFlags.ZoneAstralInfection);
+            bool condition2 = Main.remixWorld && Main.bloodMoon && (double)Main.LocalPlayer.position.Y > Main.rockLayer * 16.0 && player.position.Y <= (float)(Main.UnderworldLayer * 16) && !(player.ZoneCorrupt || player.ZoneCrimson || PlayerFlags.ZoneAstralInfection);
+            bool condition3 = Main.remixWorld && Main.bloodMoon && player.position.Y > (float)(Main.UnderworldLayer * 16) && (double)(player.Center.X / 16f) > (double)Main.maxTilesX * 0.37 + 50.0 && (double)(player.Center.X / 16f) < (double)Main.maxTilesX * 0.63;
 
-			return condition1 || condition2 || condition3;
-		}
-	}
-	public class Blizzard : ModSceneEffect
-	{
-		/*public override int Music => MusicPathing.GetMusicSlot("Blizzard");
+            return condition1 || condition2 || condition3;
+        }
+    }
+    public class Blizzard : ModSceneEffect
+    {
+        /*public override int Music => MusicPathing.GetMusicSlot("Blizzard");
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 
@@ -275,40 +255,32 @@ namespace UnCalamityModMusic.Common.Music
 
 			return condition1 || condition2;
 		}*/
-	}
-	public class Sandstorm : ModSceneEffect
-	{
-		//public override int Music => MusicPathing.GetMusicSlot("Sandstorm");
-		public override int Music
-		{
-			get
-			{
-				bool otherworldMusicActive = PlayerFlags.SwapMusic();
-				return otherworldMusicActive ? MusicID.OtherworldlyDesert : MusicID.Sandstorm;
-			}
-		}
+    }
+    public class Sandstorm : ModSceneEffect
+    {
+        public override int Music => MusicPathing.GetMusicSlot("Sandstorm");
 
-		public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
+        public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 
-		public override bool IsSceneEffectActive(Player player)
-		{
-			bool condition1 = !Main.remixWorld && PlayerFlags.ZoneSandstorm && !PlayerFlags.ugDesertOriginalHeight && !(PlayerFlags.inSpace || PlayerFlags.ZoneAstralInfection) && !(Main.bloodMoon || Main.eclipse);
-			bool condition2 = Main.remixWorld && PlayerFlags.ZoneSandstorm && PlayerFlags.onRemixedSurface && !(PlayerFlags.inSpace || PlayerFlags.ZoneAstralInfection) && !(Main.bloodMoon || Main.eclipse);
+        public override bool IsSceneEffectActive(Player player)
+        {
+            bool condition1 = !Main.remixWorld && PlayerFlags.ZoneSandstorm && !PlayerFlags.ugDesertOriginalHeight && !(PlayerFlags.inSpace || PlayerFlags.ZoneAstralInfection) && !(Main.bloodMoon || Main.eclipse);
+            bool condition2 = Main.remixWorld && PlayerFlags.ZoneSandstorm && PlayerFlags.onRemixedSurface && !(PlayerFlags.inSpace || PlayerFlags.ZoneAstralInfection) && !(Main.bloodMoon || Main.eclipse);
 
-			return condition1 || condition2;
-		}
-	}
-	public class SlimeRain : ModSceneEffect
-	{
-		public override int Music => MusicPathing.GetMusicSlot("SlimeRain");
+            return condition1 || condition2;
+        }
+    }
+    public class SlimeRain : ModSceneEffect
+    {
+        public override int Music => MusicPathing.GetMusicSlot("SlimeRain");
 
-		public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
+        public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 
-		public override bool IsSceneEffectActive(Player player)
-		{
-			return Main.slimeRain && PlayerFlags.onSurface && !(player.ZoneGraveyard || PlayerFlags.inSpace) && !(Main.bloodMoon || Main.eclipse);
-		}
-	}
+        public override bool IsSceneEffectActive(Player player)
+        {
+            return Main.slimeRain && PlayerFlags.onSurface && !(player.ZoneGraveyard || PlayerFlags.inSpace) && !(Main.bloodMoon || Main.eclipse);
+        }
+    }
     public class OceanRain : ModSceneEffect
     {
         public override int Music => MusicPathing.GetMusicSlot("OceanRain");
@@ -324,8 +296,8 @@ namespace UnCalamityModMusic.Common.Music
         }
     }
     public class Thunderstorm : ModSceneEffect
-	{
-		/*public override int Music => MusicPathing.GetMusicSlot("Thunderstorm");
+    {
+        /*public override int Music => MusicPathing.GetMusicSlot("Thunderstorm");
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.BiomeMedium;
 
@@ -336,7 +308,7 @@ namespace UnCalamityModMusic.Common.Music
 
 			return condition1 || condition2;
 		}*/
-	}
+    }
     public class TownRain : ModSceneEffect
     {
         public override int Music => MusicPathing.GetMusicSlot("TownRain");
@@ -345,23 +317,23 @@ namespace UnCalamityModMusic.Common.Music
 
         public override bool IsSceneEffectActive(Player player)
         {
-            return PlayerFlags.inTownWithRain && PlayerFlags.notInExcludedTownBiome && !(/*Main._shouldUseStormMusic || */player.ZoneBeach || player.ZoneSnow || player.ZoneGraveyard || player.ZoneMeteor);
+            return PlayerFlags.inTownWithRain && PlayerFlags.notInExcludedTownBiome && !(/*Main._shouldUseStormMusic || */player.ZoneBeach || player.ZoneSnow || player.ZoneGraveyard || player.ZoneMeteor || PlayerFlags.ZoneSulfurSea);
         }
     }
     public class Rain : ModSceneEffect
-	{
-		public override int Music => MusicPathing.GetMusicSlot("Rain");
+    {
+        public override int Music => MusicPathing.GetMusicSlot("Rain");
 
-		public override SceneEffectPriority Priority => SceneEffectPriority.BiomeMedium;
+        public override SceneEffectPriority Priority => SceneEffectPriority.BiomeMedium;
 
-		public override bool IsSceneEffectActive(Player player)
-		{
-			bool condition1 = !Main.remixWorld && PlayerFlags.isRaining && PlayerFlags.ZoneOverworldHeightExtra && !(/*Main._shouldUseStormMusic || */player.ZoneSnow || player.ZoneGraveyard || player.ZoneMeteor);
-			bool condition2 = Main.remixWorld && PlayerFlags.isRaining && (double)(player.position.Y / 16f) > Main.rockLayer && player.position.Y / 16f < (float)(Main.maxTilesY - 350) && !(/*Main._shouldUseStormMusic || */player.ZoneSnow || player.ZoneGraveyard || player.ZoneMeteor);
+        public override bool IsSceneEffectActive(Player player)
+        {
+            bool condition1 = !Main.remixWorld && PlayerFlags.isRaining && PlayerFlags.ZoneOverworldHeightExtra && !(/*Main._shouldUseStormMusic || */player.ZoneSnow || player.ZoneGraveyard || player.ZoneMeteor);
+            bool condition2 = Main.remixWorld && PlayerFlags.isRaining && (double)(player.position.Y / 16f) > Main.rockLayer && player.position.Y / 16f < (float)(Main.maxTilesY - 350) && !(/*Main._shouldUseStormMusic || */player.ZoneSnow || player.ZoneGraveyard || player.ZoneMeteor);
 
-			return condition1 || condition2;
-		}
-	}
+            return condition1 || condition2;
+        }
+    }
     public class TownParty : ModSceneEffect
     {
         public override int Music => MusicPathing.GetMusicSlot("TownParty");
@@ -377,28 +349,28 @@ namespace UnCalamityModMusic.Common.Music
         }
     }
     public class WindyDay : ModSceneEffect
-	{
-		/*public override int Music => MusicPathing.GetMusicSlot("WindyDay");
+    {
+        /*public override int Music => MusicPathing.GetMusicSlot("WindyDay");
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.BiomeMedium;
 
 		public override bool IsSceneEffectActive(Player player)
 		{
-			bool condition1 = !Main.remixWorld && Main._shouldUseWindyDayMusic && PlayerFlags.ZoneOverworldHeightExtra && !(player.ZoneDesert || player.ZoneBeach || player.ZoneSnow || player.ZoneJungle || player.ZoneGraveyard || player.ZoneMeteor);
+			bool condition1 = !Main.remixWorld && Main._shouldUseWindyDayMusic && PlayerFlags.ZoneOverworldHeightExtra && !(player.ZoneDesert || player.ZoneBeach || player.ZoneHallow || player.ZoneSnow || player.ZoneJungle || player.ZoneGraveyard || player.ZoneMeteor);
 			bool condition2 = Main.remixWorld && Main._shouldUseWindyDayMusic && (double)(player.position.Y / 16f) > Main.rockLayer && player.position.Y / 16f < (float)(Main.maxTilesY - 350) && !(player.ZoneDesert || player.ZoneBeach || player.ZoneSnow || player.ZoneJungle || player.ZoneGraveyard || player.ZoneMeteor);
 
 			return condition1 || condition2;
 		}*/
-	}
-	public class LanternFestival : ModSceneEffect
-	{
-		public override int Music => MusicPathing.GetMusicSlot("LanternFestival");
+    }
+    public class LanternFestival : ModSceneEffect
+    {
+        public override int Music => MusicPathing.GetMusicSlot("LanternFestival");
 
-		public override SceneEffectPriority Priority => PlayerFlags.inTown ? SceneEffectPriority.Environment : SceneEffectPriority.BiomeMedium;
+        public override SceneEffectPriority Priority => PlayerFlags.inTown ? SceneEffectPriority.Environment : SceneEffectPriority.BiomeMedium;
 
-		public override bool IsSceneEffectActive(Player player)
-		{
-			return LanternNight.LanternsUp && PlayerFlags.ZoneOverworldHeightExtra && PlayerFlags.notRaining && !(player.ZoneGraveyard || player.ZoneMeteor);
-		}
-	}
+        public override bool IsSceneEffectActive(Player player)
+        {
+            return LanternNight.LanternsUp && PlayerFlags.ZoneOverworldHeightExtra && PlayerFlags.notRaining && !(player.ZoneGraveyard || player.ZoneMeteor);
+        }
+    }
 }
