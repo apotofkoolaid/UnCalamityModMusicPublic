@@ -10,7 +10,7 @@ using UnCalamityModMusic.Common;
 
 namespace UnCalamityModMusic.Content.Menus
 {
-    public class ResurrectionMenu : ModMenu
+    public class Menu1_Resurrection : ModMenu
     {
         public override int Music => MusicPathing.GetMusicSlot("HardmodeInterlude");
 
@@ -160,7 +160,7 @@ namespace UnCalamityModMusic.Content.Menus
         }
     }
 
-    public class MemoryMenu : ModMenu
+    public class Menu2_Memory : ModMenu
     {
         public override int Music => MusicPathing.GetMusicSlot("FalseEpilogue");
 
@@ -228,12 +228,12 @@ namespace UnCalamityModMusic.Content.Menus
 
             static Color selectCinderColor()
             {
-                if (Main.rand.NextBool(3))
+                if (Main.rand.NextBool(2))
                 {
-                    return Color.Lerp(Color.DarkGray, Color.LightGray, Main.rand.NextFloat());
+                    return Color.Lerp(Color.LightGray, Color.LightCyan, Main.rand.NextFloat());
                 }
 
-                return Color.Lerp(Color.Red, Color.Yellow, Main.rand.NextFloat(0.9f));
+                return Color.Lerp(Color.Cyan, Color.Gold, Main.rand.NextFloat(1.1f));
             }
 
             for (int i = 0; i < 5; i++)
@@ -310,7 +310,7 @@ namespace UnCalamityModMusic.Content.Menus
         }
     }
 
-	internal class BlankBackground : ModSurfaceBackgroundStyle
+    internal class BlankBackground : ModSurfaceBackgroundStyle
 	{
 		public override void ModifyFarFades(float[] fades, float transitionSpeed)
 		{

@@ -38,15 +38,7 @@ namespace UnCalamityModMusic.Common.Music
 	}
 	public class Aether : ModSceneEffect
 	{
-		//public override int Music => MusicPathing.GetMusicSlot("Aether");
-		public override int Music
-		{
-			get
-			{
-				bool otherworldMusicActive = PlayerFlags.SwapMusic();
-				return otherworldMusicActive ? MusicID.OtherworldlyUGHallow : MusicID.Shimmer;
-			}
-		}
+		public override int Music => MusicPathing.GetMusicSlot("Aether");
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 
@@ -278,19 +270,6 @@ namespace UnCalamityModMusic.Common.Music
 			return player.ZoneUnderworldHeight && !(PlayerFlags.TownSceneActive || PlayerFlags.WorkshopSceneActive) && !(PlayerFlags.ZoneBrimstoneCrags || PlayerFlags.ZoneProfanedTemple);
 		}
 	}
-	public class AbyssLayer3Alt : ModSceneEffect
-	{
-		public override int Music => MusicPathing.GetMusicSlot("AbyssLayer3Alt");
-
-		public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
-
-		public override float GetWeight(Player player) => 0.51f;
-
-		public override bool IsSceneEffectActive(Player player)
-		{
-			return PlayerFlags.ZoneDeepAbyss && !(PlayerFlags.TownSceneActive || PlayerFlags.WorkshopSceneActive) && ModContent.GetInstance<MusicConfig>().AbyssLayer3Alt;
-		}
-	}
 	public class GlowingMushroomFields : ModSceneEffect
 	{
 		public override int Music => MusicPathing.GetMusicSlot("GlowingMushroomFields");
@@ -376,19 +355,6 @@ namespace UnCalamityModMusic.Common.Music
 			return player.ZoneGraveyard;
 		}
 	}
-	public class Geodes_Remnants : ModSceneEffect
-	{
-		public override int Music => MusicPathing.GetMusicSlot("Geodes");
-
-		public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
-
-		public override float GetWeight(Player player) => 0.51f;
-
-		public override bool IsSceneEffectActive(Player player)
-		{
-			return PlayerFlags.ZoneGraniteCave || PlayerFlags.ZoneMarbleCave;
-		}
-	}
 	public class Geodes : ModSceneEffect
 	{
 		public override int Music => MusicPathing.GetMusicSlot("Geodes");
@@ -427,27 +393,6 @@ namespace UnCalamityModMusic.Common.Music
 		public override bool IsSceneEffectActive(Player player)
 		{
             return /*Main.dayTime && */player.ZoneJungle && (player.ZoneOverworldHeight || PlayerFlags.onRemixedSurface) && !player.ZoneMeteor && PlayerFlags.notRaining && !LanternNight.LanternsUp;
-		}
-	}
-	public class JungleUnderground_Remnants : ModSceneEffect
-	{
-		//public override int Music => MusicPathing.GetMusicSlot("JungleUnderground");
-		public override int Music
-		{
-			get
-			{
-				bool otherworldMusicActive = PlayerFlags.SwapMusic();
-				return otherworldMusicActive ? MusicID.OtherworldlyJungle : MusicID.JungleUnderground;
-			}
-		}
-
-		public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
-
-		public override float GetWeight(Player player) => 0.51f;
-
-		public override bool IsSceneEffectActive(Player player)
-		{
-			return PlayerFlags.ZoneHive;
 		}
 	}
 	public class JungleUnderground : ModSceneEffect
@@ -571,27 +516,6 @@ namespace UnCalamityModMusic.Common.Music
 		public override bool IsSceneEffectActive(Player player)
 		{
 			return player.ZoneDesert && !PlayerFlags.ugDesertOriginalHeight;
-		}
-	}
-	public class DesertUnderground_Remnants : ModSceneEffect
-	{
-		//public override int Music => MusicPathing.GetMusicSlot("DesertUnderground");
-		public override int Music
-		{
-			get
-			{
-				bool otherworldMusicActive = PlayerFlags.SwapMusic();
-				return otherworldMusicActive ? MusicID.OtherworldlyDesert : MusicID.UndergroundDesert;
-			}
-		}
-
-		public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
-
-		public override float GetWeight(Player player) => 0.51f;
-
-		public override bool IsSceneEffectActive(Player player)
-		{
-			return PlayerFlags.ZonePyramid;
 		}
 	}
 	public class DesertUnderground : ModSceneEffect

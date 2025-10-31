@@ -98,18 +98,40 @@ namespace UnCalamityModMusic.Common.Music
     }
     public class PumpkinMoon : ModSceneEffect
     {
-        /*public override int Music => MusicPathing.GetMusicSlot("PumpkinMoon");
+        public override int Music => MusicPathing.GetMusicSlot("PumpkinMoon");
 
         public override SceneEffectPriority Priority => SceneEffectPriority.Event;
 
 		public override bool IsSceneEffectActive(Player player)
 		{
 			return Main.pumpkinMoon && (PlayerFlags.onSurface || Main.remixWorld);
+		}
+    }
+    public class OldOnesArmyTier3 : ModSceneEffect
+    {
+        /*public override int Music => MusicPathing.GetMusicSlot("OldOnesArmyTier3");
+
+		public override SceneEffectPriority Priority => SceneEffectPriority.Event;
+
+		public override bool IsSceneEffectActive(Player player)
+		{
+			return NPC.downedGolemBoss && ModContent.GetInstance<OldOnesArmyTier1>().IsSceneEffectActive(player);
 		}*/
     }
-    public class OldOnesArmy : ModSceneEffect
+    public class OldOnesArmyTier2 : ModSceneEffect
     {
-        /*public override int Music => MusicPathing.GetMusicSlot("OldOnesArmy");
+        /*public override int Music => MusicPathing.GetMusicSlot("OldOnesArmyTier2");
+
+		public override SceneEffectPriority Priority => SceneEffectPriority.Event;
+
+		public override bool IsSceneEffectActive(Player player)
+		{
+			return NPC.downedMechBossAny && ModContent.GetInstance<OldOnesArmyTier1>().IsSceneEffectActive(player);
+		}*/
+    }
+    public class OldOnesArmyTier1 : ModSceneEffect
+    {
+        /*public override int Music => MusicPathing.GetMusicSlot("OldOnesArmyTier1");
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.Event;
 
@@ -172,7 +194,7 @@ namespace UnCalamityModMusic.Common.Music
     }
     public class FrostLegion : ModSceneEffect
     {
-        /*public override int Music => MusicPathing.GetMusicSlot("FrostLegion");
+        /*public override int Music => MusicPathing.GetMusicSlot("Blizzard");
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.Event;
 
@@ -317,19 +339,33 @@ namespace UnCalamityModMusic.Common.Music
 
         public override bool IsSceneEffectActive(Player player)
         {
-            return PlayerFlags.inTownWithRain && PlayerFlags.notInExcludedTownBiome && !(/*Main._shouldUseStormMusic || */player.ZoneBeach || player.ZoneSnow || player.ZoneGraveyard || player.ZoneMeteor || PlayerFlags.ZoneSulfurSea);
+            return Main.dayTime && PlayerFlags.inTownWithRain && PlayerFlags.notInExcludedTownBiome && !(/*Main._shouldUseStormMusic || */player.ZoneBeach || player.ZoneSnow || player.ZoneGraveyard || player.ZoneMeteor || PlayerFlags.ZoneSulfurSea);
         }
     }
-    public class Rain : ModSceneEffect
+    public class RainNight : ModSceneEffect
     {
-        public override int Music => MusicPathing.GetMusicSlot("Rain");
+        public override int Music => MusicPathing.GetMusicSlot("RainNight");
 
         public override SceneEffectPriority Priority => SceneEffectPriority.BiomeMedium;
 
         public override bool IsSceneEffectActive(Player player)
         {
-            bool condition1 = !Main.remixWorld && PlayerFlags.isRaining && PlayerFlags.ZoneOverworldHeightExtra && !(/*Main._shouldUseStormMusic || */player.ZoneSnow || player.ZoneGraveyard || player.ZoneMeteor);
-            bool condition2 = Main.remixWorld && PlayerFlags.isRaining && (double)(player.position.Y / 16f) > Main.rockLayer && player.position.Y / 16f < (float)(Main.maxTilesY - 350) && !(/*Main._shouldUseStormMusic || */player.ZoneSnow || player.ZoneGraveyard || player.ZoneMeteor);
+            bool condition1 = !Main.remixWorld && PlayerFlags.isRaining && !Main.dayTime && PlayerFlags.ZoneOverworldHeightExtra && !(/*Main._shouldUseStormMusic || */player.ZoneSnow || player.ZoneGraveyard || player.ZoneMeteor);
+            bool condition2 = Main.remixWorld && PlayerFlags.isRaining && !Main.dayTime && (double)(player.position.Y / 16f) > Main.rockLayer && player.position.Y / 16f < (float)(Main.maxTilesY - 350) && !(/*Main._shouldUseStormMusic || */player.ZoneSnow || player.ZoneGraveyard || player.ZoneMeteor);
+
+            return condition1 || condition2;
+        }
+    }
+    public class RainDay : ModSceneEffect
+    {
+        public override int Music => MusicPathing.GetMusicSlot("RainDay");
+
+        public override SceneEffectPriority Priority => SceneEffectPriority.BiomeMedium;
+
+        public override bool IsSceneEffectActive(Player player)
+        {
+            bool condition1 = !Main.remixWorld && PlayerFlags.isRaining && Main.dayTime && PlayerFlags.ZoneOverworldHeightExtra && !(/*Main._shouldUseStormMusic || */player.ZoneSnow || player.ZoneGraveyard || player.ZoneMeteor);
+            bool condition2 = Main.remixWorld && PlayerFlags.isRaining && Main.dayTime && (double)(player.position.Y / 16f) > Main.rockLayer && player.position.Y / 16f < (float)(Main.maxTilesY - 350) && !(/*Main._shouldUseStormMusic || */player.ZoneSnow || player.ZoneGraveyard || player.ZoneMeteor);
 
             return condition1 || condition2;
         }
@@ -342,10 +378,13 @@ namespace UnCalamityModMusic.Common.Music
 
         public override bool IsSceneEffectActive(Player player)
         {
-            bool condition1 = BirthdayParty.PartyIsUp && PlayerFlags.inTown && PlayerFlags.notInExcludedTownBiome && PlayerFlags.notRaining;
-            bool condition2 = BirthdayParty.PartyIsUp && PlayerFlags.inUgTown && PlayerFlags.notInExcludedTownBiome;
+            bool inTownWithWind = player.townNPCs > 2f && Main._shouldUseWindyDayMusic && player.ZoneOverworldHeight;
 
-            return condition1 || condition2;
+            bool condition1 = BirthdayParty.PartyIsUp && PlayerFlags.inTown && PlayerFlags.notInExcludedTownBiome && PlayerFlags.notRaining;
+            bool condition2 = BirthdayParty.PartyIsUp && inTownWithWind && PlayerFlags.notInExcludedTownBiome && PlayerFlags.notRaining;
+            bool condition3 = BirthdayParty.PartyIsUp && PlayerFlags.inUgTown && PlayerFlags.notInExcludedTownBiome;
+
+            return condition1 || condition2 || condition3;
         }
     }
     public class WindyDay : ModSceneEffect

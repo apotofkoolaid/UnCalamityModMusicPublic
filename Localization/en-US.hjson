@@ -29,11 +29,6 @@ Mods: {
 						'''
 				}
 
-				AbyssLayer3Alt: {
-					Label: "[i:UnCalamityModMusic/AbyssLayer3AltMusicBox] Abyss Layer 3 Alt"
-					Tooltip: Toggles an alternate theme for the 3rd layer of the Abyss.
-				}
-
 				PrioritizeInfernumMusic: {
 					Label: "[i:WallOfFleshGoatMountItem] Prioritize Infernum Music"
 					Tooltip:
@@ -74,11 +69,6 @@ Mods: {
 					Tooltip: Toggles ambience in Spider Caves if ambience is enabled.
 				}
 
-				MusicBoxRecipes: {
-					Label: "[i:HeavyWorkBench] Music Box Recipes"
-					Tooltip: Toggles all music boxes recipes that require a Heavy Work Bench.
-				}
-
 				MusicBoxResprite: {
 					Label: "[i:MusicBox] Empty Music Box Resprite"
 					Tooltip: Toggles a resprite of the empty, unrecorded music box.
@@ -87,9 +77,9 @@ Mods: {
 		}
 
 		Items: {
-			AbyssLayer3AltMusicBox: {
-				DisplayName: Music Box (Abyss - Layer 3 Alt)
-				Tooltip: Plays 'R'lyehian Depths' by Heart Plus Up!
+			AetherMusicBox: {
+				DisplayName: Music Box (Aether)
+				Tooltip: Plays 'Met by the Stars' by TheForge129
 			}
 
 			BloodMoonDeathMusicBox: {
@@ -137,6 +127,11 @@ Mods: {
 				Tooltip: Plays 'Scorched to Dust' by Heart Plus Up!
 			}
 
+			DukeFishronMusicBox: {
+				DisplayName: Music Box (Duke Fishron)
+				Tooltip: Plays 'Apex Outlaw' by TYESKI
+			}
+
 			DungeonMusicBox: {
 				DisplayName: Music Box (Dungeon)
 				Tooltip: Plays 'Chambers of the Tyrant' by Heart Plus Up!
@@ -154,7 +149,7 @@ Mods: {
 
 			FalseEpilogueMusicBox: {
 				DisplayName: Music Box (False Epilogue)
-				Tooltip: Plays 'The Memory of a Cruel World' by Heart Plus Up!
+				Tooltip: Plays 'The Memory of a Cruel World' by TYRANT
 			}
 
 			ForestDayAfternoonMusicBox: {
@@ -241,14 +236,24 @@ Mods: {
 				Tooltip: Plays 'waves' by Heart Plus Up!
 			}
 
+			PumpkinMoonMusicBox: {
+				DisplayName: Music Box (Pumpkin Moon)
+				Tooltip: Plays 'Fresh for the Harvest' by TYRANT
+			}
+
+			RainDayMusicBox: {
+				DisplayName: Music Box (Rain Day)
+				Tooltip: Plays 'downpour' by Heart Plus Up!
+			}
+
 			RainLegacyMusicBox: {
 				DisplayName: Music Box (Rain - Legacy)
 				Tooltip: Plays 'Grey Sky' by Heart Plus Up!
 			}
 
-			RainMusicBox: {
-				DisplayName: Music Box (Rain)
-				Tooltip: Plays 'downpour' by Heart Plus Up!
+			RainNightMusicBox: {
+				DisplayName: Music Box (Rain Night)
+				Tooltip: Plays 'downtime' by Heart Plus Up!
 			}
 
 			SandstormMusicBox: {
@@ -358,14 +363,14 @@ Mods: {
 		}
 
 		Menus: {
-			ResurrectionMenu: Resurrection Style
-			MemoryMenu: Memory Style
+			MemoryMenu: Calamity Style - Memory
+			ResurrectionMenu: Calamity Style - Resurrection
 		}
 
 		ModSupport: {
 			MusicDisplay: {
 				SongNames: {
-					AbyssLayer3Alt: R'lyehian Depths
+					Aether: Met by the Stars
 					BloodMoon: Congealing Shadows
 					BloodMoonDeath: Sanguine Eclipse
 					BrainofCthulhu: Madness Incarnate
@@ -375,6 +380,7 @@ Mods: {
 					CrimsonUnderground: Inside the Beast
 					Caverns: Nearing the Inferno
 					Desert: Scorched to Dust
+					DukeFishron: Apex Outlaw
 					Dungeon: Chambers of the Tyrant
 					EaterofWorlds: Menace of the Chasms
 					EyeofCthulhu: Bloodshot Barrage
@@ -395,7 +401,8 @@ Mods: {
 					OceanDay: shoreline
 					OceanNight: serene tides
 					OceanRain: waves
-					Rain: downpour
+					PumpkinMoon: Fresh for the Harvest
+					RainDay: downpour
 					RainLegacy: Grey Sky
 					RainNight: downtime
 					Sandstorm: terracotta
@@ -433,15 +440,11 @@ Mods: {
 					SkippyZii: by SkippyZii
 					Thriplerex: by Thriplerex
 					TYESKI: by TYESKI
-					Tyrant: by Tyrant
+					TYRANT: by TYRANT
 				}
 			}
 		}
 
-		Recipes: {
-			EvilPowder: Evil Powder
-			SillyTiedBalloon: Silly Tied Balloon
-			NameMismatchError: There is an internal name mismatch between the items in this recipe and the items in another mod. The recipe for this item has been disabled.
-		}
+		Recipes.NameMismatchError: There is an internal name mismatch between the items in this recipe and the items in another mod. The recipe for this item has been disabled.
 	}
 }

@@ -28,11 +28,6 @@ namespace UnCalamityModMusic.Common.Configs
 		[Header("$Mods.UnCalamityModMusic.Configs.OtherConfig.OtherChangesHeader")]
 
         [ReloadRequired]
-        [BackgroundColor(192, 54, 64, 192)]
-        [DefaultValue(true)]
-        public bool MusicBoxRecipes { get; set; }
-
-        [ReloadRequired]
 		[BackgroundColor(192, 54, 64, 192)]
 		[DefaultValue(true)]
 		public bool MusicBoxResprite { get; set; }

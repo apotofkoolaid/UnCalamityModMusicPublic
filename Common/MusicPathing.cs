@@ -12,9 +12,6 @@ namespace UnCalamityModMusic.Common
         {
             musicPaths = new Dictionary<string, int>
             {
-                //Alternates
-                {"AbyssLayer3Alt", MusicLoader.GetMusicSlot(mod, "Assets/Music/Alternates/AbyssLayer3Alt")},
-
                 //Biomes
                 {"Space", MusicLoader.GetMusicSlot(mod, "Assets/Music/Biomes/Space")},
                 {"Underworld", MusicLoader.GetMusicSlot(mod, "Assets/Music/Biomes/Underworld")},
@@ -32,7 +29,6 @@ namespace UnCalamityModMusic.Common
                 {"TownDay", MusicLoader.GetMusicSlot(mod, "Assets/Music/Biomes/TownDay")},
                 {"JungleTemple", MusicLoader.GetMusicSlot(mod, "Assets/Music/Biomes/JungleTemple")},
                 {"Dungeon", MusicLoader.GetMusicSlot(mod, "Assets/Music/Biomes/Dungeon")},
-                {"GlowingMushroomGrove", MusicLoader.GetMusicSlot(mod, "Assets/Music/Biomes/GlowingMushroomGrove")},
                 {"GlowingMushroomFields", MusicLoader.GetMusicSlot(mod, "Assets/Music/Biomes/GlowingMushroomFields")},
                 {"Corruption", MusicLoader.GetMusicSlot(mod, "Assets/Music/Biomes/Corruption")},
                 {"CorruptionUnderground", MusicLoader.GetMusicSlot(mod, "Assets/Music/Biomes/CorruptionUnderground")},
@@ -71,9 +67,10 @@ namespace UnCalamityModMusic.Common
                 {"Twins", MusicLoader.GetMusicSlot(mod, "Assets/Music/Bosses/Twins")},
                 {"Destroyer", MusicLoader.GetMusicSlot(mod, "Assets/Music/Bosses/Destroyer")},
                 {"QueenSlime", MusicLoader.GetMusicSlot(mod, "Assets/Music/Bosses/QueenSlime")},
+                {"Dreadnautilus", MusicLoader.GetMusicSlot(mod, "Assets/Music/Bosses/Dreadnautilus")},
                 {"WallofFlesh", MusicLoader.GetMusicSlot(mod, "Assets/Music/Bosses/WallofFlesh")},
-                {"Deerclops", MusicLoader.GetMusicSlot(mod, "Assets/Music/Bosses/Deerclops")},
                 {"Skeletron", MusicLoader.GetMusicSlot(mod, "Assets/Music/Bosses/Skeletron")},
+                {"Deerclops", MusicLoader.GetMusicSlot(mod, "Assets/Music/Bosses/Deerclops")},
                 {"QueenBee", MusicLoader.GetMusicSlot(mod, "Assets/Music/Bosses/QueenBee")},
                 {"BrainofCthulhu", MusicLoader.GetMusicSlot(mod, "Assets/Music/Bosses/BrainofCthulhu")},
                 {"EaterofWorlds", MusicLoader.GetMusicSlot(mod, "Assets/Music/Bosses/EaterofWorlds")},
@@ -87,12 +84,13 @@ namespace UnCalamityModMusic.Common
                 {"CelestialPillarStardust", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/CelestialPillarStardust")},
                 {"CelestialPillarNebula", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/CelestialPillarNebula")},
                 {"CelestialPillarVortex", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/CelestialPillarVortex")},
-                {"OldOnesArmy", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/OldOnesArmy")},
                 {"MartianMadness", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/MartianMadness")},
                 {"FrostMoon", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/FrostMoon")},
                 {"PumpkinMoon", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/PumpkinMoon")},
+                {"OldOnesArmyTier3", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/OldOnesArmyTier3")},
+                {"OldOnesArmyTier2", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/OldOnesArmyTier2")},
+                {"OldOnesArmyTier1", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/OldOnesArmyTier1")},
                 {"PirateInvasion", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/PirateInvasion")},
-                {"FrostLegion", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/FrostLegion")},
                 {"GoblinArmy", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/GoblinArmy")},
                 {"SolarEclipse", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/SolarEclipse")},
                 {"BloodMoon", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/BloodMoon")},
@@ -103,19 +101,20 @@ namespace UnCalamityModMusic.Common
                 {"OceanRain", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/OceanRain")},
                 {"Thunderstorm", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/Thunderstorm")},
                 {"TownRain", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/TownRain")},
-                {"Rain", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/Rain")},
+                {"RainNight", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/RainNight")},
+                {"RainDay", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/RainDay")},
                 {"TownParty", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/TownParty")},
                 {"WindyDay", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/WindyDay")},
                 {"LanternFestival", MusicLoader.GetMusicSlot(mod, "Assets/Music/Events/LanternFestival")},
 
                 //Misc
-                {"HardmodeInterlude", MusicLoader.GetMusicSlot(mod, "Assets/Music/Misc/HardmodeInterlude")},
-                {"FalseEpilogue", MusicLoader.GetMusicSlot(mod, "Assets/Music/Misc/FalseEpilogue")},
                 {"DragonsLull", MusicLoader.GetMusicSlot(mod, "Assets/Music/Misc/DragonsLull")},
                 {"RainLegacy", MusicLoader.GetMusicSlot(mod, "Assets/Music/Misc/RainLegacy")},
+                {"FalseEpilogue", MusicLoader.GetMusicSlot(mod, "Assets/Music/Misc/FalseEpilogue")},
                 {"ImpendingDoom", MusicLoader.GetMusicSlot(mod, "Assets/Music/Misc/ImpendingDoom")},
                 {"CultistRitual", MusicLoader.GetMusicSlot(mod, "Assets/Music/Misc/CultistRitual")},
-                {"MechEngaging", MusicLoader.GetMusicSlot(mod, "Assets/Music/Misc/MechEngaging")}
+                {"MechEngaging", MusicLoader.GetMusicSlot(mod, "Assets/Music/Misc/MechEngaging")},
+                {"HardmodeInterlude", MusicLoader.GetMusicSlot(mod, "Assets/Music/Misc/HardmodeInterlude")},
             };
 
             ambiencePaths = new Dictionary<string, int>

@@ -147,11 +147,8 @@ namespace UnCalamityModMusic.Common.ModCompatibility
         }
     }
     //Makes the VCMM Desert theme play in the Lost Colosseum after Argus is defeated, instead of vanilla music
-    [JITWhenModsEnabled("InfernumMode")]
     public class LostColosseum_Aftermath : ModSceneEffect
     {
-        public static bool downedArgus => InfernumMode.Content.Subworlds.LostColosseum.HasBereftVassalBeenDefeated;
-
         public override int Music => MusicPathing.GetMusicSlot("Desert");
 
         public override SceneEffectPriority Priority => SceneEffectPriority.BossMedium;
@@ -164,7 +161,11 @@ namespace UnCalamityModMusic.Common.ModCompatibility
 
             if (infernumMod)
             {
-                if (downedArgus)
+                NPC fakeNPC = new();
+                int npcType = infernum.Find<ModNPC>("BereftVassal").Type;
+                fakeNPC.SetDefaults(npcType);
+
+                if (!NPC.AnyNPCs(npcType) && Main.BestiaryTracker.Kills.GetKillCount(fakeNPC) > 0)
                 {
                     return PlayerFlags.ZoneLostColosseum;
                 }

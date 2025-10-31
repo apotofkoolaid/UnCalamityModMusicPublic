@@ -3,7 +3,7 @@
 - [Official site](https://calamitymod.com/)
 - [Steam Workshop](https://calamitymod.com/downloadvanillamusic/)
 - [Discord](https://discord.gg/2jaEwNJm9e)
-- [Official Wiki](https://terrariamods.wiki.gg/wiki/Vanilla_Calamity_Mod_Music)
+- [Official Wiki](https://calamitymod.wiki.gg/)
 - [Patreon](https://www.patreon.com/HeartPlusUp)
 
 The Vanilla Calamity Music Mod (aka VCMM) is a small Terraria mod which replaces a large swath of the vanilla Terraria soundtrack with original Calamity music, along with music boxes for each song on the soundtrack. It is intended to be used alongside the Calamity Mod, but can be used alone. The mod must be installed using [tModLoader](https://github.com/tModLoader/tModLoader).

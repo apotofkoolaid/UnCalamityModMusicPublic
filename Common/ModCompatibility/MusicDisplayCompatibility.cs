@@ -25,10 +25,9 @@ namespace UnCalamityModMusic.Common.ModCompatibility
                 display.Call("AddMusic", slot, Language.GetTextValue("Mods.UnCalamityModMusic.ModSupport.MusicDisplay.SongNames." + songKey), Language.GetTextValue("Mods.UnCalamityModMusic.ModSupport.MusicDisplay.Authors." + authorKey), Mod.DisplayName);
             }
 
-            AddMusic("AbyssLayer3Alt", "HeartPlusUp", "Alternates");
             AddMusic("Space", "HeartPlusUp", "Biomes");
             AddMusic("Underworld", "HeartPlusUp", "Biomes");
-            //AddMusic("Aether", "", "Biomes");
+            AddMusic("Aether", "Forge", "Biomes");
             //AddMusic("Graveyard", "", "Biomes");
             AddMusic("Meteorite", "HeartPlusUp", "Biomes");
             AddMusic("WorkshopTier6", "HeartPlusUp", "Biomes");
@@ -70,7 +69,7 @@ namespace UnCalamityModMusic.Common.ModCompatibility
             AddMusic("MoonLord", "psykomatic", "Bosses");
             //AddMusic("LunaticCultist", "", "Bosses");
             //AddMusic("EmpressofLight", "", "Bosses");
-            //AddMusic("DukeFishron", "", "Bosses");
+            AddMusic("DukeFishron", "TYESKI", "Bosses");
             //AddMusic("Golem", "", "Bosses");
             //AddMusic("Plantera", "", "Bosses");
             //AddMusic("Mechs", "", "Bosses");
@@ -78,8 +77,10 @@ namespace UnCalamityModMusic.Common.ModCompatibility
             //AddMusic("Twins", "", "Bosses");
             //AddMusic("Destroyer", "", "Bosses");
             //AddMusic("QueenSlime", "", "Bosses");
+            //AddMusic("Dreadnautilus", "", "Bosses");
             AddMusic("WallofFlesh", "HeartPlusUp", "Bosses");
             AddMusic("Skeletron", "HeartPlusUp", "Bosses");
+            //AddMusic("Deerclops", "", "Bosses");
             //AddMusic("QueenBee", "", "Bosses");
             AddMusic("BrainofCthulhu", "HeartPlusUpFeature2", "Bosses");
             AddMusic("EaterofWorlds", "HeartPlusUp", "Bosses");
@@ -93,9 +94,11 @@ namespace UnCalamityModMusic.Common.ModCompatibility
             //AddMusic("CelestialPillarVortex", "", "Events");
             //AddMusic("MartianMadness", "", "Events");
             //AddMusic("FrostMoon", "", "Events");
-            //AddMusic("PumpkinMoon", "", "Events");
+            AddMusic("PumpkinMoon", "TYRANT", "Events");
+            //AddMusic("OldOnesArmyTier3", "", "Events");
+            //AddMusic("OldOnesArmyTier2", "", "Events");
+            //AddMusic("OldOnesArmyTier1", "", "Events");
             //AddMusic("PirateInvasion", "", "Events");
-            //AddMusic("FrostLegion", "", "Events");
             //AddMusic("GoblinArmy", "", "Events");
             //AddMusic("SolarEclipse", "", "Events");
             AddMusic("BloodMoon", "Thriplerex", "Events");
@@ -106,17 +109,18 @@ namespace UnCalamityModMusic.Common.ModCompatibility
             AddMusic("OceanRain", "HeartPlusUp", "Events");
             //AddMusic("Thunderstorm", "", "Events");
             AddMusic("TownRain", "HeartPlusUp", "Events");
-            AddMusic("Rain", "HeartPlusUp", "Events");
+            AddMusic("RainNight", "HeartPlusUp", "Events");
+            AddMusic("RainDay", "HeartPlusUp", "Events");
             AddMusic("TownParty", "HeartPlusUp", "Events");
             //AddMusic("WindyDay", "", "Events");
             AddMusic("LanternFestival", "HeartPlusUp", "Events");
-            AddMusic("HardmodeInterlude", "Salvati", "Misc");
-            AddMusic("FalseEpilogue", "HeartPlusUp", "Misc");
             //AddMusic("DragonsLull", "", "Misc");
             AddMusic("RainLegacy", "HeartPlusUp", "Misc");
+            AddMusic("FalseEpilogue", "TYRANT", "Misc");
             //AddMusic("ImpendingDoom", "", "Misc");
             //AddMusic("CultistRitual", "", "Misc");
             //AddMusic("MechEngaging", "", "Misc");
+            AddMusic("HardmodeInterlude", "Salvati", "Misc");
         }
     }
 }

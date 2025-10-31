@@ -30,12 +30,7 @@ namespace UnCalamityModMusic.Common
                     tileCenters[type] = centers;
                 }
 
-                bool found = false;
-                for (int index = 0; index < centers.Count; index++)
-                {
-                    found = true;
-                    break;
-                }
+                bool found = centers.Count > 0;
 
                 if (!found)
                 {

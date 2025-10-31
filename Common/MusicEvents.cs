@@ -10,8 +10,8 @@ using UnCalamityModMusic.Common.Configs;
 
 namespace UnCalamityModMusic.Common
 {
-    //This system was created by Nycro for the main Calamity Mod
-    //An altered form of it is here so VCMM doesn't have to rely on external code
+    // This system was created by Nycro for the main Calamity Mod
+    // An altered form of it is here so VCMM doesn't have to rely on external code
     public record class MusicEventEntry(string Id, int Song, TimeSpan Length, TimeSpan IntroSilence, TimeSpan OutroSilence, Func<bool> ShouldPlay, Func<bool> Enabled);
     
     public class MusicEvents : ModSystem
@@ -59,9 +59,14 @@ namespace UnCalamityModMusic.Common
         #endregion
 
         #region Event Handling
-
         public override void PostUpdateTime()
         {
+            // If the player is in Infernum's Lost Colosseum, do nothing (would prefer if this happened for all subworlds)
+            if (PlayerFlags.ZoneLostColosseum)
+            {
+                return;
+            }
+
             // If the Boss Rush is active, any would-be music events should be cancelled out and marked as played
             if (PlayerFlags.bossRushActive)
             {

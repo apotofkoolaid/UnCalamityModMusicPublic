@@ -1,7 +1,6 @@
 using System;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using UnCalamityModMusic.Common;
 
@@ -16,10 +15,16 @@ namespace UnCalamityModMusic.Content.Items
 
         public override void AddRecipes()
 		{
+            // Does not play in-game
             Recipe.Create(Type, 1)
-                .AddIngredient(ModContent.ItemType<RainMusicBox>(), 1)
-                .AddIngredient(ModContent.ItemType<MoonLordMusicBox>(), 1)
-                .AddTile(Recipes.musicBoxCraftingStationVanilla)
+                .AddIngredient(ModContent.ItemType<RainDayMusicBox>())
+                .AddIngredient(ModContent.ItemType<MoonLordMusicBox>())
+                .AddTile(TileID.TinkerersWorkbench)
+                .Register();
+            Recipe.Create(Type, 1)
+                .AddIngredient(ModContent.ItemType<RainNightMusicBox>())
+                .AddIngredient(ModContent.ItemType<MoonLordMusicBox>())
+                .AddTile(TileID.TinkerersWorkbench)
                 .Register();
         }
     }

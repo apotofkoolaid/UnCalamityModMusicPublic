@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using Terraria;
 using Terraria.GameContent.Events;
 using Terraria.ID;
@@ -43,7 +42,7 @@ namespace UnCalamityModMusic.Common.Music
 	{
         /*public override int Music => MusicPathing.GetMusicSlot("ImpendingDoom");
 
-		public override SceneEffectPriority Priority => SceneEffectPriority.BossLow;
+		public override SceneEffectPriority Priority => SceneEffectPriority.Event + 1;
 
 		public override bool IsSceneEffectActive(Player player)
 		{
@@ -71,15 +70,35 @@ namespace UnCalamityModMusic.Common.Music
 	}
 	public class CultistRitual : ModSceneEffect
 	{
-		/*public override int Music => MusicPathing.GetMusicSlot("CultistRitual");
+		/*public bool AreTheyMad
+		{
+			get
+			{
+                foreach (NPC npc in Main.npc)
+                {
+                    if (npc.active && npc.type == NPCID.CultistTablet && npc.localAI[0] == 2)
+                    {
+                        return true;
+                    }
+                }
+				return false;
+            }
+		}
 
-		public override SceneEffectPriority Priority => SceneEffectPriority.BossLow;
+        public override int Music => MusicPathing.GetMusicSlot("CultistRitual");
+
+		public override SceneEffectPriority Priority => AreTheyMad ? SceneEffectPriority.BossLow : SceneEffectPriority.Environment + 1;
 
 		public override bool IsSceneEffectActive(Player player)
 		{
-			return tablet.localAI[3] == 0f && NPC.AnyNPCs(NPCID.CultistTablet) && Main.npc[NPC.FindFirstNPC(NPCID.CultistTablet)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-			return Main.npc[NPC.FindFirstNPC(NPCID.CultistTablet)].localAI[3] != 0f && NPC.AnyNPCs(NPCID.CultistTablet) && Main.npc[NPC.FindFirstNPC(NPCID.CultistTablet)].Distance(player.Center) <= 1450f;
-		}*/
+			double angerFactor = AreTheyMad ? 2.5 : 5;
+
+            bool condition1 = NPC.AnyNPCs(NPCID.CultistTablet) && Main.npc[NPC.FindFirstNPC(NPCID.CultistTablet)].Distance(player.Center) <= PlayerFlags.MusicTileRange / angerFactor;
+            bool condition2 = NPC.AnyNPCs(NPCID.CultistDevote) && Main.npc[NPC.FindFirstNPC(NPCID.CultistDevote)].Distance(player.Center) <= PlayerFlags.MusicTileRange / angerFactor;
+            bool condition3 = NPC.AnyNPCs(NPCID.CultistArcherBlue) && Main.npc[NPC.FindFirstNPC(NPCID.CultistArcherBlue)].Distance(player.Center) <= PlayerFlags.MusicTileRange / angerFactor;
+
+            return (condition1 || condition2 || condition3) && !BossDetection.AreThereAnyBosses;
+        }*/
 	}
 	public class EmpressofLight : ModSceneEffect
 	{
@@ -139,15 +158,12 @@ namespace UnCalamityModMusic.Common.Music
 
 			bool spazmatismActive = NPC.AnyNPCs(NPCID.Spazmatism) && Main.npc[NPC.FindFirstNPC(NPCID.Spazmatism)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
 			bool retinazerActive = NPC.AnyNPCs(NPCID.Retinazer) && Main.npc[NPC.FindFirstNPC(NPCID.Retinazer)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-            bool foveanatorActive = PlayerFlags.FoveanatorActive;
             bool destroyerHeadActive = NPC.AnyNPCs(NPCID.TheDestroyer) && Main.npc[NPC.FindFirstNPC(NPCID.TheDestroyer)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
 			bool destroyerBodyActive = NPC.AnyNPCs(NPCID.TheDestroyerBody) && Main.npc[NPC.FindFirstNPC(NPCID.TheDestroyerBody)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
 			bool destroyerTailActive = NPC.AnyNPCs(NPCID.TheDestroyerTail) && Main.npc[NPC.FindFirstNPC(NPCID.TheDestroyerTail)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-			bool skeletronPrime1Active = NPC.AnyNPCs(NPCID.SkeletronPrime) && Main.npc[NPC.FindFirstNPC(NPCID.SkeletronPrime)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-			bool skeletronPrime2Active = PlayerFlags.SkeletronPrime2Active;
+			bool skeletronPrimeActive = NPC.AnyNPCs(NPCID.SkeletronPrime) && Main.npc[NPC.FindFirstNPC(NPCID.SkeletronPrime)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
 
-			bool skeletronPrimeActive = skeletronPrime1Active || skeletronPrime2Active;
-			bool twinsActive = spazmatismActive || retinazerActive || foveanatorActive;
+			bool twinsActive = spazmatismActive || retinazerActive;
 			bool destroyerActive = destroyerHeadActive || destroyerBodyActive || destroyerTailActive;
 
 			if (destroyerActive && twinsActive && skeletronPrimeActive)
@@ -170,31 +186,25 @@ namespace UnCalamityModMusic.Common.Music
 	{
 		public override int Music => InfernumCompatibility.DecideOnMusicPath("SkeletronPrime", "MechBosses");
 
-		public override SceneEffectPriority Priority => PlayerFlags.SkeletronPrime2Active ? InfernumCompatibility.DecideOnScenePriority(SceneEffectPriority.BossMedium) : InfernumCompatibility.DecideOnScenePriority(SceneEffectPriority.BossLow);
+		public override SceneEffectPriority Priority => InfernumCompatibility.DecideOnScenePriority(SceneEffectPriority.BossLow);
 
 		public override bool IsSceneEffectActive(Player player)
 		{
-			var calamityMod = ModLoader.TryGetMod("CalamityMod", out Mod calamity);
-
-			bool condition1 = NPC.AnyNPCs(NPCID.SkeletronPrime) && Main.npc[NPC.FindFirstNPC(NPCID.SkeletronPrime)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-			bool condition2 = PlayerFlags.SkeletronPrime2Active;
-
-            return condition1 || condition2;
+			return NPC.AnyNPCs(NPCID.SkeletronPrime) && Main.npc[NPC.FindFirstNPC(NPCID.SkeletronPrime)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
 		}
 	}
 	public class Twins : ModSceneEffect
 	{
 		public override int Music => InfernumCompatibility.DecideOnMusicPath("Twins", "MechBosses");
 
-        public override SceneEffectPriority Priority => PlayerFlags.FoveanatorActive ? InfernumCompatibility.DecideOnScenePriority(SceneEffectPriority.BossMedium) : InfernumCompatibility.DecideOnScenePriority(SceneEffectPriority.BossLow);
+        public override SceneEffectPriority Priority => InfernumCompatibility.DecideOnScenePriority(SceneEffectPriority.BossLow);
 
         public override bool IsSceneEffectActive(Player player)
 		{
 			bool condition1 = NPC.AnyNPCs(NPCID.Spazmatism) && Main.npc[NPC.FindFirstNPC(NPCID.Spazmatism)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
 			bool condition2 = NPC.AnyNPCs(NPCID.Retinazer) && Main.npc[NPC.FindFirstNPC(NPCID.Retinazer)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-			bool condition3 = PlayerFlags.FoveanatorActive;
 
-            return condition1 || condition2 || condition3;
+            return condition1 || condition2;
 		}
 	}
 	public class Destroyer : ModSceneEffect
@@ -216,7 +226,7 @@ namespace UnCalamityModMusic.Common.Music
 	{
         /*public override int Music => MusicPathing.GetMusicSlot("MechEngaging");
 
-		public override SceneEffectPriority Priority => SceneEffectPriority.BossLow;
+		public override SceneEffectPriority Priority => SceneEffectPriority.Event + 1;
 
 		public override bool IsSceneEffectActive(Player player)
 		{
@@ -259,17 +269,6 @@ namespace UnCalamityModMusic.Common.Music
 			return condition1 || condition2;
 		}
 	}
-	public class Deerclops : ModSceneEffect
-	{
-		/*public override int Music => MusicPathing.GetMusicSlot("Deerclops");
-
-		public override SceneEffectPriority Priority => SceneEffectPriority.BossLow;
-
-		public override bool IsSceneEffectActive(Player player)
-		{
-			return NPC.AnyNPCs(NPCID.Deerclops) && Main.npc[NPC.FindFirstNPC(NPCID.Deerclops)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
-		}*/
-	}
 	public class Skeletron : ModSceneEffect
 	{
 		public override int Music => InfernumCompatibility.DecideOnMusicPath("Skeletron", "Skeletron");
@@ -281,7 +280,18 @@ namespace UnCalamityModMusic.Common.Music
 			return NPC.AnyNPCs(NPCID.SkeletronHead) && Main.npc[NPC.FindFirstNPC(NPCID.SkeletronHead)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
 		}
 	}
-	public class QueenBee : ModSceneEffect
+    public class Deerclops : ModSceneEffect
+    {
+        /*public override int Music => MusicPathing.GetMusicSlot("Deerclops");
+
+		public override SceneEffectPriority Priority => SceneEffectPriority.BossLow;
+
+		public override bool IsSceneEffectActive(Player player)
+		{
+			return NPC.AnyNPCs(NPCID.Deerclops) && Main.npc[NPC.FindFirstNPC(NPCID.Deerclops)].Distance(player.Center) <= PlayerFlags.MusicTileRange;
+		}*/
+    }
+    public class QueenBee : ModSceneEffect
 	{
 		public override int Music => InfernumCompatibility.DecideOnMusicPath("QueenBee", "QueenBee");
 

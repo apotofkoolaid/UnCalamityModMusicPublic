@@ -13,14 +13,13 @@ namespace UnCalamityModMusic.Content.Items
         public override string MusicFilePath => "Caverns";
 
         public override void MusicBoxRecipe()
-		{
-			Recipe.Create(Type, 1)
-				.AddIngredient(ItemID.StoneBlock, 10)
-				.AddIngredient(ItemID.SiltBlock, 10)
-				.AddRecipeGroup("VCMM:GoldOreGroup", 10)
-				.AddIngredient(ItemID.MusicBox, 1)
-				.AddTile(Recipes.musicBoxCraftingStation)
-				.Register();
-		}
-	}
+        {
+            // Contingent recipe for when in Hardmode
+            /*Recipe.Create(Type, 1)
+                .AddIngredient(ModContent.ItemType<UndergroundHardmodeMusicBox>())
+                .AddIngredient(ModContent.ItemType<WallofFleshMusicBox>())
+                .AddTile(TileID.TinkerersWorkbench)
+                .Register();*/
+        }
+    }
 }

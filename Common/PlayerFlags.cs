@@ -40,9 +40,6 @@ namespace UnCalamityModMusic.Common
 		public static bool revengeanceMode;
 		public static bool bossRushActive;
 
-        public static bool FoveanatorActive;
-        public static bool SkeletronPrime2Active;
-
         public static bool ZoneBrimstoneCrags;
 		public static bool ZoneProfanedTemple;
 		public static bool ZoneAstralInfection;
@@ -236,10 +233,7 @@ namespace UnCalamityModMusic.Common
                 revengeanceMode = (bool)calamity.Call("DifficultyActive", "revengeance");
                 bossRushActive = (bool)calamity.Call("DifficultyActive", "bossrush");
 
-                FoveanatorActive = calamity.Version >= new Version(2, 1, 0, 1) && NPC.AnyNPCs(calamity.Find<ModNPC>("Foveanator").Type) && Main.npc[NPC.FindFirstNPC(calamity.Find<ModNPC>("Foveanator").Type)].Distance(player.Center) <= MusicTileRange;
-                SkeletronPrime2Active = NPC.AnyNPCs(calamity.Find<ModNPC>("SkeletronPrime2").Type) && Main.npc[NPC.FindFirstNPC(calamity.Find<ModNPC>("SkeletronPrime2").Type)].Distance(player.Center) <= MusicTileRange;
-                
-				ZoneBrimstoneCrags = (bool)calamity.Call("GetInZone", player, "crags");
+                ZoneBrimstoneCrags = (bool)calamity.Call("GetInZone", player, "crags");
 				ZoneAstralInfection = (bool)calamity.Call("GetInZone", player, "astral");
 				ZoneSulfurSea = 
 					(bool)calamity.Call("GetInZone", player, "sulfur") && 
@@ -292,7 +286,7 @@ namespace UnCalamityModMusic.Common
 				ZonePyramid = player.InModBiome(remnants.Find<ModBiome>("Pyramid"));
 				ZoneGraniteCave = player.InModBiome(remnants.Find<ModBiome>("GraniteCave"));
 				ZoneMarbleCave = player.InModBiome(remnants.Find<ModBiome>("MarbleCave"));
-				ZoneHive = player.InModBiome(remnants.Find<ModBiome>("Hive"));
+				ZoneHive = player.InModBiome(remnants.Find<ModBiome>("Beehive"));
 			}
 		}
 

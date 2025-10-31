@@ -13,13 +13,14 @@ namespace UnCalamityModMusic.Content.Items
         public override string MusicFilePath => "WorkshopTier3";
 
         public override void MusicBoxRecipe()
-		{
-			Recipe.Create(Type, 1)
-				.AddRecipeGroup("VCMM:MythrilBarGroup", 3)
-				.AddRecipeGroup("VCMM:AdamantiteBarGroup", 3)
-				.AddIngredient(ItemID.MusicBox, 1)
-				.AddTile(Recipes.musicBoxCraftingStation)
-				.Register();
-		}
-	}
+        {
+            // Contingent recipe for when Plantera is down
+            Recipe.Create(Type, 1)
+                .AddIngredient(ModContent.ItemType<WorkshopTier4MusicBox>())
+                .AddIngredient(ItemID.MusicBoxPlantera)
+                //.AddIngredient(ModContent.ItemType<PlanteraMusicBox>())
+                .AddTile(TileID.TinkerersWorkbench)
+                .Register();
+        }
+    }
 }

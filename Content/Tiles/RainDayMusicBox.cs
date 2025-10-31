@@ -3,8 +3,8 @@ using UnCalamityModMusic.Common;
 
 namespace UnCalamityModMusic.Content.Tiles
 {
-	[LegacyName("AbyssLowAltMusicBox")]
-	public class AbyssLayer3AltMusicBox : MusicBoxTile
+    [LegacyName("RainMusicBox")]
+    public class RainDayMusicBox : MusicBoxTile
 	{
 	}
 }

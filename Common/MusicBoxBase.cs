@@ -10,7 +10,6 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Terraria.Utilities;
-using UnCalamityModMusic.Common.Configs;
 
 namespace UnCalamityModMusic.Common
 {
@@ -49,10 +48,7 @@ namespace UnCalamityModMusic.Common
 
         public override void AddRecipes()
         {
-            if (ModContent.GetInstance<OtherConfig>().MusicBoxRecipes)
-            {
-                MusicBoxRecipe();
-            }
+            MusicBoxRecipe();
         }
     }
 

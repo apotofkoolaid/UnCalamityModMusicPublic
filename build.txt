@@ -1,7 +1,7 @@
 author = apotofkoolaid and Heart Plus Up!
-version = 2.0.1
+version = 2.1
 displayName = Vanilla Calamity Mod Music
-weakReferences = CalamityMod, InfernumMode
+weakReferences = CalamityMod
 homepage = https://discord.gg/2jaEwNJm9e
 buildIgnore = .vs\*, Properties\*, *.csproj, *.user, obj\*, bin\*, *.config, .git\*, .github\*, LICENSE, README.md, .editorconfig, .gitignore, .gitattributes, Effects\Compiler\*
 hideCode = false

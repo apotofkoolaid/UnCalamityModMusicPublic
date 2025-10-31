@@ -14,13 +14,12 @@ namespace UnCalamityModMusic.Content.Items
 
         public override void MusicBoxRecipe()
 		{
-			Recipe.Create(Type, 1)
-				.AddIngredient(ItemID.StoneBlock, 10)
-				.AddIngredient(ItemID.DirtBlock, 10)
-				.AddRecipeGroup("VCMM:CopperOreGroup", 10)
-				.AddIngredient(ItemID.MusicBox, 1)
-				.AddTile(Recipes.musicBoxCraftingStation)
-				.Register();
+			// Contingent recipe for when in Hardmode
+            /*Recipe.Create(Type, 1)
+                .AddIngredient(ModContent.ItemType<UndergroundHardmodeMusicBox>())
+                .AddIngredient(ModContent.ItemType<WallofFleshMusicBox>())
+                .AddTile(TileID.TinkerersWorkbench)
+                .Register();*/
 		}
 	}
 }

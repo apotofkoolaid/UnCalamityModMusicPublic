@@ -25,10 +25,6 @@ namespace UnCalamityModMusic.Common.Configs
         [DefaultValue(true)]
         public bool HardmodeInterlude { get; set; }
 
-        [BackgroundColor(192, 54, 64, 192)]
-		[DefaultValue(false)]
-		public bool AbyssLayer3Alt { get; set; }
-
 		[Header("$Mods.UnCalamityModMusic.Configs.MusicConfig.ConditionChangesHeader")]
 
 		[BackgroundColor(192, 54, 64, 192)]
