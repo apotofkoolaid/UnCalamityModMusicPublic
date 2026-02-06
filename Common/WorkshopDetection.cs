@@ -2,21 +2,12 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
-using UnCalamityModMusic.Common.Configs;
 
 namespace UnCalamityModMusic.Common
 {
     public class WorkshopDetection : GlobalTile
     {
-        public static Dictionary<int, List<Vector2>> tileCenters = new Dictionary<int, List<Vector2>>();
-
-        public static float detectionRadius;
-
-        public static void InitializeDetectionRadius()
-        {
-            float workshopRange = ModContent.GetInstance<MusicConfig>().WorkshopRange;
-            detectionRadius = (workshopRange * 16f) * (workshopRange * 16f);
-        }
+        internal static Dictionary<int, List<Vector2>> tileCenters = new Dictionary<int, List<Vector2>>();
 
         public override void NearbyEffects(int i, int j, int type, bool closer)
         {
@@ -49,20 +40,22 @@ namespace UnCalamityModMusic.Common
             }
         }
 
-        public static float TileDistance(int type)
+        public static float TileDistance(params int[] tileTypes)
         {
             Player player = Main.player[Main.myPlayer];
-
             float minDistanceSquared = float.MaxValue;
 
-            if (tileCenters.TryGetValue(type, out List<Vector2> centers))
+            foreach (int type in tileTypes)
             {
-                for (int index = 0; index < centers.Count; index++)
+                if (tileCenters.TryGetValue(type, out List<Vector2> centers))
                 {
-                    float distanceSquared = Vector2.DistanceSquared(centers[index], player.Center);
-                    if (distanceSquared < minDistanceSquared)
+                    for (int index = 0; index < centers.Count; index++)
                     {
-                        minDistanceSquared = distanceSquared;
+                        float distanceSquared = Vector2.DistanceSquared(centers[index], player.Center);
+                        if (distanceSquared < minDistanceSquared)
+                        {
+                            minDistanceSquared = distanceSquared;
+                        }
                     }
                 }
             }

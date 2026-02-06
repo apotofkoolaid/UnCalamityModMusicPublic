@@ -8,7 +8,7 @@ namespace UnCalamityModMusic.Common.Configs
 	{
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 
-		[Header("$Mods.UnCalamityModMusic.Configs.OtherConfig.AmbienceTogglesHeader")]
+		[Header("$Mods.UnCalamityModMusic.Configs.OtherConfig.AmbienceModeHeader")]
 
 		[Range(0f, 100f)]
 		[Increment(1f)]
@@ -29,7 +29,7 @@ namespace UnCalamityModMusic.Common.Configs
 
         [ReloadRequired]
 		[BackgroundColor(192, 54, 64, 192)]
-		[DefaultValue(true)]
+		[DefaultValue(false)]
 		public bool MusicBoxResprite { get; set; }
     }
 }

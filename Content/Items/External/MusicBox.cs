@@ -1,8 +1,12 @@
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using UnCalamityModMusic.Common;
 using UnCalamityModMusic.Common.Configs;
 
 namespace UnCalamityModMusic.Content.Items.External
@@ -11,7 +15,7 @@ namespace UnCalamityModMusic.Content.Items.External
     {
         public override void SetDefaults(Item item)
         {
-            // Make the empty music box placeable when its resprite is enabled
+            // Make the empty music box placeable when its resprite is enabled.
             if (item.type == ItemID.MusicBox)
             {
                 if (ModContent.GetInstance<OtherConfig>().MusicBoxResprite)
@@ -50,7 +54,7 @@ namespace UnCalamityModMusic.Content.Items.External
         {
             var calamityMod = ModLoader.TryGetMod("CalamityMod", out Mod calamity);
 
-            // When Calamity 2.1+ is not enabled (this recipe gets deprecated)
+            // When Calamity 2.1+ is not enabled; this recipe gets deprecated by the Merchant now selling music boxes.
             if (calamityMod && calamity.Version < new Version(2, 1))
             {
                 Recipe.Create(ItemID.MusicBox, 1)
@@ -61,6 +65,21 @@ namespace UnCalamityModMusic.Content.Items.External
                     .AddTile(TileID.Anvils)
                     .Register();
             }
+        }
+    }
+    public class MusicBoxResprite : ModSystem
+    {
+        public override void Load()
+        {
+            if (ModContent.GetInstance<OtherConfig>().MusicBoxResprite)
+            {
+                TextureAssets.Item[ItemID.MusicBox] = ModContent.Request<Texture2D>("UnCalamityModMusic/Content/Items/External/MusicBox", AssetRequestMode.AsyncLoad);
+            }
+        }
+
+        public override void Unload()
+        {
+            TextureAssets.Item[ItemID.MusicBox] = ModContent.Request<Texture2D>("Terraria/Images/Item_" + ItemID.MusicBox, AssetRequestMode.AsyncLoad);
         }
     }
 }

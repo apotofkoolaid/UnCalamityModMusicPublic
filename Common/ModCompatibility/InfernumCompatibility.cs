@@ -6,35 +6,42 @@ namespace UnCalamityModMusic.Common.ModCompatibility
 {
 	public class InfernumCompatibility
     {
-        //Infernum has picky code when deciding its music, being altered for if the mode is on for example
+        // Infernum music uses music priority higher than what vanilla defines. VCMM needs to account for this to achieve expected behavior between both mods.
         public static int DecideOnMusicPath(string normalPath, string infernumPath)
         {
-            var infernumMod = ModLoader.TryGetMod("InfernumMode", out Mod infernum);
-            var infernumModMusic = ModLoader.TryGetMod("InfernumModeMusic", out Mod imusic);
+            var infernumMod = ModLoader.TryGetMod("InfernumMode", out Mod infernummod);
+            var infernumModMusic = ModLoader.TryGetMod("InfernumModeMusic", out Mod infernummusic);
 
             bool normalPathExists = MusicLoader.MusicExists(UnCalamityModMusic.Instance, "Assets/Music/Bosses/" + normalPath) || MusicLoader.MusicExists(UnCalamityModMusic.Instance, "Assets/Music/Events/" + normalPath);
             bool infernumPathExists;
+            bool infernumMusicConfigActive;
+
+            string infernumMusicConfigPath;
 
             if (infernumModMusic)
             {
-                infernumPathExists = MusicLoader.MusicExists(imusic, "Sounds/Music/" + infernumPath);
+                infernumPathExists = MusicLoader.MusicExists(infernummusic, "Sounds/Music/" + infernumPath);
+                infernumMusicConfigPath = infernumPath.Contains("MechBosses") ? normalPath : infernumPath;
+                infernumMusicConfigActive = infernumPathExists && (bool)infernummusic.Call("Override" + infernumMusicConfigPath + "Theme");
             }
             else
             {
                 infernumPathExists = false;
+                infernumMusicConfigPath = string.Empty;
+                infernumMusicConfigActive = false;
             }
 
             if (infernumMod)
             {
-                if (infernumModMusic && ModContent.GetInstance<MusicConfig>().PrioritizeInfernumMusic && infernumPathExists)
+                if (infernumModMusic && ModContent.GetInstance<MusicConfig>().PrioritizeMusicFromOtherMods && infernumPathExists && infernumMusicConfigActive)
                 {
-                    if (PlayerFlags.infernumMode && infernumPath.Contains("MoonLord"))
+                    if (MusicFlags.InfernumMode)
                     {
                         return -1;
                     }
                     else
                     {
-                        return MusicLoader.GetMusicSlot(imusic, "Sounds/Music/" + infernumPath);
+                        return MusicLoader.GetMusicSlot(infernummusic, "Sounds/Music/" + infernumPath);
                     }
                 }
                 else
@@ -51,9 +58,9 @@ namespace UnCalamityModMusic.Common.ModCompatibility
             }
             else
             {
-                if (infernumModMusic && ModContent.GetInstance<MusicConfig>().PrioritizeInfernumMusic && infernumPathExists)
+                if (infernumModMusic && ModContent.GetInstance<MusicConfig>().PrioritizeMusicFromOtherMods && infernumPathExists && infernumMusicConfigActive)
                 {
-                    return MusicLoader.GetMusicSlot(imusic, "Sounds/Music/" + infernumPath);
+                    return MusicLoader.GetMusicSlot(infernummusic, "Sounds/Music/" + infernumPath);
                 }
                 else
                 {
@@ -71,11 +78,11 @@ namespace UnCalamityModMusic.Common.ModCompatibility
 
         public static SceneEffectPriority DecideOnScenePriority(SceneEffectPriority normalPriority)
         {
-            var infernumModMusic = ModLoader.TryGetMod("InfernumModeMusic", out Mod imusic);
+            var infernumModMusic = ModLoader.TryGetMod("InfernumModeMusic", out Mod infernummusic);
 
-            if (infernumModMusic && !PlayerFlags.bossRushActive)
+            if (infernumModMusic && !MusicFlags.BossRush)
             {
-                return (SceneEffectPriority)12;
+                return (SceneEffectPriority)13;
             }
             else
             {
@@ -83,7 +90,8 @@ namespace UnCalamityModMusic.Common.ModCompatibility
             }
         }
     }
-    //Fixes a problem where Infernum forces vanilla Dungeon music to play when Ceaseless Void is passive in the Archives
+
+    // Fixes a problem where Infernum forces vanilla Dungeon music to play when Ceaseless Void is passive in the Archives.
     [JITWhenModsEnabled("CalamityMod")]
     public class CeaselessVoid_Passive : ModSceneEffect
     {
@@ -97,8 +105,8 @@ namespace UnCalamityModMusic.Common.ModCompatibility
         {
             get
             {
-                var calamityMod = ModLoader.TryGetMod("CalamityMod", out Mod calamity);
-                var infernumMod = ModLoader.TryGetMod("InfernumMode", out Mod infernum);
+                var calamityMod = ModLoader.TryGetMod("CalamityMod", out Mod calamitymod);
+                var infernumMod = ModLoader.TryGetMod("InfernumMode", out Mod infernummod);
 
                 if (calamityMod && infernumMod)
                 {
@@ -111,7 +119,7 @@ namespace UnCalamityModMusic.Common.ModCompatibility
                             return SceneEffectPriority.BossLow;
                         }
                     }
-                    if (PlayerFlags.bossRushActive)
+                    if (MusicFlags.BossRush)
                     {
                         return SceneEffectPriority.BossLow;
                     }
@@ -127,8 +135,8 @@ namespace UnCalamityModMusic.Common.ModCompatibility
 
         public override bool IsSceneEffectActive(Player player)
         {
-            var calamityMod = ModLoader.TryGetMod("CalamityMod", out Mod calamity);
-            var infernumMod = ModLoader.TryGetMod("InfernumMode", out Mod infernum);
+            var calamityMod = ModLoader.TryGetMod("CalamityMod", out Mod calamitymod);
+            var infernumMod = ModLoader.TryGetMod("InfernumMode", out Mod infernummod);
 
             if (calamityMod && infernumMod)
             {
@@ -146,7 +154,8 @@ namespace UnCalamityModMusic.Common.ModCompatibility
             return false;
         }
     }
-    //Makes the VCMM Desert theme play in the Lost Colosseum after Argus is defeated, instead of vanilla music
+
+    // Makes the VCMM Desert theme play in the Lost Colosseum after Argus is defeated, instead of vanilla music.
     public class LostColosseum_Aftermath : ModSceneEffect
     {
         public override int Music => MusicPathing.GetMusicSlot("Desert");
@@ -157,17 +166,17 @@ namespace UnCalamityModMusic.Common.ModCompatibility
 
         public override bool IsSceneEffectActive(Player player)
         {
-            var infernumMod = ModLoader.TryGetMod("InfernumMode", out Mod infernum);
+            var infernumMod = ModLoader.TryGetMod("InfernumMode", out Mod infernummod);
 
             if (infernumMod)
             {
                 NPC fakeNPC = new();
-                int npcType = infernum.Find<ModNPC>("BereftVassal").Type;
+                int npcType = infernummod.Find<ModNPC>("BereftVassal").Type;
                 fakeNPC.SetDefaults(npcType);
 
                 if (!NPC.AnyNPCs(npcType) && Main.BestiaryTracker.Kills.GetKillCount(fakeNPC) > 0)
                 {
-                    return PlayerFlags.ZoneLostColosseum;
+                    return MusicFlags.LostColosseum;
                 }
             }
 

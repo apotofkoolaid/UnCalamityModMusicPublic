@@ -27,12 +27,16 @@ namespace UnCalamityModMusic.Common.Configs
 
 		[Header("$Mods.UnCalamityModMusic.Configs.MusicConfig.ConditionChangesHeader")]
 
-		[BackgroundColor(192, 54, 64, 192)]
-		[DefaultValue(false)]
-		public bool PrioritizeInfernumMusic { get; set; }
+        [BackgroundColor(192, 54, 64, 192)]
+        [DefaultValue(false)]
+        public bool OverrideOtherworldlyMusic { get; set; }
 
-		[BackgroundColor(192, 54, 64, 192)]
+        [BackgroundColor(192, 54, 64, 192)]
 		[DefaultValue(false)]
-		public bool OverrideAnahitasLure { get; set; }
-	}
+		public bool OverrideAnahitasLureMusic { get; set; }
+
+        [BackgroundColor(192, 54, 64, 192)]
+        [DefaultValue(false)]
+        public bool PrioritizeMusicFromOtherMods { get; set; }
+    }
 }

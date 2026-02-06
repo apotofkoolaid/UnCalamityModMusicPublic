@@ -3,75 +3,59 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using UnCalamityModMusic.Common.Configs;
 
-namespace UnCalamityModMusic.Common.Music
+namespace UnCalamityModMusic.Common.ModCompatibility
 {
-	//Ambience Scenes
-    public class BeeHive_Ambience_Remnants : AmbienceBaseScene
+    //Ambience
+    public class BeeHive_Ambience_Remnants : AmbienceSceneBase
     {
-        public override string Path => "BeeHive";
+        public override string AmbienceFilePath => "BeeHive";
 
-        public override SceneEffectPriority ScenePriority => SceneEffectPriority.BiomeHigh;
+        public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
 
-        public override bool IsSceneEffectActive(Player player)
-        {
-            return PlayerFlags.ZoneHive && !ModContent.GetInstance<OtherConfig>().DisableBeeHiveAmbience && base.IsSceneEffectActive(player);
-        }
+        public override bool AmbienceCondition(Player player) => MusicFlags.RemnantsHive && !ModContent.GetInstance<OtherConfig>().DisableBeeHiveAmbience;
     }
-    public class Geodes_Ambience_Remnants : AmbienceBaseScene
+
+    public class Geodes_Ambience_Remnants : AmbienceSceneBase
     {
-        public override string Path => "Caverns";
+        public override string AmbienceFilePath => "Caverns";
 
-        public override SceneEffectPriority ScenePriority => ModContent.GetInstance<Geodes_Remnants>().Priority;
+        public override SceneEffectPriority Priority => ModContent.GetInstance<Geodes_Remnants>().Priority;
 
-        public override bool IsSceneEffectActive(Player player)
-        {
-            return ModContent.GetInstance<Geodes_Remnants>().IsSceneEffectActive(player) && base.IsSceneEffectActive(player);
-        }
+        public override bool AmbienceCondition(Player player) => ModContent.GetInstance<Geodes_Remnants>().IsSceneEffectActive(player);
     }
-    public class JungleUnderground_Ambience_Remnants : AmbienceBaseScene
+
+    public class JungleUnderground_Ambience_Remnants : AmbienceSceneBase
     {
-        public override string Path => "JungleUnderground";
+        public override string AmbienceFilePath => "JungleUnderground";
 
-        public override SceneEffectPriority ScenePriority => ModContent.GetInstance<JungleUnderground_Remnants>().Priority;
+        public override SceneEffectPriority Priority => ModContent.GetInstance<JungleUnderground_Remnants>().Priority;
 
-        public override bool IsSceneEffectActive(Player player)
-        {
-            return ModContent.GetInstance<JungleUnderground_Remnants>().IsSceneEffectActive(player) && base.IsSceneEffectActive(player);
-        }
+        public override bool AmbienceCondition(Player player) => ModContent.GetInstance<JungleUnderground_Remnants>().IsSceneEffectActive(player);
     }
-    //Biome Scenes
-    public class Geodes_Remnants : ModSceneEffect
-	{
-		public override int Music => MusicPathing.GetMusicSlot("Geodes");
 
-		public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
+    //Biomes
+    public class Geodes_Remnants : MusicSceneBase
+    {
+        public override string MusicFilePath => "Geodes";
 
-		public override float GetWeight(Player player) => 0.51f;
+        public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
 
-		public override bool IsSceneEffectActive(Player player)
-		{
-			return PlayerFlags.ZoneGraniteCave || PlayerFlags.ZoneMarbleCave;
-		}
-	}
-	public class JungleUnderground_Remnants : ModSceneEffect
-	{
-		//public override int Music => MusicPathing.GetMusicSlot("JungleUnderground");
-		public override int Music
-		{
-			get
-			{
-				bool otherworldMusicActive = PlayerFlags.SwapMusic();
-				return otherworldMusicActive ? MusicID.OtherworldlyJungle : MusicID.JungleUnderground;
-			}
-		}
+        public override float GetWeight(Player player) => base.GetWeight(player) + 0.01f; // Relative weight boost.
 
-		public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
+        public override bool MusicCondition(Player player) => MusicFlags.RemnantsGraniteCave || MusicFlags.RemnantsMarbleCave;
+    }
 
-		public override float GetWeight(Player player) => 0.51f;
+    public class JungleUnderground_Remnants : MusicSceneBase
+    {
+        //public override string MusicFilePath => "JungleUnderground";
+        public override int VanillaMusicPath => // Temporary for vanilla music.
+            MusicFlags.OtherworldlyMusic ? MusicID.OtherworldlyJungle :
+            MusicID.JungleUnderground;
 
-		public override bool IsSceneEffectActive(Player player)
-		{
-			return PlayerFlags.ZoneHive;
-		}
-	}
+        public override SceneEffectPriority Priority => SceneEffectPriority.Environment; // Temporary for vanilla music; change to BiomeHigh when vanilla music is replaced.
+
+        public override float GetWeight(Player player) => base.GetWeight(player) - 0.01f; // Temporary for vanilla music.
+
+        public override bool MusicCondition(Player player) => MusicFlags.RemnantsHive;
+    }
 }

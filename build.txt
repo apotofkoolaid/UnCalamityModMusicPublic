@@ -1,8 +1,8 @@
-author = apotofkoolaid and Heart Plus Up!
-version = 2.1
+author = The VCMM Dev Team
+version = 2.1.1
 displayName = Vanilla Calamity Mod Music
 weakReferences = CalamityMod
-homepage = https://discord.gg/2jaEwNJm9e
+homepage = https://calamitymod.com
 buildIgnore = .vs\*, Properties\*, *.csproj, *.user, obj\*, bin\*, *.config, .git\*, .github\*, LICENSE, README.md, .editorconfig, .gitignore, .gitattributes, Effects\Compiler\*
 hideCode = false
 hideResources = true

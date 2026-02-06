@@ -29,25 +29,33 @@ Mods: {
 						'''
 				}
 
-				PrioritizeInfernumMusic: {
-					Label: "[i:WallOfFleshGoatMountItem] Prioritize Infernum Music"
+				OverrideOtherworldlyMusic: {
+					Label: "[i:MusicBoxOWRain] Override Otherworldly Music"
 					Tooltip:
 						'''
-						Toggles whether Infernum music will take priority over VCMM music.
-						This option does nothing if the Infernum Mode Music mod is disabled.
-						This option does not affect Calamity bosses.
+						Toggles whether VCMM music will play over Otherworldly music.
+						This option only works if the Party Girl's music toggle is enabled.
 						'''
 				}
 
-				OverrideAnahitasLure: {
-					Label: "[i:UnCalamityModMusic/OceanDayMusicBox] Override Anahita's Lure"
-					Tooltip: Toggles whether the Anahita's Lure theme will override the Ocean themes.
+				OverrideAnahitasLureMusic: {
+					Label: "[i:UnCalamityModMusic/OceanDayMusicBox] Override Anahita's Lure Music"
+					Tooltip: Toggles whether Ocean music will play over Anahita's Lure music.
+				}
+
+				PrioritizeMusicFromOtherMods: {
+					Label: "[i:WorldGlobe] Prioritize Music From Other Mods"
+					Tooltip:
+						'''
+						Toggles whether other vanilla-replacing music should play over VCMM music.
+						Any further music customization should be found in other mod configs.
+						'''
 				}
 			}
 
 			OtherConfig: {
 				DisplayName: Other Config
-				AmbienceTogglesHeader: Ambience Toggles
+				AmbienceModeHeader: Ambience Mode
 				OtherChangesHeader: Other Changes
 
 				AmbienceFrequency: {
@@ -94,7 +102,7 @@ Mods: {
 
 			BrainofCthulhuMusicBox: {
 				DisplayName: Music Box (Brain of Cthulhu)
-				Tooltip: Plays 'Madness Incarnate' by Heart Plus Up! and SkippyZii
+				Tooltip: Plays 'Madness Incarnate' by SkippyZii and Heart Plus Up!
 			}
 
 			CavernsMusicBox: {
@@ -149,7 +157,11 @@ Mods: {
 
 			FalseEpilogueMusicBox: {
 				DisplayName: Music Box (False Epilogue)
-				Tooltip: Plays 'The Memory of a Cruel World' by TYRANT
+				Tooltip:
+					'''
+					Plays 'The Memory of a Cruel World' by Heart Plus Up!
+					This music box contains a placeholder song
+					'''
 			}
 
 			ForestDayAfternoonMusicBox: {
@@ -238,7 +250,7 @@ Mods: {
 
 			PumpkinMoonMusicBox: {
 				DisplayName: Music Box (Pumpkin Moon)
-				Tooltip: Plays 'Fresh for the Harvest' by TYRANT
+				Tooltip: This music box is unfinished and does not work
 			}
 
 			RainDayMusicBox: {
@@ -401,7 +413,6 @@ Mods: {
 					OceanDay: shoreline
 					OceanNight: serene tides
 					OceanRain: waves
-					PumpkinMoon: Fresh for the Harvest
 					RainDay: downpour
 					RainLegacy: Grey Sky
 					RainNight: downtime
@@ -432,19 +443,15 @@ Mods: {
 				Authors: {
 					Forge: by TheForge129
 					HeartPlusUp: by Heart Plus Up!
-					HeartPlusUpFeature1: by Heart Plus Up! and novaGnomes
-					HeartPlusUpFeature2: by Heart Plus Up! and SkippyZii
-					HeartPlusUpFeature3: by Heart Plus Up! and Tyrant
+					HeartPlusUpFeature: by Heart Plus Up! and novaGnomes
 					psykomatic: by psykomatic
 					Salvati: by Salvati
 					SkippyZii: by SkippyZii
+					SkippyZiiFeature: by SkippyZii and Heart Plus Up!
 					Thriplerex: by Thriplerex
 					TYESKI: by TYESKI
-					TYRANT: by TYRANT
 				}
 			}
 		}
-
-		Recipes.NameMismatchError: There is an internal name mismatch between the items in this recipe and the items in another mod. The recipe for this item has been disabled.
 	}
 }

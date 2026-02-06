@@ -12,7 +12,7 @@ namespace UnCalamityModMusic.Common.ModCompatibility
 
         public void BossChecklistSetup()
         {
-            var bossChecklist = ModLoader.TryGetMod("BossChecklist", out Mod checklist);
+            var bossChecklist = ModLoader.TryGetMod("BossChecklist", out Mod bosschecklist);
 
             if (!bossChecklist)
             {
@@ -21,49 +21,50 @@ namespace UnCalamityModMusic.Common.ModCompatibility
 
             var BossMusicBoxes = new Dictionary<string, object>
             {
-                { "Terraria MoonLord", ModContent.ItemType<Content.Items.MoonLordMusicBox>() },
-                //{ "Terraria CultistBoss", ModContent.ItemType<Content.Items.LunaticCultistMusicBox>() },
-                //{ "Terraria HallowBoss", ModContent.ItemType<Content.Items.EmpressofLightMusicBox>() },
-                { "Terraria DukeFishron", ModContent.ItemType<Content.Items.DukeFishronMusicBox>() },
-                //{ "Terraria Golem", ModContent.ItemType<Content.Items.GolemMusicBox>() },
-                //{ "Terraria Plantera", ModContent.ItemType<Content.Items.PlanteraMusicBox>() },
-                //{ "Terraria SkeletronPrime", ModContent.ItemType<Content.Items.SkeletronPrimeMusicBox>() },
-                //{ "Terraria TheTwins", ModContent.ItemType<Content.Items.TwinsMusicBox>() },
-                //{ "Terraria TheDestroyer", ModContent.ItemType<Content.Items.DestroyerMusicBox>() },
-                //{ "Terraria QueenSlimeBoss", ModContent.ItemType<Content.Items.QueenSlimeMusicBox>() },
-                { "Terraria WallofFlesh", ModContent.ItemType<Content.Items.WallofFleshMusicBox>() },
-                { "Terraria Skeletron", ModContent.ItemType<Content.Items.SkeletronMusicBox>() },
-                //{ "Terraria Deerclops", ModContent.ItemType<Content.Items.DeerclopsMusicBox>() },
-                //{ "Terraria QueenBee", ModContent.ItemType<Content.Items.QueenBeeMusicBox>() },
                 { "Terraria BrainofCthulhu", ModContent.ItemType<Content.Items.BrainofCthulhuMusicBox>() },
+                //{ "Terraria CultistBoss", ModContent.ItemType<Content.Items.LunaticCultistMusicBox>() },
+                //{ "Terraria Deerclops", ModContent.ItemType<Content.Items.DeerclopsMusicBox>() },
+                { "Terraria DukeFishron", ModContent.ItemType<Content.Items.DukeFishronMusicBox>() },
                 { "Terraria EaterofWorlds", ModContent.ItemType<Content.Items.EaterofWorldsMusicBox>() },
                 { "Terraria EyeofCthulhu", ModContent.ItemType<Content.Items.EyeofCthulhuMusicBox>() },
-                { "Terraria KingSlime", ModContent.ItemType<Content.Items.KingSlimeMusicBox>() }
+                //{ "Terraria Golem", ModContent.ItemType<Content.Items.GolemMusicBox>() },
+                //{ "Terraria HallowBoss", ModContent.ItemType<Content.Items.EmpressofLightMusicBox>() },
+                { "Terraria KingSlime", ModContent.ItemType<Content.Items.KingSlimeMusicBox>() },
+                { "Terraria MoonLord", ModContent.ItemType<Content.Items.MoonLordMusicBox>() },
+                //{ "Terraria Plantera", ModContent.ItemType<Content.Items.PlanteraMusicBox>() },
+                //{ "Terraria QueenBee", ModContent.ItemType<Content.Items.QueenBeeMusicBox>() },
+                //{ "Terraria QueenSlimeBoss", ModContent.ItemType<Content.Items.QueenSlimeMusicBox>() },
+                { "Terraria Skeletron", ModContent.ItemType<Content.Items.SkeletronMusicBox>() },
+                //{ "Terraria SkeletronPrime", ModContent.ItemType<Content.Items.SkeletronPrimeMusicBox>() },
+                //{ "Terraria TheDestroyer", ModContent.ItemType<Content.Items.DestroyerMusicBox>() },
+                //{ "Terraria TheTwins", ModContent.ItemType<Content.Items.TwinsMusicBox>() },
+                { "Terraria WallofFlesh", ModContent.ItemType<Content.Items.WallofFleshMusicBox>() },
             };
+
 
             var EventMusicBoxes = new Dictionary<string, object>
             {
-                { "Terraria TorchGod", new List<int> { ModContent.ItemType<Content.Items.TorchGodMusicBox>(), ModContent.ItemType<Content.Items.TorchGodRevengeanceMusicBox>() } },
+                { "Terraria BloodMoon", new List<int> { ModContent.ItemType<Content.Items.BloodMoonMusicBox>(), ModContent.ItemType<Content.Items.BloodMoonDeathMusicBox>() } },
+                //{ "Terraria Eclipse", ModContent.ItemType<Content.Items.SolarEclipseMusicBox>() },
+                //{ "Terraria FrostMoon", ModContent.ItemType<Content.Items.FrostMoonMusicBox>() },
+                //{ "Terraria GoblinArmy", ModContent.ItemType<Content.Items.GoblinArmyMusicBox>() },
                 //{ "Terraria LunarEvent", new List<int> { ModContent.ItemType<Content.Items.CelestialPillarVortexMusicBox>(), ModContent.ItemType<Content.Items.CelestialPillarNebulaMusicBox>(), ModContent.ItemType<Content.Items.CelestialPillarStardustMusicBox>(), ModContent.ItemType<Content.Items.CelestialPillarSolarMusicBox>() } },
                 //{ "Terraria MartianMadness", ModContent.ItemType<Content.Items.MartianMadnessMusicBox>() },
-                //{ "Terraria FrostMoon", ModContent.ItemType<Content.Items.FrostMoonMusicBox>() },
-                { "Terraria PumpkinMoon", ModContent.ItemType<Content.Items.PumpkinMoonMusicBox>() },
-                //{ "Terraria OldOnesArmy ", new List<int> { ModContent.ItemType<Content.Items.OldOnesArmyTier1MusicBox>(), ModContent.ItemType<Content.Items.OldOnesArmyTier2MusicBox>(), ModContent.ItemType<Content.Items.OldOnesArmyTier3MusicBox>() } },
+                //{ "Terraria OldOnesArmy", new List<int> { ModContent.ItemType<Content.Items.OldOnesArmyTier1MusicBox>(), ModContent.ItemType<Content.Items.OldOnesArmyTier2MusicBox>(), ModContent.ItemType<Content.Items.OldOnesArmyTier3MusicBox>() } },
                 //{ "Terraria PirateInvasion", ModContent.ItemType<Content.Items.PirateInvasionMusicBox>() },
-                //{ "Terraria GoblinArmy", ModContent.ItemType<Content.Items.GoblinArmyMusicBox>() },
-                //{ "Terraria Eclipse", ModContent.ItemType<Content.Items.SolarEclipseMusicBox>() },
-                { "Terraria BloodMoon", new List<int> { ModContent.ItemType<Content.Items.BloodMoonMusicBox>(), ModContent.ItemType<Content.Items.BloodMoonDeathMusicBox>() } },
+                //{ "Terraria PumpkinMoon", ModContent.ItemType<Content.Items.PumpkinMoonMusicBox>() },
+                { "Terraria TorchGod", new List<int> { ModContent.ItemType<Content.Items.TorchGodMusicBox>(), ModContent.ItemType<Content.Items.TorchGodRevengeanceMusicBox>() } },
             };
 
             var MinibossMusicBoxes = new Dictionary<string, object>
             {
-                //{ "CalamityMod GreatSandShark", ModContent.ItemType<Content.Items.SandstormMusicBox>() },
+                { "CalamityMod GreatSandShark", ModContent.ItemType<Content.Items.SandstormMusicBox>() },
             };
 
 
-            checklist.Call("SubmitEntryCollectibles", Mod, BossMusicBoxes);
-            checklist.Call("SubmitEntryCollectibles", Mod, EventMusicBoxes);
-            checklist.Call("SubmitEntryCollectibles", Mod, MinibossMusicBoxes);
+            bosschecklist.Call("SubmitEntryCollectibles", Mod, BossMusicBoxes);
+            bosschecklist.Call("SubmitEntryCollectibles", Mod, EventMusicBoxes);
+            bosschecklist.Call("SubmitEntryCollectibles", Mod, MinibossMusicBoxes);
         }
     }
 }

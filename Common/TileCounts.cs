@@ -1,87 +1,56 @@
 ﻿using System;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UnCalamityModMusic.Content.Tiles;
 
 namespace UnCalamityModMusic.Common
 {
 	public class TileCounts : ModSystem
 	{
-		public static int graniteTileCount;
-		public static int marbleTileCount;
+		internal static int WorkbenchTileCount;
+		internal static int FurnaceTileCount;
+		internal static int AnvilTileCount;
+		internal static int HellforgeTileCount;
+		internal static int HardmodeAnvilTileCount;
+		internal static int HardmodeForgeTileCount;
+        internal static int GraniteTileCount;
+        internal static int MarbleTileCount;
 
-		public static int workbenchTileCount;
-		public static int furnaceTileCount;
-		public static int ironAnvilTileCount;
-		public static int hellForgeTileCount;
-		public static int mythrilAnvilTileCount;
-		public static int adamantiteForgeTileCount;
+        internal static int CosmicAnvilTileCount;
+		internal static int DraedonsForgeTileCount;
+		internal static int LabTileCount;
 
-		public static int cosmicAnvilTileCount;
-		public static int draedonsForgeTileCount;
-
-        public static int labTileCount;
-
-        public static int storageHeartTileCount;
-		public static int craftingUnitTileCount;
+		internal static int StorageHeartTileCount;
+		internal static int CraftingUnitTileCount;
 
         public override void TileCountsAvailable(ReadOnlySpan<int> tileCounts)
-        {
-            var calamityMod = ModLoader.TryGetMod("CalamityMod", out Mod calamity);
-            var calamityVanities = ModLoader.TryGetMod("CalValEX", out Mod calval);
-            var magicStorage = ModLoader.TryGetMod("MagicStorage", out Mod storage);
+		{
+			var calamityMod = ModLoader.TryGetMod("CalamityMod", out Mod calamitymod);
+			var magicStorage = ModLoader.TryGetMod("MagicStorage", out Mod magicstorage);
 
-            graniteTileCount = tileCounts[TileID.Granite];
-            marbleTileCount = tileCounts[TileID.Marble];
-
-            workbenchTileCount = tileCounts[TileID.WorkBenches];
-            furnaceTileCount = tileCounts[TileID.Furnaces];
-            ironAnvilTileCount = tileCounts[TileID.Anvils];
-            hellForgeTileCount = tileCounts[TileID.Hellforge];
-            mythrilAnvilTileCount = tileCounts[TileID.MythrilAnvil];
-            adamantiteForgeTileCount = tileCounts[TileID.AdamantiteForge];
+			WorkbenchTileCount = tileCounts[TileID.WorkBenches];
+			FurnaceTileCount = tileCounts[TileID.Furnaces];
+			AnvilTileCount = tileCounts[TileID.Anvils];
+			HellforgeTileCount = tileCounts[TileID.Hellforge];
+			HardmodeAnvilTileCount = tileCounts[TileID.MythrilAnvil];
+			HardmodeForgeTileCount = tileCounts[TileID.AdamantiteForge];
+			GraniteTileCount = tileCounts[TileID.Granite];
+            MarbleTileCount = tileCounts[TileID.Marble];
 
             if (calamityMod)
             {
-                workbenchTileCount += tileCounts[calamity.Find<ModTile>("AbyssWorkBench").Type] +
-                    tileCounts[calamity.Find<ModTile>("AcidwoodWorkBenchTile").Type] +
-                    tileCounts[calamity.Find<ModTile>("AncientWorkBench").Type] +
-                    tileCounts[calamity.Find<ModTile>("AshenWorkBench").Type] +
-                    tileCounts[calamity.Find<ModTile>("BotanicWorkBench").Type] +
-                    tileCounts[calamity.Find<ModTile>("CosmiliteWorkBench").Type] +
-                    tileCounts[calamity.Find<ModTile>("EutrophicWorkBench").Type] +
-                    tileCounts[calamity.Find<ModTile>("ExoWorkbenchTile").Type] +
-                    tileCounts[calamity.Find<ModTile>("MonolithWorkBench").Type] +
-                    tileCounts[calamity.Find<ModTile>("OtherworldlyWorkBench").Type] +
-                    tileCounts[calamity.Find<ModTile>("PlaguedPlateWorkbench").Type] +
-                    tileCounts[calamity.Find<ModTile>("ProfanedWorkbench").Type] +
-                    tileCounts[calamity.Find<ModTile>("SacrilegiousWorkBenchTile").Type] +
-                    tileCounts[calamity.Find<ModTile>("SilvaWorkBench").Type] +
-                    tileCounts[calamity.Find<ModTile>("StatigelWorkbench").Type] +
-                    tileCounts[calamity.Find<ModTile>("StratusWorkbench").Type] +
-                    tileCounts[calamity.Find<ModTile>("VoidWorkbench").Type] +
-                    tileCounts[calamity.Find<ModTile>("WulfrumWorkbench").Type];
+				CosmicAnvilTileCount = tileCounts[calamitymod.Find<ModTile>("CosmicAnvil").Type];
+				DraedonsForgeTileCount = tileCounts[calamitymod.Find<ModTile>("DraedonsForge").Type];
+				LabTileCount = tileCounts[calamitymod.Find<ModTile>("LaboratoryPanels").Type] +
+					tileCounts[calamitymod.Find<ModTile>("LaboratoryPlating").Type] +
+					tileCounts[calamitymod.Find<ModTile>("HazardChevronPanels").Type];
+			}
 
-                cosmicAnvilTileCount = tileCounts[calamity.Find<ModTile>("CosmicAnvil").Type];
-				draedonsForgeTileCount = tileCounts[calamity.Find<ModTile>("DraedonsForge").Type];
-
-                labTileCount = tileCounts[calamity.Find<ModTile>("LaboratoryPanels").Type] +
-                    tileCounts[calamity.Find<ModTile>("LaboratoryPlating").Type] +
-                    tileCounts[calamity.Find<ModTile>("HazardChevronPanels").Type];
-            }
-
-            if (calamityVanities)
-            {
-                workbenchTileCount += tileCounts[calval.Find<ModTile>("OldAstralWorkbench").Type] + 
-                    tileCounts[calval.Find<ModTile>("PhantowaxWorkbench").Type] + 
-                    tileCounts[calval.Find<ModTile>("BloodstoneWorkbench").Type] + 
-                    tileCounts[calval.Find<ModTile>("AuricWorkbench").Type];
-            }
-
-            if (magicStorage)
-            {
-                storageHeartTileCount = tileCounts[storage.Find<ModTile>("StorageHeart").Type];
-                craftingUnitTileCount = tileCounts[storage.Find<ModTile>("CraftingAccess").Type];
-            }
+			if (magicStorage)
+			{
+				StorageHeartTileCount = tileCounts[magicstorage.Find<ModTile>("StorageHeart").Type];
+				CraftingUnitTileCount = tileCounts[magicstorage.Find<ModTile>("CraftingAccess").Type];
+			}
         }
-    }
+	}
 }

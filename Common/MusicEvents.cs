@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using Terraria;
 using Terraria.ID;
@@ -10,10 +11,10 @@ using UnCalamityModMusic.Common.Configs;
 
 namespace UnCalamityModMusic.Common
 {
-    // This system was created by Nycro for the main Calamity Mod
-    // An altered form of it is here so VCMM doesn't have to rely on external code
+    // This system was created by Nycro for the main Calamity Mod.
+    // An altered form of it is here so VCMM doesn't have to rely on external code.
     public record class MusicEventEntry(string Id, int Song, TimeSpan Length, TimeSpan IntroSilence, TimeSpan OutroSilence, Func<bool> ShouldPlay, Func<bool> Enabled);
-    
+
     public class MusicEvents : ModSystem
     {
         #region Statics
@@ -32,7 +33,7 @@ namespace UnCalamityModMusic.Common
 
         public static Thread EventTrackerThread { get; set; } = null;
 
-        public static List<string> PlayedEvents { get; set; } = [];
+        public static HashSet<string> PlayedEvents { get; set; } = [];
 
         public static List<MusicEventEntry> EventCollection { get; set; } = [];
 
@@ -62,13 +63,13 @@ namespace UnCalamityModMusic.Common
         public override void PostUpdateTime()
         {
             // If the player is in Infernum's Lost Colosseum, do nothing (would prefer if this happened for all subworlds)
-            if (PlayerFlags.ZoneLostColosseum)
+            if (MusicFlags.LostColosseum)
             {
                 return;
             }
 
             // If the Boss Rush is active, any would-be music events should be cancelled out and marked as played
-            if (PlayerFlags.bossRushActive)
+            if (MusicFlags.BossRush)
             {
                 foreach (MusicEventEntry entry in EventCollection)
                 {
@@ -135,7 +136,7 @@ namespace UnCalamityModMusic.Common
                         // Even if an event isn't marked as enabled, it should be counted
                         // as "played" so it isn't played when the player doesn't expect it
                         PlayedEvents.Add(musicEvent.Id);
-                        
+
                         // Events are always enabled on the server
                         if (Main.dedServ || musicEvent.Enabled())
                         {
@@ -205,7 +206,7 @@ namespace UnCalamityModMusic.Common
             while (CurrentEvent is not null)
             {
                 bool musicPaused = !Main.instance.IsActive;
-                
+
                 if (musicPaused && !minimized.HasValue)
                     minimized = DateTime.Now;
 
@@ -226,11 +227,9 @@ namespace UnCalamityModMusic.Common
         public override void SaveWorldData(TagCompound tag)
         {
             tag["VCMM:PlayedMusicEventCount"] = PlayedEvents.Count;
-
-            for (int i = 0; i < PlayedEvents.Count; i++)
-            {
-                tag[$"VCMM:PlayedMusicEvent{i}"] = PlayedEvents[i];
-            }
+            int i = 0;
+            foreach (string playedEvent in PlayedEvents)
+                tag[$"VCMM:PlayedMusicEventCount{i++}"] = playedEvent;
         }
 
         public override void LoadWorldData(TagCompound tag)
@@ -266,52 +265,13 @@ namespace UnCalamityModMusic.Common
 
         public static void SendSyncRequest()
         {
-            ModPacket packet = UnCalamityModMusic.Instance.GetPacket();
-            packet.Write((byte)Netcode.VanillaCalamityModMusicMessageType.MusicEventSyncRequest);
-            packet.Send();
-        }
-
-        public static void FulfillSyncRequest(int requester)
-        {
-            // Only fulfill requests as the server host
-            if (!Main.dedServ)
-            {
-                return;
-            }
-
-            ModPacket packet = UnCalamityModMusic.Instance.GetPacket();
-            packet.Write((byte)Netcode.VanillaCalamityModMusicMessageType.MusicEventSyncResponse);
-
-            int trackCount = PlayedEvents.Count;
-            packet.Write(trackCount);
-
-            for (int i = 0; i < trackCount; i++)
-            {
-                packet.Write(PlayedEvents[i]);
-            }
-
-            packet.Send(toClient: requester);
-        }
-
-        public static void ReceiveSyncResponse(BinaryReader reader)
-        {
-            // Only receive info on clients
-            if (Main.dedServ)
-            {
-                return;
-            }
-
-            PlayedEvents.Clear();
-            int trackCount = reader.ReadInt32();
-
-            for (int i = 0; i < trackCount; i++)
-            {
-                PlayedEvents.Add(reader.ReadString());
-            }
+            MusicEventSyncRequestPacket.Send();
         }
 
         #endregion
     }
+
+    #region Multiplayer Syncing
 
     public class MusicEventsPlayer : ModPlayer
     {
@@ -323,4 +283,141 @@ namespace UnCalamityModMusic.Common
             }
         }
     }
+
+    internal sealed class MusicEventSyncRequestPacket : MusicEventPacket
+    {
+        public static MusicEventSyncRequestPacket Instance { get; private set; }
+
+        public static void Send(int toClient = -1, int ignoreClient = -1)
+        {
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+                return;
+
+            var packet = Instance.CreateBasePacket();
+            packet.Send(toClient, ignoreClient);
+        }
+
+        public override void HandlePacket(BinaryReader packet, int sender)
+        {
+            if (!Main.dedServ)
+                return;
+
+            MusicEventSyncResponsePacket.Send(toClient: sender);
+        }
+    }
+
+    internal sealed class MusicEventSyncResponsePacket : MusicEventPacket
+    {
+        public static MusicEventSyncResponsePacket Instance { get; private set; }
+
+        public static void Send(int toClient = -1, int ignoreClient = -1)
+        {
+            if (!Main.dedServ)
+                return;
+
+            var packet = Instance.CreateBasePacket();
+            int trackCount = MusicEvents.PlayedEvents.Count;
+            packet.Write(trackCount);
+
+            foreach (string playedEvent in MusicEvents.PlayedEvents)
+                packet.Write(playedEvent);
+
+            packet.Send(toClient, ignoreClient);
+        }
+
+        public override void HandlePacket(BinaryReader packet, int sender)
+        {
+            if (Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                int c = packet.ReadInt32();
+                for (int i = 0; i < c; i++)
+                    _ = packet.ReadString();
+
+                return;
+            }
+
+            MusicEvents.PlayedEvents.Clear();
+
+            int trackCount = packet.ReadInt32();
+            for (int i = 0; i < trackCount; i++)
+                MusicEvents.PlayedEvents.Add(packet.ReadString());
+        }
+    }
+
+    internal abstract class MusicEventPacket : ILoadable
+    {
+        public abstract void HandlePacket(BinaryReader packet, int sender);
+
+        private ushort _NetID;
+        private PropertyInfo _Prop_Static_Instance;
+
+        public void Load(Mod mod)
+        {
+            _NetID = MusicEventsNetcode.RegisterHandler(this);
+
+            var type = GetType();
+            var instanceProperty = type.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static | BindingFlags.NonPublic);
+
+            if (instanceProperty == null)
+                return;
+
+            if (!instanceProperty.PropertyType.IsAssignableFrom(type))
+                UnCalamityModMusic.Instance.Logger.Error($"Packet instance's 'Instance' property is not asssignable with given type! [Failed On: '{type.FullName}']");
+
+            instanceProperty.SetValue(null, this);
+            _Prop_Static_Instance = instanceProperty;
+        }
+
+        public virtual void Unload()
+        {
+            _Prop_Static_Instance?.SetValue(null, null);
+            _Prop_Static_Instance = null;
+        }
+
+        public void CloneAndBroadcast(BinaryReader packet, long startIndex, int length, int ignoreClient = -1)
+        {
+            if (!Main.dedServ)
+                return;
+
+            if (startIndex < 0)
+                return;
+
+            packet.BaseStream.Position = startIndex;
+
+            Span<byte> buffer = length <= 256 ? stackalloc byte[length] : new byte[length];
+            packet.BaseStream.Read(buffer);
+
+            var newPacket = CreateBasePacket();
+            newPacket.Write(buffer);
+            newPacket.Send(ignoreClient);
+        }
+
+        public ModPacket CreateBasePacket()
+        {
+            var packet = UnCalamityModMusic.Instance.GetPacket();
+            MusicEventsNetcode.WriteHandlerNetID(packet, _NetID);
+            return packet;
+        }
+    }
+
+    public class MusicEventsNetcode : ModSystem
+    {
+        private static List<MusicEventPacket> _PacketHandlers = [];
+
+        internal static ushort RegisterHandler(MusicEventPacket handler)
+        {
+            var id = (ushort)_PacketHandlers.Count;
+            _PacketHandlers.Add(handler);
+            return id;
+        }
+
+        internal static void WriteHandlerNetID(BinaryWriter packet, ushort netID)
+        {
+            if (_PacketHandlers.Count > 256)
+                packet.Write(netID);
+            else
+                packet.Write((byte)netID);
+        }
+    }
+    #endregion
 }

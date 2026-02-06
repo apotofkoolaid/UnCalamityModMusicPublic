@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using UnCalamityModMusic.Content.Items;
 
 namespace UnCalamityModMusic.Common
 {
@@ -10,8 +11,8 @@ namespace UnCalamityModMusic.Common
         {
             if (shop.NpcType == NPCID.Princess)
             {
-                shop.Add(ModContent.ItemType<Content.Items.HardmodeInterludeMusicBox>(), Condition.Hardmode);
-                shop.Add(ModContent.ItemType<Content.Items.FalseEpilogueMusicBox>(), Condition.DownedMoonLord);
+                shop.Add(ModContent.ItemType<HardmodeInterludeMusicBox>(), Condition.Hardmode);
+                shop.Add(ModContent.ItemType<FalseEpilogueMusicBox>(), Condition.DownedMoonLord);
             }
         }
     }

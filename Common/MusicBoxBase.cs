@@ -21,12 +21,19 @@ namespace UnCalamityModMusic.Common
 
         public abstract string MusicFilePath { get; }
 
+        public virtual bool Obtainable { get; } = true;
+
         public virtual void MusicBoxRecipe() { return; }
 
         public override void SetStaticDefaults()
         {
             ItemID.Sets.CanGetPrefixes[Type] = false;
             ItemID.Sets.ShimmerTransformToItem[Type] = ItemID.MusicBox;
+
+            if (!Obtainable)
+            {
+                Item.ResearchUnlockCount = 0;
+            }
 
             if (!String.IsNullOrEmpty(MusicFilePath) && MusicPathing.GetMusicSlot(MusicFilePath) > 0)
             {
