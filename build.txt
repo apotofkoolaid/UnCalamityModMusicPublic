@@ -1,5 +1,5 @@
 author = The VCMM Dev Team
-version = 2.1.1
+version = 2.1.2
 displayName = Vanilla Calamity Mod Music
 weakReferences = CalamityMod
 homepage = https://calamitymod.com
