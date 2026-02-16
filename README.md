@@ -1,16 +1,18 @@
 # Vanilla Calamity Music Mod
-[![Discord](https://img.shields.io/discord/225030931008847874)](https://discord.gg/2jaEwNJm9e)
-- [Official site](https://calamitymod.com/)
-- [Steam Workshop](https://calamitymod.com/downloadvanillamusic/)
+[![Discord](https://img.shields.io/discord/225030931008847874)](https://discord.gg/calamity)
+- [Official site](https://calamitymod.com)
+- [Steam Workshop](https://calamitymod.com/downloadvanillamusic)
 - [Discord](https://discord.gg/2jaEwNJm9e)
-- [Official Wiki](https://calamitymod.wiki.gg/)
-- [Patreon](https://www.patreon.com/HeartPlusUp)
+- [Official Wiki](https://calamitymod.wiki.gg)
+- [Patreon](https://www.patreon.com/calamitymod)
 
 The Vanilla Calamity Music Mod (aka VCMM) is a small Terraria mod which replaces a large swath of the vanilla Terraria soundtrack with original Calamity music, along with music boxes for each song on the soundtrack. It is intended to be used alongside the Calamity Mod, but can be used alone. The mod must be installed using [tModLoader](https://github.com/tModLoader/tModLoader).
 
 **Note:** This repository contains only the latest public release of the Vanilla Calamity Music Mod and any public contributions made since then.
 
 Active development by VCMM developers occurs on a separate, private repository. Contributions made here will be cherry picked into that repository. When an update is released to the Steam Workshop, the `1.4.4-release` branch is replaced with the matching branch from the private repository.
+
+Issues are disabled on this repository. To report a VCMM bug, please join the [Calamity Music Discord](https://discord.gg/2jaEwNJm9e) and use the `#bug-reports` channel therein.
 
 Please do not submit resprites via pull requests. Instead, go to the [Calamity Art Discord](https://discord.gg/CKByxd5) and use the Asset Submission system if you want to propose a resprite for VCMM.
 
