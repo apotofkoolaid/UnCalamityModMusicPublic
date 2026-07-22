@@ -41,7 +41,7 @@ namespace UnCalamityModMusic.Common.ModCompatibility
             AddMusic("ForestDayMorning", "HeartPlusUp", "Biomes");
             AddMusic("ForestNight", "HeartPlusUp", "Biomes");
             AddMusic("Geodes", "HeartPlusUp", "Biomes");
-            AddMusic("GlowingMushroomFields", "HeartPlusUp", "Biomes");
+            AddMusic("GlowingMushrooms", "HeartPlusUp", "Biomes");
             //AddMusic("Graveyard", "", "Biomes");
             //AddMusic("Hallow", "", "Biomes");
             //AddMusic("HallowUnderground", "", "Biomes");

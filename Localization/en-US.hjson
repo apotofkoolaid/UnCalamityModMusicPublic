@@ -33,22 +33,24 @@ Mods: {
 					Label: "[i:MusicBoxOWRain] Override Otherworldly Music"
 					Tooltip:
 						'''
-						Toggles whether VCMM music will play over Otherworldly music.
+						Toggles whether VCMM music will play above Otherworldly music.
 						This option only works if the Party Girl's music toggle is enabled.
 						'''
 				}
 
 				OverrideAnahitasLureMusic: {
 					Label: "[i:UnCalamityModMusic/OceanDayMusicBox] Override Anahita's Lure Music"
-					Tooltip: Toggles whether Ocean music will play over Anahita's Lure music.
+					Tooltip: Toggles whether Ocean music will play above Anahita's Lure music.
 				}
 
 				PrioritizeMusicFromOtherMods: {
 					Label: "[i:WorldGlobe] Prioritize Music From Other Mods"
 					Tooltip:
 						'''
-						Toggles whether other vanilla-replacing music should play over VCMM music.
-						Any further music customization should be found in other mod configs.
+						Toggles whether VCMM music will play below vanilla-replacing music from other mods.
+						VCMM music weight is lowered down to 40% when enabled.
+						Music weight is set to the neutral value of 50% when disabled.
+						Any further mod compatibility should be configured in other mods.
 						'''
 				}
 			}
@@ -194,8 +196,8 @@ Mods: {
 				Tooltip: Plays 'Amidst the Minerals' by Heart Plus Up!
 			}
 
-			GlowingMushroomFieldsMusicBox: {
-				DisplayName: Music Box (Glowing Mushroom Fields)
+			GlowingMushroomsMusicBox: {
+				DisplayName: Music Box (Glowing Mushrooms)
 				Tooltip: Plays 'Psychedelic Depths' by Heart Plus Up!
 			}
 
@@ -403,7 +405,7 @@ Mods: {
 					ForestDayMorning: A Legend's Strife (Epiphany)
 					ForestNight: Laze of the Sky
 					Geodes: Amidst the Minerals
-					GlowingMushroomFields: Psychedelic Depths
+					GlowingMushrooms: Psychedelic Depths
 					HardmodeInterlude: The Resurrection of a Cruel World
 					JungleDay: Nature's Reprieve
 					KingSlime: Gelatinous Monarch

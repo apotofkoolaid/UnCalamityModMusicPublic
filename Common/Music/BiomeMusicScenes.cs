@@ -45,19 +45,19 @@ namespace UnCalamityModMusic.Common.Music
             MusicFlags.WorkshopTier3 ? "WorkshopTier3" : 
             MusicFlags.WorkshopTier2 ? "WorkshopTier2" :
             MusicFlags.WorkshopTier1 ? "WorkshopTier1" :
-			string.Empty;
+			"Nothing";
 
         public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
 
-        public override bool MusicCondition(Player player) => MusicFlags.Workshop;
+        public override bool MusicCondition(Player player) => MusicFlags.WorkshopBase;
     }
 
     public class Town : MusicSceneBase
     {
         public override string MusicFilePath =>
+            MusicFlags.Party ? "TownParty" :
             MusicFlags.Night ? !MusicFlags.Surface ? "TownNight_Noiseless" :
             "TownNight" :
-            MusicFlags.Party ? "TownParty" :
             "TownDay";
 
         public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
@@ -83,9 +83,9 @@ namespace UnCalamityModMusic.Common.Music
 		public override bool MusicCondition(Player player) => MusicFlags.Underworld;
 	}
 
-	public class GlowingMushroomFields : MusicSceneBase
+	public class GlowingMushrooms : MusicSceneBase
 	{
-		public override string MusicFilePath => "GlowingMushroomFields";
+		public override string MusicFilePath => "GlowingMushrooms";
 
 		public override SceneEffectPriority Priority => SceneEffectPriority.BiomeHigh;
 
@@ -154,7 +154,7 @@ namespace UnCalamityModMusic.Common.Music
 			MusicFlags.Night ? "JungleNight" :
 			"JungleDay";*/
         public override string MusicFilePath => // Temporary for vanilla music.
-            MusicFlags.Underground ? string.Empty : 
+            MusicFlags.Underground ? "Nothing" : 
 			"JungleDay";
 
         public override int VanillaMusicPath => // Temporary for vanilla music.
@@ -190,7 +190,7 @@ namespace UnCalamityModMusic.Common.Music
 			"Hallow";*/
         public override string MusicFilePath => // Temporary for vanilla music.
             MusicFlags.Night ? "ForestNight" :
-			string.Empty;
+			"Nothing";
 
         public override int VanillaMusicPath => // Temporary for vanilla music.
             MusicFlags.OtherworldlyMusic ? MusicFlags.Underground ? MusicID.OtherworldlyUGHallow :

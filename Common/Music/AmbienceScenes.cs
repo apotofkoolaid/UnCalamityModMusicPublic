@@ -282,15 +282,13 @@ namespace UnCalamityModMusic.Common.Music
 		public override bool AmbienceCondition(Player player) => MusicFlags.SunkenSea;
 	}
 
-	public class GlowingMushroomFields_Ambience : AmbienceSceneBase
+	public class GlowingMushrooms_Ambience : AmbienceSceneBase
 	{
-		public override string AmbienceFilePath =>
-			MusicFlags.Underground ? "GlowingMushroomFields" :
-			"GlowingMushroomGrove";
+		public override string AmbienceFilePath => "GlowingMushrooms";
 
-		public override SceneEffectPriority Priority => ModContent.GetInstance<GlowingMushroomFields>().Priority;
+		public override SceneEffectPriority Priority => ModContent.GetInstance<GlowingMushrooms>().Priority;
 
-		public override bool AmbienceCondition(Player player) => ModContent.GetInstance<GlowingMushroomFields>().IsSceneEffectActive(player);
+		public override bool AmbienceCondition(Player player) => ModContent.GetInstance<GlowingMushrooms>().IsSceneEffectActive(player);
 	}
 
 	public class Corruption_Ambience : AmbienceSceneBase

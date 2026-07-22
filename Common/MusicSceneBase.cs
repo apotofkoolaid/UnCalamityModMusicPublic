@@ -32,7 +32,7 @@ namespace UnCalamityModMusic.Common
         public override int Music => MusicPathing.GetAmbienceSlot(AmbienceFilePath);
 
 
-        public override SceneEffectPriority Priority => MusicFlags.Town || MusicFlags.AnyWorkshopTier || MusicFlags.LanternFestival ? SceneEffectPriority.Environment : Priority;
+        public override SceneEffectPriority Priority => MusicFlags.Town || MusicFlags.WorkshopAnyTier || MusicFlags.LanternFestival ? SceneEffectPriority.Environment : Priority;
 
         public override float GetWeight(Player player) => 0.7f;
 

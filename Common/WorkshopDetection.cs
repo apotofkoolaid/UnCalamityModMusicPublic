@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -7,60 +8,54 @@ namespace UnCalamityModMusic.Common
 {
     public class WorkshopDetection : GlobalTile
     {
-        internal static Dictionary<int, List<Vector2>> tileCenters = new Dictionary<int, List<Vector2>>();
+        internal static Dictionary<int, List<Vector2>> tileCenters = [];
 
         public override void NearbyEffects(int i, int j, int type, bool closer)
         {
-            Vector2 tileCenter = new Vector2(i * 16 + 8, j * 16 + 8);
+            Vector2 tileCenter = new(i * 16 + 8, j * 16 + 8);
 
             if (closer)
             {
                 if (!tileCenters.TryGetValue(type, out List<Vector2> centers))
                 {
-                    centers = new List<Vector2>();
+                    centers = [];
                     tileCenters[type] = centers;
                 }
-
-                bool found = centers.Count > 0;
-
-                if (!found)
-                {
-                    centers.Add(tileCenter);
-                }
+                centers.Add(tileCenter);
             }
             else
             {
-                if (tileCenters.TryGetValue(type, out List<Vector2> centers))
-                {
-                    for (int index = centers.Count - 1; index >= 0; index--)
-                    {
-                        centers.RemoveAt(index);
-                    }
-                }
+                tileCenters.Clear();
             }
         }
 
         public static float TileDistance(params int[] tileTypes)
         {
             Player player = Main.player[Main.myPlayer];
-            float minDistanceSquared = float.MaxValue;
+            float closestDistance = float.MaxValue;
 
             foreach (int type in tileTypes)
             {
                 if (tileCenters.TryGetValue(type, out List<Vector2> centers))
                 {
-                    for (int index = 0; index < centers.Count; index++)
+                    foreach (Vector2 center in centers)
                     {
-                        float distanceSquared = Vector2.DistanceSquared(centers[index], player.Center);
-                        if (distanceSquared < minDistanceSquared)
+                        float distance = Vector2.DistanceSquared(center, player.Center);
+
+                        if (distance <= closestDistance)
                         {
-                            minDistanceSquared = distanceSquared;
+                            closestDistance = distance;
                         }
                     }
                 }
             }
 
-            return minDistanceSquared;
+            return closestDistance;
+        }
+
+        public static float TileDistance(List<int> list, params int[] tileTypes)
+        {
+            return TileDistance(list.Concat(tileTypes).ToArray());
         }
     }
 }

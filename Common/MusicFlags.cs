@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Events;
 using Terraria.ID;
@@ -32,22 +33,21 @@ namespace UnCalamityModMusic.Common
         internal static bool Surface;
         internal static bool Underground;
 
-        internal static bool OffsetOverworldLayer;
-        internal static bool OffsetRockLayer;
-        internal static bool RemixSeedSpawnIsland;
+        internal static bool OffsetSurface;
+        internal static bool FestiveMoonLayer;
+
+        internal static bool RemixedOffsetSurface;
+        internal static bool RemixedSpawnIsland;
         #endregion
 
         #region Biome Flags
-        internal static bool NotInGreaterBiomeMediumZone;
-        internal static bool NotInGreaterBiomeHighZone;
-        internal static bool NotInGreaterEnvironmentZone;
-
         internal static bool Purity;
         internal static bool Forest;
         internal static bool Desert;
         internal static bool UndergroundDesert;
         internal static bool Ocean;
         internal static bool Hallow;
+
         internal static bool Tundra;
         internal static bool Jungle;
         internal static bool Geodes;
@@ -57,9 +57,11 @@ namespace UnCalamityModMusic.Common
         internal static bool BeeHive;
         internal static bool Meteorite;
         internal static bool Graveyard;
+
         internal static bool Crimson;
         internal static bool Corruption;
         internal static bool GlowingMushrooms;
+
         internal static bool Underworld;
         internal static bool Space;
         internal static bool Dungeon;
@@ -69,31 +71,32 @@ namespace UnCalamityModMusic.Common
 
         #region Town Flags
         internal static bool NearThreeVillagers;
-        internal static bool NotInExemptBiomeForTowns;
-        internal static bool NotInExemptEventForTowns;
+        internal static bool NotInTownAverseBiome;
+        internal static bool NotInTownAverseEvent;
 
         internal static bool Town;
-        internal static bool RainyTown;
         internal static bool Party;
         #endregion
 
         #region Workshop Flags
-        internal static bool Workshop;
+        internal static bool WorkshopBase;
+        internal static bool WorkshopAnyTier;
         internal static double WorkshopRange;
+
+        internal static List<int> WorkBench;
+        internal static int Furnace;
+        internal static int Anvil;
+        internal static int Hellforge;
+        internal static int HardmodeAnvil;
+        internal static int HardmodeForge;
+        internal static int AncientManipulator;
+
         internal static bool WorkshopTier1;
         internal static bool WorkshopTier2;
         internal static bool WorkshopTier3;
         internal static bool WorkshopTier4;
         internal static bool WorkshopTier5;
         internal static bool WorkshopTier6;
-        internal static bool AnyWorkshopTier;
-
-        internal static bool MagicStorageWorkshop;
-        internal static bool MagicStorageTier2Progression;
-        internal static bool MagicStorageTier3Progression;
-        internal static bool MagicStorageTier4Progression;
-        internal static bool MagicStorageTier5Progression;
-        internal static bool MagicStorageTier6Progression;
         #endregion
 
         #region Event Flags
@@ -101,22 +104,25 @@ namespace UnCalamityModMusic.Common
         internal static bool LanternFestival;
         internal static bool Rain;
         internal static bool Thunderstorm;
+        internal static bool Blizzard;
         internal static bool SlimeRain;
         internal static bool Sandstorm;
         internal static bool BloodMoon;
         internal static bool SolarEclipse;
+        internal static bool PumpkinMoon;
+        internal static bool FrostMoon;
+
         internal static bool GoblinArmy;
         internal static bool OldOnesArmy;
         internal static bool FrostLegion;
         internal static bool PirateInvasion;
-        internal static bool PumpkinMoon;
-        internal static bool FrostMoon;
         internal static bool MartianMadness;
+
+        internal static bool TorchGod;
         internal static bool VortexPillar;
         internal static bool NebulaPillar;
         internal static bool StardustPillar;
         internal static bool SolarPillar;
-        internal static bool TorchGod;
         #endregion
 
         #region Misc Flags
@@ -126,12 +132,28 @@ namespace UnCalamityModMusic.Common
         #endregion
 
         #region Boss Flags
+        internal static bool DefeatedQueenBee;
+        internal static bool DefeatedDeerclops;
+        internal static bool DefeatedSkeletron;
+        internal static bool DefeatedQueenSlime;
+        internal static bool DefeatedAnyMech;
+        internal static bool DefeatedPlantera;
+        internal static bool DefeatedGolem;
+        internal static bool DefeatedDukeFishron;
+        internal static bool DefeatedEmpressofLight;
+        internal static bool DefeatedLunaticCultist;
+
         internal static float BossMusicTileRange;
+
         internal static bool SimultaneousMechs;
         internal static bool MechaMayhem;
         #endregion
 
         #region Calamity Flags
+        internal static bool RevengeanceMode;
+        internal static bool DeathMode;
+        internal static bool BossRush;
+
         internal static bool SunkenSea;
         internal static bool SulphurousSea;
         internal static bool AstralInfection;
@@ -141,9 +163,10 @@ namespace UnCalamityModMusic.Common
         internal static bool ThermalVents;
         internal static bool TheVoid;
         internal static bool BrimstoneCrags;
-        internal static bool RevengeanceMode;
-        internal static bool DeathMode;
-        internal static bool BossRush;
+
+        internal static int CosmicAnvil = TileID.Count;
+        internal static int DraedonsForge = TileID.Count;
+
         internal static bool DefeatedHiveMind;
         internal static bool DefeatedPerforators;
         internal static bool DefeatedSlimeGod;
@@ -168,33 +191,45 @@ namespace UnCalamityModMusic.Common
         internal static bool DefeatedYharon;
         internal static bool DefeatedExoMechs;
         internal static bool DefeatedCalamitas;
+
         internal static bool NotInCalamityMusicEvent = true;
         #endregion
 
         #region Other Modded Flags
+        internal static bool InfernumMode;
+
         internal static bool LostColosseum;
         internal static bool ProfanedTemple;
-        internal static bool InfernumMode;
 
         internal static bool RemnantsPyramid;
         internal static bool RemnantsGraniteCave;
         internal static bool RemnantsMarbleCave;
         internal static bool RemnantsHive;
+
+        internal static int StorageHeart = TileID.Count;
+        internal static int CraftingUnit = TileID.Count;
+
+        internal static bool MagicStorageWorkshop;
+        internal static bool MagicStorageTier2Progression;
+        internal static bool MagicStorageTier3Progression;
+        internal static bool MagicStorageTier4Progression;
+        internal static bool MagicStorageTier5Progression;
+        internal static bool MagicStorageTier6Progression;
         #endregion
 
         public override void PreUpdate()
         {
-            #region Mod Instancing
+            #region Instancing
             var calamityMod = ModLoader.TryGetMod("CalamityMod", out Mod calamitymod);
             var magicStorage = ModLoader.TryGetMod("MagicStorage", out Mod magicstorage);
             var noTownMusic = ModLoader.TryGetMod("NoTownMusic", out Mod notownmusic);
             var infernumMod = ModLoader.TryGetMod("InfernumMode", out Mod infernummod);
             var remnantsMod = ModLoader.TryGetMod("Remnants", out Mod remnantsmod);
+
+            Player player = Main.player[Main.myPlayer];
             #endregion
 
             #region Basic Flags
-            Player player = Main.player[Main.myPlayer];
-
             OtherworldlyMusic = Main.zenithWorld ? Main.swapMusic : Main.swapMusic != Main.drunkWorld;
             RemixSeed = Main.remixWorld;
             Hardmode = Main.hardMode;
@@ -216,36 +251,37 @@ namespace UnCalamityModMusic.Common
             Surface = RemixSeed ? RockLayer : OverworldLayer;
             Underground = RemixSeed && !Purity ? DirtLayer : DirtLayer || RockLayer;
 
-            OffsetOverworldLayer = player.position.Y < Main.worldSurface * 16.0 + (double)Main.screenHeight / 2;
-            OffsetRockLayer = player.position.Y > Main.rockLayer * 16.0 && player.position.Y <= (Main.UnderworldLayer * 16);
-            RemixSeedSpawnIsland = player.position.Y > (Main.UnderworldLayer * 16) && (double)(player.Center.X / 16f) > Main.maxTilesX * 0.37 + 50.0 && (double)(player.Center.X / 16f) < Main.maxTilesX * 0.63;
+            OffsetSurface = RemixSeed ? RemixedOffsetSurface : player.position.Y < Main.worldSurface * 16.0 + (double)Main.screenHeight / 2;
+            FestiveMoonLayer = RemixSeed || (double)(Main.screenPosition.Y / 16f) < Main.worldSurface + 10.0;
+
+            RemixedSpawnIsland = player.position.Y > (Main.UnderworldLayer * 16) && (double)(player.Center.X / 16f) > Main.maxTilesX * 0.37 + 50.0 && (double)(player.Center.X / 16f) < Main.maxTilesX * 0.63;
+            RemixedOffsetSurface = player.position.Y > Main.rockLayer * 16.0 && player.position.Y <= (Main.UnderworldLayer * 16) || RemixedSpawnIsland;
             #endregion
 
             #region Biome Flags
-            NotInGreaterBiomeMediumZone = !(Meteorite || Graveyard);
-            NotInGreaterBiomeHighZone = !(SunkenSea || SulphurousSea || AstralInfection);
-            NotInGreaterEnvironmentZone = !(BrimstoneCrags || ProfanedTemple || Town || AnyWorkshopTier);
-
             Purity = player.ZonePurity;
             Forest = Surface || Underground;
-            Desert = player.ZoneDesert && !(Ocean || Hallow) && (UndergroundDesert ? Underground : Surface);
+            Desert = player.ZoneDesert && ((Hallow && Night) || Sandstorm ? !Ocean : !(Ocean || Hallow)) && (UndergroundDesert ? Underground : Surface);
             UndergroundDesert = player.ZoneUndergroundDesert && !Surface;
             Ocean = player.ZoneBeach && !Hallow;
             Hallow = player.ZoneHallow;
-            Tundra = player.ZoneSnow && NotInGreaterBiomeMediumZone;
-            Jungle = player.ZoneJungle && NotInGreaterBiomeMediumZone;
-            Geodes = (GraniteCave || MarbleCave) && Underground && NotInGreaterBiomeMediumZone;
+
+            Tundra = player.ZoneSnow && !(Meteorite || Graveyard);
+            Jungle = player.ZoneJungle && !(Meteorite || Graveyard);
+            Geodes = (GraniteCave || MarbleCave) && Underground && !Graveyard;
             GraniteCave = (player.ZoneGranite && TileCounts.GraniteTileCount >= 50) || (MusicUtilities.InFrontOfWall(WallID.GraniteBlock) && TileCounts.GraniteTileCount >= 500);
             MarbleCave = (player.ZoneMarble && TileCounts.MarbleTileCount >= 50) || (MusicUtilities.InFrontOfWall(WallID.MarbleBlock) && TileCounts.MarbleTileCount >= 500);
             SpiderCave = MusicUtilities.InFrontOfWall(WallID.SpiderUnsafe) && Underground;
             BeeHive = MusicUtilities.InFrontOfWall(WallID.HiveUnsafe);
             Meteorite = player.ZoneMeteor && !Graveyard;
             Graveyard = player.ZoneGraveyard;
-            Crimson = player.ZoneCrimson && !GlowingMushrooms && NotInGreaterBiomeHighZone;
-            Corruption = player.ZoneCorrupt && !GlowingMushrooms && NotInGreaterBiomeHighZone;
-            GlowingMushrooms = player.ZoneGlowshroom && NotInGreaterBiomeHighZone;
-            Underworld = player.ZoneUnderworldHeight && (RemixSeed ? !(SolarEclipse || BloodMoon) && NotInGreaterEnvironmentZone : NotInGreaterEnvironmentZone);
-            Space = (RemixSeed ? (SkyLayer || OverworldLayer) : SkyLayer) && NotInGreaterEnvironmentZone;
+
+            Crimson = player.ZoneCrimson && !(GlowingMushrooms || SunkenSea || SulphurousSea || AstralInfection);
+            Corruption = player.ZoneCorrupt && !(GlowingMushrooms || SunkenSea || SulphurousSea || AstralInfection);
+            GlowingMushrooms = player.ZoneGlowshroom && !(SunkenSea || SulphurousSea || AstralInfection);
+
+            Underworld = player.ZoneUnderworldHeight && (RemixSeed ? !(BloodMoon || SolarEclipse || BrimstoneCrags || ProfanedTemple || Town || WorkshopAnyTier) : !(BrimstoneCrags || ProfanedTemple || Town || WorkshopAnyTier));
+            Space = (RemixSeed ? SkyLayer || OverworldLayer : SkyLayer) && !(BrimstoneCrags || ProfanedTemple || Town || WorkshopAnyTier);
             Dungeon = player.ZoneDungeon;
             JungleTemple = player.ZoneLihzhardTemple;
             Aether = player.ZoneShimmer;
@@ -253,69 +289,81 @@ namespace UnCalamityModMusic.Common
 
             #region Town Flags
             NearThreeVillagers = player.townNPCs > 2f;
-            NotInExemptBiomeForTowns = !(Graveyard || Dungeon || JungleTemple || Aether || Abyss);
-            NotInExemptEventForTowns = !(/*WindyDay || */Rain || SlimeRain || Sandstorm || BloodMoon || SolarEclipse); // Windy Day is temporarily omitted from this list until it gets music.
+
+            NotInTownAverseBiome = !(Graveyard || Dungeon || JungleTemple || Aether || Abyss);
+            NotInTownAverseEvent = !(/*(!Party && WindyDay) || */SlimeRain || Sandstorm || BloodMoon || SolarEclipse); // Windy Day is temporarily omitted from this list until it gets music.
 
             if (noTownMusic || player.ZoneShadowCandle || player.inventory[player.selectedItem].type == ItemID.ShadowCandle)
             {
                 Town = false;
-                RainyTown = false;
                 Party = false;
             }
             else
             {
-                Town = NearThreeVillagers && !AnyWorkshopTier && (Surface ? NotInExemptBiomeForTowns && NotInExemptEventForTowns : NotInExemptBiomeForTowns);
-                RainyTown = NearThreeVillagers && Rain && Surface && !SulphurousSea;
-                Party = Town && BirthdayParty.PartyIsUp;
+                Town = NearThreeVillagers && (Surface ? NotInTownAverseBiome && NotInTownAverseEvent : NotInTownAverseBiome) && (Rain ? !SulphurousSea : !WorkshopAnyTier);
+                Party = NearThreeVillagers && BirthdayParty.PartyIsUp;
             }
             #endregion
 
             #region Workshop Flags
-            Workshop = (Surface ? !LanternFestival && NotInExemptBiomeForTowns && NotInExemptEventForTowns : NotInExemptBiomeForTowns) &&
-                ModContent.GetInstance<MusicConfig>().WorkshopThemes;
-            WorkshopRange = Math.Pow(ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f, 2);
-            WorkshopTier1 = (WorkshopDetection.TileDistance(TileID.WorkBenches, TileID.Furnaces, TileID.Anvils) <= WorkshopRange &&
-                TileCounts.WorkbenchTileCount > 0 && TileCounts.FurnaceTileCount > 0 && TileCounts.AnvilTileCount > 0) ||
-                MagicStorageWorkshop;
-            WorkshopTier2 = WorkshopDetection.TileDistance(TileID.WorkBenches, TileID.Hellforge, TileID.Anvils, TileID.AdamantiteForge, TileID.MythrilAnvil) <= WorkshopRange &&
-                TileCounts.WorkbenchTileCount > 0 && (TileCounts.HellforgeTileCount > 0 || TileCounts.HardmodeForgeTileCount > 0) && TileCounts.AnvilTileCount > 0 ||
-                (TileCounts.WorkbenchTileCount > 0 && TileCounts.HellforgeTileCount > 0 && (TileCounts.AnvilTileCount > 0 || TileCounts.HardmodeAnvilTileCount > 0)) ||
-                MagicStorageWorkshop && MagicStorageTier2Progression;
-            WorkshopTier3 = (WorkshopDetection.TileDistance(TileID.WorkBenches, TileID.AdamantiteForge, TileID.MythrilAnvil) <= WorkshopRange &&
-                TileCounts.WorkbenchTileCount > 0 && TileCounts.HardmodeForgeTileCount > 0 && TileCounts.HardmodeAnvilTileCount > 0) ||
-                MagicStorageWorkshop && MagicStorageTier3Progression;
-            WorkshopTier4 = (NPC.downedPlantBoss && WorkshopTier3) ||
-                (MagicStorageWorkshop && MagicStorageTier4Progression);
-            WorkshopTier5 = (Endgame && WorkshopTier3) ||
-                calamityMod && WorkshopDetection.TileDistance(TileID.WorkBenches, TileID.AdamantiteForge, calamitymod.Find<ModTile>("CosmicAnvil").Type) <= WorkshopRange &&
-                TileCounts.WorkbenchTileCount > 0 && TileCounts.HardmodeForgeTileCount > 0 && TileCounts.CosmicAnvilTileCount > 0 ||
-                MagicStorageWorkshop && MagicStorageTier5Progression;
-            WorkshopTier6 = (calamityMod && WorkshopDetection.TileDistance(calamitymod.Find<ModTile>("DraedonsForge").Type) <= WorkshopRange &&
-                TileCounts.DraedonsForgeTileCount > 0) ||
-                MagicStorageWorkshop && MagicStorageTier6Progression;
-            AnyWorkshopTier = Workshop && (WorkshopTier1 || WorkshopTier2 || WorkshopTier3 || WorkshopTier4 || WorkshopTier5 || WorkshopTier6);
+            WorkshopBase = (Surface ? !(/*WindyDay || */LanternFestival || Rain) && NotInTownAverseBiome && NotInTownAverseEvent : NotInTownAverseBiome) && !Party && ModContent.GetInstance<MusicConfig>().WorkshopThemes; // Windy Day is temporarily omitted from this list until it gets music.
+            WorkshopAnyTier = WorkshopBase && (WorkshopTier1 || WorkshopTier2 || WorkshopTier3 || WorkshopTier4 || WorkshopTier5 || WorkshopTier6);
+            WorkshopRange = Math.Pow(ModContent.GetInstance<MusicConfig>().WorkshopRange * 16f, 2f);
 
-            MagicStorageWorkshop = magicStorage && (WorkshopDetection.TileDistance(magicstorage.Find<ModTile>("StorageHeart").Type) <= WorkshopRange ||
-                WorkshopDetection.TileDistance(magicstorage.Find<ModTile>("CraftingAccess").Type) <= WorkshopRange) &&
-                TileCounts.StorageHeartTileCount > 0 && TileCounts.CraftingUnitTileCount > 0;
-            MagicStorageTier2Progression = DefeatedHiveMind || DefeatedPerforators || NPC.downedQueenBee || NPC.downedBoss3 || NPC.downedDeerclops || DefeatedSlimeGod;
-            MagicStorageTier3Progression = Hardmode || NPC.downedQueenSlime || DefeatedCryogen || NPC.downedMechBossAny || DefeatedAquaticScourge || DefeatedBrimstoneElemental || DefeatedCalamitasClone;
-            MagicStorageTier4Progression = NPC.downedPlantBoss || DefeatedLeviathan || DefeatedAstrumAureus || NPC.downedGolemBoss || DefeatedPlaguebringerGoliath || NPC.downedFishron || 
-                DefeatedRavager || NPC.downedEmpressOfLight || NPC.downedAncientCultist || DefeatedAstrumDeus;
-            MagicStorageTier5Progression = Endgame || DefeatedProfanedGuardians || DefeatedDragonfolly || DefeatedProvidence || DefeatedCeaselessVoid || DefeatedStormWeaver || 
-                DefeatedSignus || DefeatedPolterghast || DefeatedOldDuke || DefeatedDevourerofGods || DefeatedYharon;
-            MagicStorageTier6Progression = DefeatedExoMechs || DefeatedCalamitas;
+            WorkBench = [TileID.WorkBenches, ..TileCounts.ModdedWorkBenches];
+            Furnace = TileID.Furnaces;
+            Anvil = TileID.Anvils;
+            Hellforge = TileID.Hellforge;
+            HardmodeAnvil = TileID.MythrilAnvil;
+            HardmodeForge = TileID.AdamantiteForge;
+            AncientManipulator = TileID.LunarCraftingStation;
+
+            WorkshopTier1 =
+                (WorkshopDetection.TileDistance(WorkBench, Furnace, Anvil) <= WorkshopRange &&
+                TileCounts.WorkBenchTileCount > 0 && TileCounts.FurnaceTileCount > 0 && TileCounts.AnvilTileCount > 0) ||
+                MagicStorageWorkshop;
+            WorkshopTier2 =
+                (WorkshopDetection.TileDistance(WorkBench, Hellforge, Anvil) <= WorkshopRange &&
+                TileCounts.WorkBenchTileCount > 0 && TileCounts.HellforgeTileCount > 0 && TileCounts.AnvilTileCount > 0) ||
+                (WorkshopDetection.TileDistance(WorkBench, Hellforge, HardmodeAnvil) <= WorkshopRange &&
+                TileCounts.WorkBenchTileCount > 0 && TileCounts.HellforgeTileCount > 0 && TileCounts.HardmodeAnvilTileCount > 0) ||
+                (WorkshopDetection.TileDistance(WorkBench, HardmodeForge, Anvil) <= WorkshopRange &&
+                TileCounts.WorkBenchTileCount > 0 && TileCounts.HardmodeForgeTileCount > 0 && TileCounts.AnvilTileCount > 0) ||
+                (WorkshopDetection.TileDistance(WorkBench, Furnace, HardmodeAnvil) <= WorkshopRange &&
+                TileCounts.WorkBenchTileCount > 0 && TileCounts.FurnaceTileCount > 0 && TileCounts.HardmodeAnvilTileCount > 0) ||
+                (MagicStorageWorkshop && MagicStorageTier2Progression);
+            WorkshopTier3 =
+                (WorkshopDetection.TileDistance(WorkBench, HardmodeForge, HardmodeAnvil) <= WorkshopRange &&
+                TileCounts.WorkBenchTileCount > 0 && TileCounts.HardmodeForgeTileCount > 0 && TileCounts.HardmodeAnvilTileCount > 0) ||
+                (MagicStorageWorkshop && MagicStorageTier3Progression);
+            WorkshopTier4 =
+                (DefeatedPlantera && WorkshopTier3) ||
+                (MagicStorageWorkshop && MagicStorageTier4Progression);
+            WorkshopTier5 =
+                (WorkshopDetection.TileDistance(WorkBench, HardmodeForge, HardmodeAnvil, AncientManipulator) <= WorkshopRange &&
+                TileCounts.WorkBenchTileCount > 0 && TileCounts.HardmodeForgeTileCount > 0 && TileCounts.HardmodeAnvilTileCount > 0 && TileCounts.AncientManipulatorTileCount > 0) ||
+                (WorkshopDetection.TileDistance(WorkBench, HardmodeForge, CosmicAnvil) <= WorkshopRange &&
+                TileCounts.WorkBenchTileCount > 0 && TileCounts.HardmodeForgeTileCount > 0 && TileCounts.CosmicAnvilTileCount > 0) ||
+                (MagicStorageWorkshop && MagicStorageTier5Progression);
+            WorkshopTier6 =
+                (WorkshopDetection.TileDistance(DraedonsForge) <= WorkshopRange &&
+                TileCounts.DraedonsForgeTileCount > 0) ||
+                (MagicStorageWorkshop && MagicStorageTier6Progression);
             #endregion
 
             #region Event Flags
-            WindyDay = Main._shouldUseWindyDayMusic && (RemixSeed ? Purity && Surface : Surface);
-            LanternFestival = LanternNight.LanternsUp && !Rain && (Ocean || SulphurousSea ? NotInGreaterBiomeMediumZone : Surface && NotInGreaterBiomeMediumZone);
-            Rain = (Tundra ? NaturalRain && VisibleRain : VisibleRain) && Surface && NotInGreaterBiomeMediumZone;
-            Thunderstorm = Main._shouldUseStormMusic && Surface;
-            SlimeRain = Main.slimeRain && OffsetOverworldLayer && !(Space || BloodMoon || SolarEclipse);
-            Sandstorm = Terraria.GameContent.Events.Sandstorm.Happening && Desert && Surface;
-            BloodMoon = Main.bloodMoon && (RemixSeed ? (OffsetRockLayer || RemixSeedSpawnIsland) && !(Crimson || Corruption) : OffsetOverworldLayer) && !Space;
-            SolarEclipse = Main.eclipse && (RemixSeed ? OffsetRockLayer || RemixSeedSpawnIsland : OffsetOverworldLayer) && !Space;
+            WindyDay = Main._shouldUseWindyDayMusic && Surface && Purity;
+            LanternFestival = LanternNight.LanternsUp && (Ocean || SulphurousSea ? !(Rain || Meteorite || Graveyard) : Surface && !(Rain || Meteorite || Graveyard));
+            Rain = VisibleRain && Surface && /*(Blizzard ? !(Meteorite || Graveyard || SolarEclipse) : */!(Meteorite || Graveyard || BloodMoon || SolarEclipse)/*)*/; //This check is not needed until Blizzard music is added.
+            Thunderstorm = Main._shouldUseStormMusic;
+            Blizzard = NaturalRain && Tundra;
+            SlimeRain = Main.slimeRain && OffsetSurface && !(Space || BloodMoon || SolarEclipse);
+            Sandstorm = Terraria.GameContent.Events.Sandstorm.Happening && player.ZoneDesert && Surface;
+            BloodMoon = Main.bloodMoon && (RemixSeed ? OffsetSurface && !(Crimson || Corruption) : OffsetSurface) && !Space;
+            SolarEclipse = Main.eclipse && OffsetSurface && !Space;
+            PumpkinMoon = Main.pumpkinMoon && FestiveMoonLayer;
+            FrostMoon = Main.snowMoon && FestiveMoonLayer;
+
             GoblinArmy = (Main.invasionType == InvasionID.GoblinArmy && Main.invasionProgressNearInvasion) ||
                 MusicUtilities.NPCNearby(NPCID.GoblinPeon, NPCID.GoblinThief, NPCID.GoblinWarrior, NPCID.GoblinSorcerer, NPCID.GoblinArcher, NPCID.GoblinSummoner);
             OldOnesArmy = (DD2Event.Ongoing && Main.invasionProgressNearInvasion) ||
@@ -329,16 +377,15 @@ namespace UnCalamityModMusic.Common
             PirateInvasion = (Main.invasionType == InvasionID.PirateInvasion && Main.invasionProgressNearInvasion) ||
                 MusicUtilities.NPCNearby(NPCID.Parrot, NPCID.PirateCaptain, NPCID.PirateCorsair, NPCID.PirateCrossbower, NPCID.PirateDeadeye, NPCID.PirateDeckhand,
                 NPCID.PirateShip);
-            PumpkinMoon = Main.pumpkinMoon && (OffsetOverworldLayer || RemixSeed);
-            FrostMoon = Main.snowMoon && (OffsetOverworldLayer || RemixSeed);
             MartianMadness = (Main.invasionType == InvasionID.MartianMadness && Main.invasionProgressNearInvasion) ||
                 MusicUtilities.NPCNearby(NPCID.MartianSaucerCore, NPCID.ScutlixRider, NPCID.Scutlix, NPCID.MartianWalker, NPCID.MartianDrone, NPCID.MartianTurret,
                 NPCID.GigaZapper, NPCID.MartianEngineer, NPCID.MartianOfficer, NPCID.RayGunner, NPCID.GrayGrunt, NPCID.BrainScrambler);
+
+            TorchGod = player.happyFunTorchTime || MusicUtilities.NPCNearby(NPCID.TorchGod);
             VortexPillar = player.ZoneTowerVortex || MusicUtilities.NPCNearby(NPCID.LunarTowerVortex);
             NebulaPillar = player.ZoneTowerNebula || MusicUtilities.NPCNearby(NPCID.LunarTowerNebula);
             StardustPillar = player.ZoneTowerStardust || MusicUtilities.NPCNearby(NPCID.LunarTowerStardust);
             SolarPillar = player.ZoneTowerSolar || MusicUtilities.NPCNearby(NPCID.LunarTowerSolar);
-            TorchGod = player.happyFunTorchTime || MusicUtilities.NPCNearby(NPCID.TorchGod);
             #endregion
 
             #region Misc Flags
@@ -348,24 +395,35 @@ namespace UnCalamityModMusic.Common
             #endregion
 
             #region Boss Flags
+            DefeatedQueenBee = NPC.downedQueenBee;
+            DefeatedDeerclops = NPC.downedDeerclops;
+            DefeatedSkeletron = NPC.downedBoss3;
+            DefeatedQueenSlime = NPC.downedQueenSlime;
+            DefeatedAnyMech = NPC.downedMechBossAny;
+            DefeatedPlantera = NPC.downedPlantBoss;
+            DefeatedGolem = NPC.downedGolemBoss;
+            DefeatedDukeFishron = NPC.downedFishron;
+            DefeatedEmpressofLight = NPC.downedEmpressOfLight;
+            DefeatedLunaticCultist = NPC.downedAncientCultist;
+
             BossMusicTileRange = 525f * 16f; // 525 tile radius.
+
             SimultaneousMechs = (MechaMayhem && MusicUtilities.NPCNearby(NPCID.TheDestroyer, NPCID.TheDestroyerBody, NPCID.TheDestroyerTail)) ||
                 (MechaMayhem && MusicUtilities.NPCNearby(NPCID.Spazmatism, NPCID.Retinazer)) ||
                 (MechaMayhem && MusicUtilities.NPCNearby(NPCID.SkeletronPrime));
-
             if (MusicUtilities.NPCNearby(NPCID.TheDestroyer, NPCID.TheDestroyerBody, NPCID.TheDestroyerTail) && MusicUtilities.NPCNearby(NPCID.Spazmatism, NPCID.Retinazer) && MusicUtilities.NPCNearby(NPCID.SkeletronPrime))
-            {
                 MechaMayhem = true;
-            }
             else if (!MusicUtilities.NPCNearby(NPCID.TheDestroyer, NPCID.TheDestroyerBody, NPCID.TheDestroyerTail) && !MusicUtilities.NPCNearby(NPCID.Spazmatism, NPCID.Retinazer) && !MusicUtilities.NPCNearby(NPCID.SkeletronPrime))
-            {
                 MechaMayhem = false;
-            }
             #endregion
 
             #region Calamity Flags
             if (calamityMod)
             {
+                RevengeanceMode = (bool)calamitymod.Call("GetDifficultyActive", "revengeance");
+                DeathMode = (bool)calamitymod.Call("GetDifficultyActive", "death");
+                BossRush = (bool)calamitymod.Call("GetDifficultyActive", "bossrush");
+
                 SunkenSea = (bool)calamitymod.Call("GetInZone", player, "sunkensea");
                 SulphurousSea = (bool)calamitymod.Call("GetInZone", player, "sulphursea") && !Abyss;
                 AstralInfection = (bool)calamitymod.Call("GetInZone", player, "astral");
@@ -375,9 +433,10 @@ namespace UnCalamityModMusic.Common
                 ThermalVents = (bool)calamitymod.Call("GetInZone", player, "layer3");
                 TheVoid = (bool)calamitymod.Call("GetInZone", player, "layer4");
                 BrimstoneCrags = (bool)calamitymod.Call("GetInZone", player, "crags");
-                RevengeanceMode = (bool)calamitymod.Call("GetDifficultyActive", "revengeance");
-                DeathMode = (bool)calamitymod.Call("GetDifficultyActive", "death");
-                BossRush = (bool)calamitymod.Call("GetDifficultyActive", "bossrush");
+
+                CosmicAnvil = calamitymod.Find<ModTile>("CosmicAnvil").Type;
+                DraedonsForge = calamitymod.Find<ModTile>("DraedonsForge").Type;
+
                 DefeatedHiveMind = (bool)calamitymod.Call("GetBossDowned", "hivemind");
                 DefeatedPerforators = (bool)calamitymod.Call("GetBossDowned", "perforator");
                 DefeatedSlimeGod = (bool)calamitymod.Call("GetBossDowned", "slimegod");
@@ -402,6 +461,7 @@ namespace UnCalamityModMusic.Common
                 DefeatedYharon = (bool)calamitymod.Call("GetBossDowned", "yharon");
                 DefeatedExoMechs = (bool)calamitymod.Call("GetBossDowned", "exomechs");
                 DefeatedCalamitas = (bool)calamitymod.Call("GetBossDowned", "calamitas");
+
                 NotInCalamityMusicEvent = MusicUtilities.CalamityMusicEvent() == null;
             }
             #endregion
@@ -409,9 +469,10 @@ namespace UnCalamityModMusic.Common
             #region Other Modded Flags
             if (infernumMod)
             {
+                InfernumMode = (bool)infernummod.Call("GetInfernumActive");
+
                 ProfanedTemple = player.InModBiome(infernummod.Find<ModBiome>("ProfanedTempleBiome"));
                 LostColosseum = player.InModBiome(infernummod.Find<ModBiome>("LostColosseumBiome"));
-                InfernumMode = (bool)infernummod.Call("GetInfernumActive");
             }
 
             if (remnantsMod)
@@ -420,6 +481,23 @@ namespace UnCalamityModMusic.Common
                 RemnantsGraniteCave = player.InModBiome(remnantsmod.Find<ModBiome>("GraniteCave"));
                 RemnantsMarbleCave = player.InModBiome(remnantsmod.Find<ModBiome>("MarbleCave"));
                 RemnantsHive = player.InModBiome(remnantsmod.Find<ModBiome>("Beehive"));
+            }
+
+            if (magicStorage)
+            {
+                StorageHeart = magicstorage.Find<ModTile>("StorageHeart").Type;
+                CraftingUnit = magicstorage.Find<ModTile>("CraftingAccess").Type;
+
+                MagicStorageWorkshop = WorkshopDetection.TileDistance(StorageHeart, CraftingUnit) <= WorkshopRange &&
+                    TileCounts.StorageHeartTileCount > 0 && TileCounts.CraftingUnitTileCount > 0;
+                MagicStorageTier2Progression = DefeatedHiveMind || DefeatedPerforators || DefeatedQueenBee || DefeatedDeerclops || DefeatedSkeletron || DefeatedSlimeGod;
+                MagicStorageTier3Progression = Hardmode || DefeatedQueenSlime || DefeatedCryogen || DefeatedAnyMech || DefeatedAquaticScourge || DefeatedBrimstoneElemental ||
+                    DefeatedCalamitasClone;
+                MagicStorageTier4Progression = DefeatedPlantera || DefeatedLeviathan || DefeatedAstrumAureus || DefeatedGolem || DefeatedPlaguebringerGoliath || DefeatedDukeFishron ||
+                    DefeatedRavager || DefeatedEmpressofLight || DefeatedLunaticCultist || DefeatedAstrumDeus;
+                MagicStorageTier5Progression = Endgame || DefeatedProfanedGuardians || DefeatedDragonfolly || DefeatedProvidence || DefeatedCeaselessVoid || DefeatedStormWeaver ||
+                    DefeatedSignus || DefeatedPolterghast || DefeatedOldDuke || DefeatedDevourerofGods || DefeatedYharon;
+                MagicStorageTier6Progression = DefeatedExoMechs || DefeatedCalamitas;
             }
             #endregion
         }

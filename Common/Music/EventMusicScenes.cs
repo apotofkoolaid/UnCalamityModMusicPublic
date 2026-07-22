@@ -100,8 +100,8 @@ namespace UnCalamityModMusic.Common.Music
     public class OldOnesArmy : MusicSceneBase
     {
         /*public override string MusicFilePath =>
-            NPC.downedGolemBoss ? "OldOnesArmyTier3" :
-            NPC.downedMechBossAny ? "OldOnesArmyTier2" :
+            MusicFlags.DefeatedGolem ? "OldOnesArmyTier3" :
+            MusicFlags.DefeatedAnyMech ? "OldOnesArmyTier2" :
             "OldOnesArmyTier1";
 
         public override SceneEffectPriority Priority => SceneEffectPriority.Event;
@@ -162,19 +162,19 @@ namespace UnCalamityModMusic.Common.Music
     public class Rain : MusicSceneBase
     {
         public override string MusicFilePath =>
-            /*MusicFlags.Tundra ? "Blizzard" :*/ MusicFlags.Tundra ? "Tundra" :
+            /*MusicFlags.Blizzard ? "Blizzard" :*/ MusicFlags.Blizzard ? "Tundra" :
             MusicFlags.Ocean ? "OceanRain" :
             //MusicFlags.Thunderstorm ? "Thunderstorm" :
             MusicFlags.Night ? "RainNight" :
-            MusicFlags.RainyTown ? "TownRain" :
+            MusicFlags.Town ? "TownRain" :
             "RainDay";
 
         public override SceneEffectPriority Priority =>
-            MusicFlags.Tundra || MusicFlags.RainyTown ? SceneEffectPriority.Environment :
+            MusicFlags.Blizzard || MusicFlags.Town ? SceneEffectPriority.Environment :
             SceneEffectPriority.BiomeMedium;
 
         public override float GetWeight(Player player) => // Relative weight change.
-            MusicFlags.Tundra || MusicFlags.RainyTown ? base.GetWeight(player) :
+            MusicFlags.Blizzard || MusicFlags.Town ? base.GetWeight(player) :
             base.GetWeight(player) + 0.01f;
 
         public override bool MusicCondition(Player player) => MusicFlags.Rain;
