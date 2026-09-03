@@ -10,7 +10,7 @@ Issues are disabled on this repository. To report a bug, please join the [mod's 
 
 # Repository Rules
 
-1) **Don't reupload any build of VCMM to any platform.** I will file a DMCA takedown notice against any unauthorized party who uses my code without permission in order to protect. Forks of this repo are allowed for local, private use only.
+1) **Don't reupload any build of VCMM to any platform.** I will file a DMCA takedown notice against any unauthorized party who uses my code without permission. Forks of this repo are allowed for local, private use only.
 
 2) **Don't reupload the mod's music to any platform.** This is also a violation of copyright, and the mod composers will take legal action to protect their work.
 
